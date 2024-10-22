@@ -13,3 +13,7 @@
 [submodule "deps/ics"]
 	path = deps/ics
 	url = https://github.com/o-ran-sc/nonrtric-plt-informationcoordinatorservice.git
+[submodule "deps/atoken"]
+	path = deps/atoken
+	url = https://github.com/o-ran-sc/nonrtric.git
+	branch = j-release

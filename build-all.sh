@@ -69,7 +69,7 @@ docker tag o-ran-sc/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/sk
 docker push ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:latest
 
 # Authentication Token [1 container]
-cd auth-token/auth-token-fetch
+cd atoken/auth-token-fetch
 docker build -t sknrao/nonrtric-plt-auth-token-fetch .
 docker tag sknrao/nonrtric-plt-auth-token-fetch ghcr.io/sknrao/nonrtric-plt-auth-token-fetch
 docker push ghcr.io/sknrao/nonrtric-plt-auth-token-fetch
