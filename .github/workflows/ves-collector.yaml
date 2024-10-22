@@ -11,8 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # Checkout the repository
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        submodules: true
 
     # Modify the pom.xml using xmlstarlet
     # - name: Modify pom.xml
