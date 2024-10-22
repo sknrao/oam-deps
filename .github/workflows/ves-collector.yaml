@@ -35,13 +35,8 @@ jobs:
     # Build the Maven project
     - name: Build the Maven project
       run: |
-        cd deps
-        ls -la
-        cd ves-collector
-        ls -la
-        cat pom.xml
+        cd deps/ves-collector
         mvn clean package -X
-      # mvn clean package
 
     # Copy Dockerfile and build Docker image
     # - name: Build Docker Image
