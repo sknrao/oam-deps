@@ -1,8 +1,0 @@
-{
-  "healthcheck": {
-    "type": "http",
-    "interval": "15s",
-    "timeout": "1s",
-    "endpoint": "/healthcheck"
-  }
-}

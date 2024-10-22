@@ -1,9 +1,0 @@
-{
-    "scope": {
-      "sliceId": "sliceXXX",
-      "cellId": "cellXXX"
-    },
-    "qosObjectives": {
-      "priorityLevel": XXX
-    }
-  }
