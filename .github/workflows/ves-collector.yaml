@@ -21,3 +21,5 @@ jobs:
         ls -la
         cd deps
         ls -la
+        cd ves-collector
+        ls -la
