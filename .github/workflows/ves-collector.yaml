@@ -39,7 +39,8 @@ jobs:
         ls -la
         cd ves-collector
         ls -la
-        mvn clean package
+        cat pom.xml
+      # mvn clean package
 
     # Copy Dockerfile and build Docker image
     # - name: Build Docker Image
