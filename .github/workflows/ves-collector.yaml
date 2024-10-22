@@ -3,6 +3,8 @@ name: Submodule Changes CI
 
 on:
   push:
+    branches:
+      - devops
     paths:
       - 'deps/atoken/**'
       - 'deps/cp-gw/**'
