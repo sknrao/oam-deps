@@ -37,14 +37,14 @@ jobs:
         ls -la
         cd ves-collector
         ls -la
-        mvn clean package
+        # mvn clean package
 
     # Copy Dockerfile and build Docker image
-    - name: Build Docker Image
-      run: |
-        cp ./ves/src/docker/Dockerfile ./ves/target/VESCollector-1.12.3-SNAPSHOT/
-        cd ./ves/target/VESCollector-1.12.3-SNAPSHOT/
-        docker build -t ios-mcn-smo/ves-collector:1.12.3 .
+    # - name: Build Docker Image
+    #   run: |
+    #     cp ./ves/src/docker/Dockerfile ./ves/target/VESCollector-1.12.3-SNAPSHOT/
+    #     cd ./ves/target/VESCollector-1.12.3-SNAPSHOT/
+    #     docker build -t ios-mcn-smo/ves-collector:1.12.3 .
 
     # steps:
     # - name: Checkout repository
