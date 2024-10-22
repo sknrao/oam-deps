@@ -9,29 +9,68 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
+    # Checkout the repository
+    - name: Checkout code
       uses: actions/checkout@v3
-      with:
-        submodules: true
 
-    - name: Check repository contents
+    # Clone the specific repository and checkout the tag
+    - name: Clone ONAP VES Collector
       run: |
-        ls -la
-        cd deps
-        ls -la
-        cd ves-collector
+        git clone git@github.com:onap/dcaegen2-collectors-ves.git ves
+        cd ves
+        git checkout tags/1.12.3
+
+    # Modify the pom.xml using xmlstarlet
+    - name: Modify pom.xml
+      run: |
+        cd ves
+        xmlstarlet ed -L -N pom=http://maven.apache.org/POM/4.0.0 -u "/pom:project/pom:properties/pom:docker.image.name" -v ios-mcn-smo/vescollector pom.xml
+        xmlstarlet ed -L -N pom=http://maven.apache.org/POM/4.0.0 -u "/pom:project/pom:properties/pom:onap.nexus.dockerregistry.daily" -v ghcr.io pom.xml
+
+    # Set up Java
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    # Build the Maven project
+    - name: Build the Maven project
+      run: |
+        cd ves
+        mvn clean package
+
+    # Copy Dockerfile and build Docker image
+    - name: Build Docker Image
+      run: |
+        cp ./ves/src/docker/Dockerfile ./ves/target/VESCollector-1.12.3-SNAPSHOT/
+        cd ./ves/target/VESCollector-1.12.3-SNAPSHOT/
+        docker build -t ios-mcn-smo/ves-collector:1.12.3 .
+
+    # steps:
+    # - name: Checkout repository
+    #   uses: actions/checkout@v3
+    #   with:
+    #     submodules: true
+
+    # - name: Check repository contents
+    #   run: |
+    #     ls -la
+    #     cd deps
+    #     ls -la
+    #     cd ves-collector
+    #     mvn clean package
         
-        # Create the target directory inside the current workspace
-        mkdir -p ./target/VESCollector-1.12.3-SNAPSHOT/
+    #     # # Create the target directory inside the current workspace
+    #     # mkdir -p ./target/VESCollector-1.12.3-SNAPSHOT/
         
-        # Copy the Dockerfile to the target directory
-        cp ./src/docker/Dockerfile ./target/VESCollector-1.12.3-SNAPSHOT/
+    #     # # Copy the Dockerfile to the target directory
+    #     # cp ./src/docker/Dockerfile ./target/VESCollector-1.12.3-SNAPSHOT/
         
-        # Change to the target directory and build the Docker image
-        cd ./target/VESCollector-1.12.3-SNAPSHOT/
-        docker build -t sknrao/ves-collector:1.12.3 .
+    #     # # Change to the target directory and build the Docker image
+    #     # cd ./target/VESCollector-1.12.3-SNAPSHOT/
+    #     # docker build -t sknrao/ves-collector:1.12.3 .
         
     # - name: Build Docker Image
     #   run: |
