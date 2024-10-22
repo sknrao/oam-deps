@@ -27,7 +27,8 @@ jobs:
         ls -la
         cd docker
         ls -la
-        
-    - name: Build Docker Image
-      run: |
         docker build -t sknrao/ves-collector:1.12.3 .
+        
+    # - name: Build Docker Image
+    #   run: |
+    #     docker build -t sknrao/ves-collector:1.12.3 .
