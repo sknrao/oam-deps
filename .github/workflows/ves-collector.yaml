@@ -22,8 +22,14 @@ jobs:
         cd deps
         ls -la
         cd ves-collector
-        mkdir -p /target/VESCollector-1.12.3-SNAPSHOT/
+        
+        # Create the target directory inside the current workspace
+        mkdir -p ./target/VESCollector-1.12.3-SNAPSHOT/
+        
+        # Copy the Dockerfile to the target directory
         cp ./src/docker/Dockerfile ./target/VESCollector-1.12.3-SNAPSHOT/
+        
+        # Change to the target directory and build the Docker image
         cd ./target/VESCollector-1.12.3-SNAPSHOT/
         docker build -t sknrao/ves-collector:1.12.3 .
         
