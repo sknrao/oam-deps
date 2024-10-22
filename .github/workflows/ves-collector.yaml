@@ -1,4 +1,3 @@
-
 name: Submodule Changes CI
 
 on:
@@ -22,8 +21,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
-        submodules: true 
+        submodules: true
 
-    - name: check
+    - name: Check repository contents
       run: |
-        - ls
+        ls -la
