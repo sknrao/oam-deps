@@ -36,6 +36,7 @@ jobs:
         cd deps
         ls -la
         cd ves-collector
+        ls -la
         mvn clean package
 
     # Copy Dockerfile and build Docker image
