@@ -22,11 +22,8 @@ jobs:
         cd deps
         ls -la
         cd ves-collector
-        ls -la
-        cd src
-        ls -la
-        cd docker
-        ls -la
+        cp ./src/docker/Dockerfile ./target/VESCollector-1.12.3-SNAPSHOT/
+        cd ./target/VESCollector-1.12.3-SNAPSHOT/
         docker build -t sknrao/ves-collector:1.12.3 .
         
     # - name: Build Docker Image
