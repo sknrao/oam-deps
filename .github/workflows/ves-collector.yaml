@@ -23,3 +23,7 @@ jobs:
         ls -la
         cd ves-collector
         ls -la
+        cd src
+        ls -la
+        cd docker
+        ls -la
