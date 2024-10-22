@@ -4,13 +4,6 @@ on:
   push:
     branches:
       - devops
-    paths:
-      - 'deps/atoken/**'
-      - 'deps/cp-gw/**'
-      - 'deps/ics/**'
-      - 'deps/ranpm/**'
-      - 'deps/sdnc-oam/**'
-      - 'deps/ves-collector/**'
   workflow_dispatch:
 
 jobs:
