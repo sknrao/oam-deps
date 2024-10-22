@@ -1,0 +1,33 @@
+version: "2.2"
+services:
+  sdnr:
+    environment:
+     - SDNRDM="true"
+  sdnr-web:
+    image: ${NEXUS_DOCKER_WEB_IMAGE_NAME}:${NEXUS_DOCKER_IMAGE_TAG}
+    container_name: sdnr-web
+    ports:
+      - "${SDNC_WEB_PORT}:${SDNC_WEB_PORT}"
+    environment:
+      - WEBPROTOCOL=HTTP
+      - WEBPORT=${SDNC_WEB_PORT}
+      - SDNRPROTOCOL=HTTP
+      - SDNRHOST=sdnr
+      - SDNRPORT=${SDNRPORT}
+    depends_on:
+      - sdnr
+    command: ["/wait-for-sdnc.sh", "sdnr:${SDNRPORT}/ready", "/opt/bitnami/nginx/sbin/run.sh"]
+    volumes:
+      - ./wait-for-sdnc.sh:/wait-for-sdnc.sh
+    networks:
+      integration:
+        ipv4_address: ${SDNR_WEB_IP}
+networks:
+  integration:
+    name: ${NETWORK_NAME}
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: ${NETWORK_SUBNET}
+        gateway: ${GATEWAY_IP}

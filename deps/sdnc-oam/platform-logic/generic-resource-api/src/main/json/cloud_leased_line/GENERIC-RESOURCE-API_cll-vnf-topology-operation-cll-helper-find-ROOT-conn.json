@@ -1,0 +1,372 @@
+[
+    {
+        "id": "3d72a78b.d5ca8",
+        "type": "dgstart",
+        "name": "DGSTART",
+        "outputs": 1,
+        "x": 161.88333129882812,
+        "y": 93,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "9d241a09.87fad"
+            ]
+        ]
+    },
+    {
+        "id": "9d241a09.87fad",
+        "type": "service-logic",
+        "name": "GENERIC-RESOURCE-API ${project.version}",
+        "module": "GENERIC-RESOURCE-API",
+        "version": "${project.version}",
+        "comments": "",
+        "xml": "<service-logic xmlns='http://www.onap.org/sdnc/svclogic' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.onap.org/sdnc/svclogic ./svclogic.xsd' module='GENERIC-RESOURCE-API' version='${project.version}'>",
+        "outputs": 1,
+        "x": 446.1690216064453,
+        "y": 154.23810863494873,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "a7259be6.d447a"
+            ]
+        ]
+    },
+    {
+        "id": "a7259be6.d447a",
+        "type": "method",
+        "name": "method cll-vnf-topology-operation-cll-helper-find-ROOT-conn",
+        "xml": "<method rpc='cll-vnf-topology-operation-cll-helper-find-ROOT-conn' mode='sync'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 401.3119201660156,
+        "y": 246.00003051757812,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "d786d41.1f92da8"
+            ]
+        ]
+    },
+    {
+        "id": "d786d41.1f92da8",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">",
+        "atomic": "true",
+        "outputs": 1,
+        "x": 762.1213684082031,
+        "y": 230.66668701171875,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "7a44c426.80c71c",
+                "e5338f68.a61cd8",
+                "c3537cef.9e14b8",
+                "a3ebaf5b.c985e"
+            ]
+        ]
+    },
+    {
+        "id": "7a44c426.80c71c",
+        "type": "save",
+        "name": "get all-connectivities from aai",
+        "xml": "<get-resource plugin=\"org.onap.ccsdk.sli.adaptors.aai.AAIService\" \n\tresource=\"connectivities\"\n\t    key=\"selflink = 'https://aai.onap:8443/aai/v24/network/connectivities/'\"\n\t\tlocal-only=\"false\" \n\t\tpfx=\"tmp.aai.helper-root-all-connectivities\" >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 246.88333129882812,
+        "y": 416,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "e85393c.ba370f",
+                "a557e38f.6e9a5",
+                "30d0e737.4ae9c8"
+            ]
+        ]
+    },
+    {
+        "id": "e85393c.ba370f",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 490.8833312988281,
+        "y": 376,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "c39e44d3.0b437"
+            ]
+        ]
+    },
+    {
+        "id": "a557e38f.6e9a5",
+        "type": "not-found",
+        "name": "not-found",
+        "xml": "<outcome value='not-found'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 488.3742980957031,
+        "y": 425.57403564453125,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "704ffa2b.4115fc"
+            ]
+        ]
+    },
+    {
+        "id": "30d0e737.4ae9c8",
+        "type": "failure",
+        "name": "failure",
+        "xml": "<outcome value='failure'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 485.8833312988281,
+        "y": 468,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "628b9d60.85cb0c"
+            ]
+        ]
+    },
+    {
+        "id": "c39e44d3.0b437",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">",
+        "atomic": "true",
+        "outputs": 1,
+        "x": 638.8833312988281,
+        "y": 377,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "e6b99f9d.23ec4"
+            ]
+        ]
+    },
+    {
+        "id": "704ffa2b.4115fc",
+        "type": "returnFailure",
+        "name": "return failure",
+        "xml": "<return status='failure'>\n\t<parameter name='ack-final' value='Y'/>\n\t<parameter name=\"error-code\" value=\"500\" />\n    <parameter name=\"error-message\" value=\"`'An error occurred while querying pnf from AnAI with pnf-name = ' + $prop.l3vpn.pe1_id`\" />\n\n",
+        "comments": "",
+        "x": 637.9457092285156,
+        "y": 425.8597717285156,
+        "z": "fa25e836.5eaa88",
+        "wires": []
+    },
+    {
+        "id": "628b9d60.85cb0c",
+        "type": "returnFailure",
+        "name": "return failure",
+        "xml": "<return status='failure'>\n<parameter name='error-code' value='' />\n<parameter name='error-message' value='' />\n",
+        "comments": "",
+        "x": 636.8833312988281,
+        "y": 465,
+        "z": "fa25e836.5eaa88",
+        "wires": []
+    },
+    {
+        "id": "e6b99f9d.23ec4",
+        "type": "for",
+        "name": "for helprconnidx in all-connectivities",
+        "xml": "<for index='helprconnidx' start='0' end='`$tmp.aai.helper-root-all-connectivities.connectivity_length`' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 885.8833312988281,
+        "y": 372,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "15f82643.3dda02"
+            ]
+        ]
+    },
+    {
+        "id": "15f82643.3dda02",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic='true'>",
+        "atomic": "true",
+        "comments": "",
+        "outputs": 1,
+        "x": 1132.8833312988281,
+        "y": 378,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "d5d56de1.9016d"
+            ]
+        ]
+    },
+    {
+        "id": "7d92b34f.9e55dc",
+        "type": "switchNode",
+        "name": "switch color-aware is ROOT?",
+        "xml": "\n<switch test=\"`$tmp.aai.helper-root-all-connectivities.connectivity[$helprconnidx].color-aware == $tmp.ROOT.uni-p-interface-long`\">\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 326.8833312988281,
+        "y": 627,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "4a67b867.df0b6"
+            ]
+        ]
+    },
+    {
+        "id": "4a67b867.df0b6",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 535.8833312988281,
+        "y": 621,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "751ad577.51dfcc"
+            ]
+        ]
+    },
+    {
+        "id": "751ad577.51dfcc",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic='true'>",
+        "atomic": "true",
+        "comments": "",
+        "outputs": 1,
+        "x": 692.8833312988281,
+        "y": 621,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "b438dfb2.fcca1",
+                "7030d1be.87fa18",
+                "31d23be7.1d5a84"
+            ]
+        ]
+    },
+    {
+        "id": "e5338f68.a61cd8",
+        "type": "set",
+        "name": "unset found-root-connectivity",
+        "xml": "<set>\n<parameter name='found-root-connectivity' value=\"false\" />\n",
+        "comments": "",
+        "x": 1004.8833312988281,
+        "y": 145,
+        "z": "fa25e836.5eaa88",
+        "wires": []
+    },
+    {
+        "id": "b438dfb2.fcca1",
+        "type": "set",
+        "name": "set found-root-connectivity=true",
+        "xml": "<set>\n<parameter name='found-root-connectivity' value=\"true\" />\n",
+        "comments": "",
+        "x": 953.8833312988281,
+        "y": 569,
+        "z": "fa25e836.5eaa88",
+        "wires": []
+    },
+    {
+        "id": "7030d1be.87fa18",
+        "type": "set",
+        "name": "set tmp.aai.ROOT.connectivity.",
+        "xml": "<set>\n<parameter name='tmp.aai.ROOT.connectivity.' value=\"`$tmp.aai.helper-root-all-connectivities.connectivity[$helprconnidx].`\" />\n",
+        "comments": "",
+        "x": 956.8833312988281,
+        "y": 622,
+        "z": "fa25e836.5eaa88",
+        "wires": []
+    },
+    {
+        "id": "c3537cef.9e14b8",
+        "type": "set",
+        "name": "unset tmp.aai.ROOT.connectivity.",
+        "xml": "<set>\n<parameter name='tmp.aai.ROOT.connectivity.' value=\"\" />\n",
+        "comments": "",
+        "x": 1022.8833312988281,
+        "y": 189,
+        "z": "fa25e836.5eaa88",
+        "wires": []
+    },
+    {
+        "id": "31d23be7.1d5a84",
+        "type": "break",
+        "name": "break",
+        "xml": "<break>\n",
+        "comments": "",
+        "x": 884.8833312988281,
+        "y": 685,
+        "z": "fa25e836.5eaa88",
+        "wires": []
+    },
+    {
+        "id": "d5d56de1.9016d",
+        "type": "switchNode",
+        "name": "switch conn type",
+        "xml": "<switch test=\"`$tmp.aai.helper-root-all-connectivities.connectivity[$helprconnidx].vpn-type`\">\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 938.7666320800781,
+        "y": 466.88330078125,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "8760c9a3.310068"
+            ]
+        ]
+    },
+    {
+        "id": "8760c9a3.310068",
+        "type": "outcome",
+        "name": "root",
+        "xml": "<outcome value='root'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1098.7666320800781,
+        "y": 468.8833312988281,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "a38c2649.b4dd5"
+            ]
+        ]
+    },
+    {
+        "id": "a38c2649.b4dd5",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 1241.7666320800781,
+        "y": 470.8833312988281,
+        "z": "fa25e836.5eaa88",
+        "wires": [
+            [
+                "7d92b34f.9e55dc"
+            ]
+        ]
+    },
+    {
+        "id": "a3ebaf5b.c985e",
+        "type": "set",
+        "name": "unset tmp.aai.helper-root-all-connectivities",
+        "xml": "<set>\n<parameter name='tmp.aai.helper-root-all-connectivities.' value=\"\" />\n",
+        "comments": "",
+        "x": 1068,
+        "y": 244,
+        "z": "fa25e836.5eaa88",
+        "wires": []
+    }
+]

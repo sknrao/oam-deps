@@ -1,0 +1,76 @@
+# ============LICENSE_START=======================================================
+# dcaegen2-collectors-ves
+# ================================================================================
+# Copyright (C) 2020 NOKIA
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END=========================================================
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ves-influxdb
+  namespace: onap
+  labels:
+    app: ves-influxdb
+spec:
+  selector:
+    app: ves-influxdb
+  type: NodePort
+  ports:
+    - port: 8086
+      name: influx-db
+      targetPort: 8086
+      nodePort: 30002
+    - port: 25826
+      protocol: UDP
+      name: collectd-port
+      targetPort: 25826
+      nodePort: 30003
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ves-influxdb
+  namespace: onap
+  labels:
+    app: ves-influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ves-influxdb
+  template:
+    metadata:
+      labels:
+        app: ves-influxdb
+    spec:
+      containers:
+        - name: ves-influxdb
+          image: influxdb
+          env:
+            - name: INFLUXDB_DB
+              value: "jmeter"
+          volumeMounts:
+            - name: ves-influxdb-conf
+              mountPath: /etc/influxdb
+            - name: ves-influxdb-types
+              mountPath: /usr/share/collectd
+      volumes:
+        - name: ves-influxdb-conf
+          configMap:
+            name: ves-influxdb-conf
+        - name: ves-influxdb-types
+          configMap:
+            name: ves-influxdb-types

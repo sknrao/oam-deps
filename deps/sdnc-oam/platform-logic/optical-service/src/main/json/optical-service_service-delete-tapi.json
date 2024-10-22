@@ -1,0 +1,713 @@
+[
+    {
+        "id": "96a5b969.30fca8",
+        "type": "dgstart",
+        "name": "DGSTART",
+        "outputs": 1,
+        "x": 155.0094757080078,
+        "y": 95.00946807861328,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "1d5d884c.37fd58"
+            ]
+        ]
+    },
+    {
+        "id": "1d5d884c.37fd58",
+        "type": "service-logic",
+        "name": "optical-service ${project.version}",
+        "module": "optical-service",
+        "version": "${project.version}",
+        "comments": "",
+        "xml": "<service-logic xmlns='http://www.onap.org/sdnc/svclogic' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.onap.org/sdnc/svclogic ./svclogic.xsd' module='optical-service' version='${project.version}'>",
+        "outputs": 1,
+        "x": 168.0094757080078,
+        "y": 155.00946807861328,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "5e65cfab.dd111"
+            ]
+        ]
+    },
+    {
+        "id": "5e65cfab.dd111",
+        "type": "method",
+        "name": "method service-delete-tapi",
+        "xml": "<method rpc='service-delete-tapi' mode='sync'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 188.0094757080078,
+        "y": 235.00946807861328,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "f4aad36f.30bf3"
+            ]
+        ]
+    },
+    {
+        "id": "f4aad36f.30bf3",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 435.5094757080078,
+        "y": 235.00946807861328,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "baeb3a20.8dfc38",
+                "b7cdfff3.60956",
+                "26889205.8ed4ce",
+                "b25ded2.8528d1",
+                "1c70a864.9f7418",
+                "736dbac8.fe21e4",
+                "fac7a5ef.c80558"
+            ]
+        ]
+    },
+    {
+        "id": "baeb3a20.8dfc38",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/service-create-tapi.log\" />\n<parameter name=\"level\" value=\"info\" />\n<parameter name=\"field1\" value=\"Inside optical service delete tapi\"/>\n\n\n\n\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 532.0094757080078,
+        "y": 58.00946807861328,
+        "z": "ae52800f.42b85",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b7cdfff3.60956",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='request-id' value='`$optical-service-delete-input.request-id`' />\n",
+        "comments": "",
+        "x": 724.6760940551758,
+        "y": 43.67613506317139,
+        "z": "ae52800f.42b85",
+        "wires": []
+    },
+    {
+        "id": "fac7a5ef.c80558",
+        "type": "execute",
+        "name": "execute",
+        "xml": "<execute plugin='org.onap.ccsdk.sli.plugins.restapicall.RestapiCallNode' method='sendRequest' >\n<parameter name=\"restapiUrl\" value=\"` $controller-ip + $prop.tapi.get.services.url + $service-name`\" />\n<parameter name=\"restapiUser\" value=\"admin\"/>  \n<parameter name=\"restapiPassword\" value=\"admin\"/>  \n<parameter name=\"httpMethod\" value=\"GET\"/>\n<parameter name=\"responsePrefix\" value=\"services-response\"/>\n<parameter name='contentType' value='application/json' />\n<parameter name='format' value='json' />\n<parameter name=\"trustStoreFileName\" value=\"/opt/onap/sdnc/data/stores/truststore.onap.client.tapi.jks\"/>  \n<parameter name=\"trustStorePassword\" value=\"adminadmin\"/>  \n<parameter name=\"keyStoreFileName\" value=\"/opt/onap/sdnc/data/stores/sdnc.p12\"/>  \n<parameter name=\"keyStorePassword\" value=\"adminadmin\"/> ",
+        "comments": "",
+        "outputs": 1,
+        "x": 609.0094223022461,
+        "y": 333.39834213256836,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "7d0dfa0.f280408",
+                "c2e935ef.e4a2e8"
+            ]
+        ]
+    },
+    {
+        "id": "32ea3700.8daa7a",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='aend-nep' value=\"`$services-response.service[0].end-point[0].connection-end-point[0].node-edge-point-uuid`\" />\n<parameter name='zend-nep' value=\"`$services-response.service[0].end-point[1].connection-end-point[0].node-edge-point-uuid`\" />\n<parameter name='aend-cep' value=\"`$services-response.service[0].end-point[0].connection-end-point[0].connection-end-point-uuid`\" />\n<parameter name='zend-cep' value=\"`$services-response.service[0].end-point[1].connection-end-point[0].connection-end-point-uuid`\" />\n",
+        "comments": "",
+        "x": 1366.2316627502441,
+        "y": 102.56498146057129,
+        "z": "ae52800f.42b85",
+        "wires": []
+    },
+    {
+        "id": "7d0dfa0.f280408",
+        "type": "failure",
+        "name": "failure",
+        "xml": "<outcome value='failure'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 827.3427391052246,
+        "y": 290.34276962280273,
+        "z": "ae52800f.42b85",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c2e935ef.e4a2e8",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 811.5093650817871,
+        "y": 382.56501388549805,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "32f937f0.4e8528"
+            ]
+        ]
+    },
+    {
+        "id": "32f937f0.4e8528",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic='true'>",
+        "atomic": "true",
+        "comments": "",
+        "outputs": 1,
+        "x": 1014.5649490356445,
+        "y": 308.67615127563477,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "32ea3700.8daa7a",
+                "885424f1.0069b8",
+                "54c031dd.863f3",
+                "de1cabdc.96bb48"
+            ]
+        ]
+    },
+    {
+        "id": "885424f1.0069b8",
+        "type": "get-resource",
+        "name": "get-resource",
+        "xml": "<get-resource plugin='org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource' resource='SQL'\nkey='SELECT *\nfrom TOPOLOGY_LOGICAL_RELATION_TO_PINTERFACE\nWHERE interface_name = $aend-nep'\npfx='db-aend'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1397.0651626586914,
+        "y": 157.28724098205566,
+        "z": "ae52800f.42b85",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "54c031dd.863f3",
+        "type": "get-resource",
+        "name": "get-resource",
+        "xml": "<get-resource plugin='org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource' resource='SQL'\nkey='SELECT *\nfrom TOPOLOGY_LOGICAL_RELATION_TO_PINTERFACE\nWHERE interface_name = $zend-nep'\npfx='db-zend'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1399.565040588379,
+        "y": 214.23169994354248,
+        "z": "ae52800f.42b85",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b2aec0dc.c2c89",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='aend-new' value='`$aend-cep`' />\n",
+        "comments": "",
+        "x": 1810.2313995361328,
+        "y": 509.2316360473633,
+        "z": "ae52800f.42b85",
+        "wires": []
+    },
+    {
+        "id": "828818ca.4aad88",
+        "type": "get-resource",
+        "name": "find if aend is uni or nni or enni",
+        "xml": "<get-resource plugin=\"org.onap.ccsdk.sli.adaptors.aai.AAIService\"\nresource=\"p-interface\"\n key=\"pnf.pnf-name = $db-aend.pnf-name AND\n     p-interface.interface-name = $aend-nep\"\npfx='aend'      local-only='false'>\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1598.1201934814453,
+        "y": 424.89832305908203,
+        "z": "ae52800f.42b85",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "de1cabdc.96bb48",
+        "type": "execute",
+        "name": "execute",
+        "xml": "<execute plugin='org.onap.ccsdk.sli.plugins.restapicall.RestapiCallNode' method='sendRequest' >\n<parameter name=\"restapiUrl\" value=\"` $controller-ip + $prop.tapi.delete.service.url + $service-name`\" />\n<parameter name=\"restapiUser\" value=\"admin\"/>  \n<parameter name=\"restapiPassword\" value=\"admin\"/>  \n<parameter name=\"httpMethod\" value=\"DELETE\"/>\n<parameter name=\"responsePrefix\" value=\"tapi-service-response\"/>\n<parameter name='contentType' value='application/json' />\n<parameter name='format' value='json' />\n<parameter name=\"trustStoreFileName\" value=\"/opt/onap/sdnc/data/stores/truststore.onap.client.tapi.jks\"/>  \n<parameter name=\"trustStorePassword\" value=\"adminadmin\"/>  \n<parameter name=\"keyStoreFileName\" value=\"/opt/onap/sdnc/data/stores/sdnc.p12\"/>  \n<parameter name=\"keyStorePassword\" value=\"adminadmin\"/> ",
+        "comments": "",
+        "outputs": 1,
+        "x": 1162.3425903320312,
+        "y": 376.453875541687,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "cf272327.98557",
+                "adcf3c26.2cf95"
+            ]
+        ]
+    },
+    {
+        "id": "cf272327.98557",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1131.3425903320312,
+        "y": 518.453875541687,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "700524c3.0d43fc"
+            ]
+        ]
+    },
+    {
+        "id": "700524c3.0d43fc",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic='true'>",
+        "atomic": "true",
+        "comments": "",
+        "outputs": 1,
+        "x": 1285.564826965332,
+        "y": 472.67609548568726,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "828818ca.4aad88",
+                "85389b8c.88a8e8",
+                "67825a8e.147714",
+                "abca3112.cebd3",
+                "ade690c3.af541",
+                "2a3f3874.b27468",
+                "897491a8.a70ea",
+                "61b774be.b66afc",
+                "45655a72.080ca4"
+            ]
+        ]
+    },
+    {
+        "id": "adcf3c26.2cf95",
+        "type": "failure",
+        "name": "failure",
+        "xml": "<outcome value='failure'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1289.00927734375,
+        "y": 360.89827251434326,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "5bce5b0c.ac8be4"
+            ]
+        ]
+    },
+    {
+        "id": "5bce5b0c.ac8be4",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic='true'>",
+        "atomic": "true",
+        "comments": "",
+        "outputs": 1,
+        "x": 1456.00927734375,
+        "y": 359.89827251434326,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "18f011de.c92bae"
+            ]
+        ]
+    },
+    {
+        "id": "18f011de.c92bae",
+        "type": "returnFailure",
+        "name": "return failure",
+        "xml": "<return status='failure'>\n<parameter name='error-code' value='500' />\n<parameter name='error-message' value='Service Deletion failed' />\n<parameter name='ack-final-indicator' value=\"Y\" />",
+        "comments": "",
+        "x": 1623.8981742858887,
+        "y": 358.676043510437,
+        "z": "ae52800f.42b85",
+        "wires": []
+    },
+    {
+        "id": "85389b8c.88a8e8",
+        "type": "switchNode",
+        "name": "switch",
+        "xml": "<switch test='`$aend.network-interface-type`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1520.120361328125,
+        "y": 527.564959526062,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "644a8ff3.a04c3",
+                "45753948.c945e8"
+            ]
+        ]
+    },
+    {
+        "id": "644a8ff3.a04c3",
+        "type": "outcome",
+        "name": "UNI",
+        "xml": "<outcome value='UNI'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1684.8981475830078,
+        "y": 509.2316360473633,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "b2aec0dc.c2c89"
+            ]
+        ]
+    },
+    {
+        "id": "45753948.c945e8",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1687.1203536987305,
+        "y": 582.5650100708008,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "7e74bb5.db6fd44"
+            ]
+        ]
+    },
+    {
+        "id": "67825a8e.147714",
+        "type": "save",
+        "name": "update pinterface cep DB Aend",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource' \nresource='SQL' \nkey='UPDATE TOPOLOGY_LOGICAL_RELATION_TO_PINTERFACE SET connection_point = $aend-new WHERE interface_name = $aend-nep'\nforce='true' pfx='save-result'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1550.120361328125,
+        "y": 625.3427305221558,
+        "z": "ae52800f.42b85",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "abca3112.cebd3",
+        "type": "get-resource",
+        "name": "find if zend is uni or nni or enni",
+        "xml": "<get-resource plugin=\"org.onap.ccsdk.sli.adaptors.aai.AAIService\"\nresource=\"p-interface\"\n key=\"pnf.pnf-name = $db-zend.pnf-name AND\n     p-interface.interface-name = $zend-nep\"\npfx='zend'      local-only='false'>\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1526.786735534668,
+        "y": 708.6760673522949,
+        "z": "ae52800f.42b85",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ade690c3.af541",
+        "type": "switchNode",
+        "name": "switch",
+        "xml": "<switch test='`$zend.network-interface-type`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1429.0092906951904,
+        "y": 777.5649089813232,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "8e0c1510.b363d8",
+                "9ddd7d7c.d1f57"
+            ]
+        ]
+    },
+    {
+        "id": "8e0c1510.b363d8",
+        "type": "outcome",
+        "name": "UNI",
+        "xml": "<outcome value='UNI'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1619.3425521850586,
+        "y": 765.2316265106201,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "c517caee.e227b8"
+            ]
+        ]
+    },
+    {
+        "id": "9ddd7d7c.d1f57",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1621.564811706543,
+        "y": 832.5650100708008,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "7ea6e466.0c8b7c"
+            ]
+        ]
+    },
+    {
+        "id": "2a3f3874.b27468",
+        "type": "save",
+        "name": "update pinterface cep DB Zend",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource' \nresource='SQL' \nkey='UPDATE TOPOLOGY_LOGICAL_RELATION_TO_PINTERFACE SET connection_point = $zend-new WHERE interface_name = $zend-nep'\nforce='true' pfx='save-result'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1450.1206817626953,
+        "y": 872.0093822479248,
+        "z": "ae52800f.42b85",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "987b345f.99da18",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='zend-new' value=\"`$zend-cep`\" />\n",
+        "comments": "",
+        "x": 2019.0093612670898,
+        "y": 834.2316093444824,
+        "z": "ae52800f.42b85",
+        "wires": []
+    },
+    {
+        "id": "c517caee.e227b8",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='zend-new' value='`$zend-cep`' />\n",
+        "comments": "",
+        "x": 1745.675910949707,
+        "y": 764.2316303253174,
+        "z": "ae52800f.42b85",
+        "wires": []
+    },
+    {
+        "id": "897491a8.a70ea",
+        "type": "delete",
+        "name": "delete service instance AAI",
+        "xml": "<delete plugin=\"org.onap.ccsdk.sli.adaptors.aai.AAIService\"\nresource=\"service-instance\"\nkey='customer.global-customer-id = $output.global-customer-id AND\nservice-subscription.service-type = $output.service-type AND\nservice-instance.service-instance-id = $output.service-instance-id'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1345.675895690918,
+        "y": 986.4537935256958,
+        "z": "ae52800f.42b85",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7ea6e466.0c8b7c",
+        "type": "switchNode",
+        "name": "switch",
+        "xml": "<switch test='`$db-zend.connection-point`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1763.4539201524522,
+        "y": 835.3428014119465,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "999904dc.fc7cb8",
+                "adbee89.147ee18"
+            ]
+        ]
+    },
+    {
+        "id": "999904dc.fc7cb8",
+        "type": "outcome",
+        "name": "outcome",
+        "xml": "<outcome value=''>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1891.2316818237305,
+        "y": 836.4538898468018,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "987b345f.99da18"
+            ]
+        ]
+    },
+    {
+        "id": "d74d6061.0e996",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='zend-new' value=\"`$db-zend.connection-point + ',' + $zend-cep`\" />\n",
+        "comments": "",
+        "x": 2021.2314567565918,
+        "y": 900.8982620239258,
+        "z": "ae52800f.42b85",
+        "wires": []
+    },
+    {
+        "id": "adbee89.147ee18",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1903.4539201524522,
+        "y": 899.7872458563911,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "d74d6061.0e996"
+            ]
+        ]
+    },
+    {
+        "id": "7e74bb5.db6fd44",
+        "type": "switchNode",
+        "name": "switch",
+        "xml": "<switch test='`$db-aend.connection-point`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1814.5649185180664,
+        "y": 585.3427829742432,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "a505e3a1.91e69",
+                "1c74a938.614077"
+            ]
+        ]
+    },
+    {
+        "id": "7279e4ff.1814cc",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='aend-new' value=\"`$aend-cep`\" />\n",
+        "comments": "",
+        "x": 2089.009475708008,
+        "y": 574.2316360473633,
+        "z": "ae52800f.42b85",
+        "wires": []
+    },
+    {
+        "id": "a505e3a1.91e69",
+        "type": "outcome",
+        "name": "outcome",
+        "xml": "<outcome value=''>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1961.2317962646484,
+        "y": 576.4539165496826,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "7279e4ff.1814cc"
+            ]
+        ]
+    },
+    {
+        "id": "22cfd3ec.44ae6c",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='aend-new' value=\"`$db-aend.connection-point + ',' + $aend-cep`\" />\n",
+        "comments": "",
+        "x": 2091.2315711975098,
+        "y": 640.8982887268066,
+        "z": "ae52800f.42b85",
+        "wires": []
+    },
+    {
+        "id": "1c74a938.614077",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1973.4540345933701,
+        "y": 639.787272559272,
+        "z": "ae52800f.42b85",
+        "wires": [
+            [
+                "22cfd3ec.44ae6c"
+            ]
+        ]
+    },
+    {
+        "id": "61b774be.b66afc",
+        "type": "delete",
+        "name": "delete from db",
+        "xml": "<delete plugin='org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource'\n    resource=\"SQL\"\n    key=\"DELETE FROM REQUEST_DETAILS WHERE request_id = $request-id\">",
+        "comments": "",
+        "outputs": 1,
+        "x": 1256.787109375,
+        "y": 1047.5649490356445,
+        "z": "ae52800f.42b85",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "45655a72.080ca4",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='final-response-code' value=\"200\" />\n",
+        "comments": "",
+        "x": 1204.0094757080078,
+        "y": 1119.0094680786133,
+        "z": "ae52800f.42b85",
+        "wires": []
+    },
+    {
+        "id": "26889205.8ed4ce",
+        "type": "get-resource",
+        "name": "get-resource",
+        "xml": "<get-resource plugin='org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource' resource='SQL' \nkey='SELECT * from REQUEST_DETAILS WHERE request_id = $request-id '\npfx='output'>\n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n\n    \n    \n    \n    \n    \n    \n    \n     \n \n",
+        "comments": "",
+        "outputs": 1,
+        "x": 743.5094871520996,
+        "y": 112.5094690322876,
+        "z": "ae52800f.42b85",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b25ded2.8528d1",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='esr-id' value='`$output.controller-id`' />\n",
+        "comments": "",
+        "x": 759.3427124023438,
+        "y": 157.50946426391602,
+        "z": "ae52800f.42b85",
+        "wires": []
+    },
+    {
+        "id": "1c70a864.9f7418",
+        "type": "execute",
+        "name": "execute",
+        "xml": "<execute plugin='org.onap.ccsdk.sli.core.slipluginutils.SliStringUtils' method='split' >\n<parameter name=\"original_string\" value='`$esr-id`'/>\n<parameter name=\"regex\" value=\"_\"/>\n<parameter name=\"ctx_memory_result_key\" value=\"new-esr\"/> ",
+        "comments": "",
+        "outputs": 1,
+        "x": 742.6761665344238,
+        "y": 207.50947380065918,
+        "z": "ae52800f.42b85",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "736dbac8.fe21e4",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='service-name' value=\"`$optical-service-delete-input.payload.service-name +  $new-esr[2]`\" />\n<parameter name='controller-ip' value=\"`$new-esr[1]`\" />\n\n",
+        "comments": "",
+        "x": 708.5094871520996,
+        "y": 267.50947189331055,
+        "z": "ae52800f.42b85",
+        "wires": []
+    }
+]

@@ -1,0 +1,1907 @@
+[
+    {
+        "id": "2a44484a.6f4af",
+        "type": "dgstart",
+        "name": "DGSTART",
+        "outputs": 1,
+        "x": 177,
+        "y": 373,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "b261b6d7.5f8108"
+            ]
+        ]
+    },
+    {
+        "id": "b261b6d7.5f8108",
+        "type": "service-logic",
+        "name": "DataChange ${project.version}",
+        "module": "DataChange",
+        "version": "${project.version}",
+        "comments": "",
+        "xml": "<service-logic xmlns='http://www.onap.org/sdnc/svclogic' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.onap.org/sdnc/svclogic ./svclogic.xsd' module='DataChange' version='${project.version}'>",
+        "outputs": 1,
+        "x": 234,
+        "y": 452.888916015625,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "ab04b014.5bd13"
+            ]
+        ]
+    },
+    {
+        "id": "ab04b014.5bd13",
+        "type": "method",
+        "name": "method update-network-links-to-aai",
+        "xml": "<method rpc='update-network-links-to-aai' mode='sync'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 248,
+        "y": 529.2222290039062,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "80f3a913.52e318"
+            ]
+        ]
+    },
+    {
+        "id": "80f3a913.52e318",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 259.33343505859375,
+        "y": 606.7779235839844,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "a23199c4.d516d"
+            ]
+        ]
+    },
+    {
+        "id": "cc2ac29e.5b4cb8",
+        "type": "update",
+        "name": "save logical-link with regular id",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='logical-link' \n      key='logical-link.link-name = $unique-linkId' >\n<parameter name='link-name' value='`$unique-linkId`' />\n<parameter name='link-id' value='`$link.link-id`' />\n<parameter name='link-type' value='`$link.te.te-link-attributes.access-type`' />\n\n\n\n\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1134.111083984375,
+        "y": 1031.111083984375,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a23199c4.d516d",
+        "type": "for",
+        "name": "for each link",
+        "xml": "<for index='pidx' start='0' end='`$network.link_length`' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 287.88885498046875,
+        "y": 700.3333129882812,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "40edda8d.1f7304",
+                "80b56a94.abd878",
+                "df65a3f.afb7d6",
+                "1a9f47eb.9dd1b8",
+                "d95166a6.786718"
+            ]
+        ]
+    },
+    {
+        "id": "40edda8d.1f7304",
+        "type": "set",
+        "name": "set network link's local variables",
+        "xml": "<set>\n<parameter name='link.' value='`$network.link[$pidx].`' />\n<parameter name='unique-networkId' value='`$tmp.network-id`' />\n\n",
+        "comments": "",
+        "x": 620.111083984375,
+        "y": 405.2222137451172,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "3d730288.0a9e8e",
+        "type": "for",
+        "name": "for each label-restriction",
+        "xml": "<for index='tidx' start='0' end='`$link.te.te-link-attributes.label-restrictions.label-restrictions.label-restriction_length`' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1660.4444580078125,
+        "y": 1251.111083984375,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "389d6db2.d73662",
+                "776b3468.2e107c",
+                "c048257b.948878",
+                "186e1728.625819",
+                "b47043c.925bdc",
+                "b74e25a8.02a68"
+            ]
+        ]
+    },
+    {
+        "id": "389d6db2.d73662",
+        "type": "set",
+        "name": "set label-restriction's local variables",
+        "xml": "<set>\n<parameter name='unique-lrId' value=\"`$unique-linkId + '-lrId-' + $label-restriction.index`\" />\n",
+        "comments": "",
+        "x": 1965.111328125,
+        "y": 1216.0000610351562,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "384d69e2.32009e",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2078.4998779296875,
+        "y": 1258.74609375,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "6f478b20.e94c3c"
+            ]
+        ]
+    },
+    {
+        "id": "969cafe8.9f0d68",
+        "type": "failure",
+        "name": "failure",
+        "xml": "<outcome value='failure'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2086.178466796875,
+        "y": 1317.9604187011719,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "227afca0.40453c"
+            ]
+        ]
+    },
+    {
+        "id": "6f478b20.e94c3c",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 2239,
+        "y": 1258.0000305175781,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c43aca83.435d68",
+        "type": "set",
+        "name": "set src-ltpId dst-ltpId",
+        "xml": "<set>\n<parameter name='src-ltpId' value=\"`'nodeId-' + $oof.vpn.access-node-id + '-ltpId-' + $oof.vpn.src-access-ltp-id`\" />\n<parameter name='dst-ltpId' value=\"`'nodeId-' + $oof.vpn.access-node-id + '-ltpId-' + $oof.vpn.dst-access-ltp-id`\" />",
+        "comments": "",
+        "x": 2647.5001220703125,
+        "y": 2720.545135498047,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "c3c98fb1.6530b8",
+        "type": "save",
+        "name": "save srcLTP relationship in AAI",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='vpn-binding:relationship-list' \n      key='vpn-binding.vpn-id = $tmp.vpnName' \n      force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"p-interface\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/pnfs/pnf/' + $oof.vpn.access-node-id + '/p-interfaces/p-interface/' + $src-ltpId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"p-interface.interface-name\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$src-ltpId`\" />\n\n\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2681.0001220703125,
+        "y": 2760.545135498047,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3e4af052.d590d8",
+        "type": "save",
+        "name": "save dstLTP relationship in AAI",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='vpn-binding:relationship-list' \n      key='vpn-binding.vpn-id = $tmp.vpnName' \n      force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"p-interface\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/pnfs/pnf/' + $oof.vpn.access-node-id + '/p-interfaces/p-interface/' + $dst-ltpId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"p-interface.interface-name\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$dst-ltpId`\" />",
+        "comments": "",
+        "outputs": 1,
+        "x": 2681.0001220703125,
+        "y": 2800.545135498047,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "227afca0.40453c",
+        "type": "update",
+        "name": "save label-restriction",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='label-restriction' \n      key='logical-link.link-name = $unique-linkId\n      AND label-restriction.id = $unique-lrId' >      \n<parameter name='id' value='`$unique-lrId`' />\n<parameter name='label-start' value='`$label-restriction.label-start`' />\n<parameter name='label-end' value='`$label-restriction.label-end`' />\n<parameter name='range-bitmap' value='`$label-restriction.range-bitmap`' />\n<parameter name='label-step' value='`$label-restriction.label-step.otn-tpn`' />\n<parameter name='inclusive-exclusive' value='`$label-restriction.restriction`' />\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2270,
+        "y": 1318.0000305175781,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cb52235a.4de398",
+        "type": "save",
+        "name": "save link relationship to label-restriction in AAI",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='logical-link:relationship-list' \n      key='logical-link.link-name = $unique-linkId' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"label-restriction\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/label-restrictions/label-restriction/' + $unique-lrId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"label-restriction.id\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$unique-lrId`\" />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1981,
+        "y": 1514,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "776b3468.2e107c",
+        "type": "update",
+        "name": "save label-restriction",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='label-restriction' \n      key='label-restriction.id = $unique-lrId' >      \n<parameter name='id' value='`$unique-lrId`' />\n<parameter name='label-start' value='`$label-restriction.label-start.te-label.otn-tpn`' />\n<parameter name='label-end' value='`$label-restriction.label-end.te-label.otn-tpn`' />\n<parameter name='range-bitmap' value='`$label-restriction.range-bitmap`' />\n<parameter name='label-step' value='`$label-restriction.label-step.otn-tpn`' />\n<parameter name='inclusive-exclusive' value='`$label-restriction.restriction`' />\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1919.815185546875,
+        "y": 1290.5556640625,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "384d69e2.32009e",
+                "969cafe8.9f0d68"
+            ]
+        ]
+    },
+    {
+        "id": "cd94c0c7.dca99",
+        "type": "switchNode",
+        "name": "switch te-link-attributes label-restriction_length",
+        "xml": "<switch test='`$link.te.te-link-attributes.label-restrictions.label-restriction_length`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1179,
+        "y": 1251,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "90c65e1e.1b46a",
+                "bba73be.8f0e648",
+                "89bc22d1.34b6f8"
+            ]
+        ]
+    },
+    {
+        "id": "80b56a94.abd878",
+        "type": "switchNode",
+        "name": "switch link.destination",
+        "xml": "<switch test='`$link.destination.dest-node`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 596,
+        "y": 510,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "96f5218a.ce7508",
+                "bcdde385.d6a18"
+            ]
+        ]
+    },
+    {
+        "id": "96f5218a.ce7508",
+        "type": "outcome",
+        "name": "Null",
+        "xml": "<outcome value=''>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 800,
+        "y": 471,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "9cac56eb.170248"
+            ]
+        ]
+    },
+    {
+        "id": "bcdde385.d6a18",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 797,
+        "y": 533,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "c79f771b.d3d4f"
+            ]
+        ]
+    },
+    {
+        "id": "c79f771b.d3d4f",
+        "type": "set",
+        "name": "set network link's destination variables",
+        "xml": "<set>\n<parameter name='dst-tpId' value=\"`'networkId-' + $unique-networkId + '-nodeId-' + $link.destination.dest-node + '-ltpId-' + $link.destination.dest-tp`\" />\n<parameter name='unique-dst-node-Id' value=\"`'networkId-' + $unique-networkId + '-nodeId-' + $link.destination.dest-node`\" />\n<parameter name='is-open-ended-link' value='false' />\n\n",
+        "comments": "",
+        "x": 1026,
+        "y": 496,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "4a74efae.a400d",
+        "type": "set",
+        "name": "set is-open-ended-link",
+        "xml": "<set>\n<parameter name='is-open-ended-link' value='true' />\n\n",
+        "comments": "",
+        "x": 1204,
+        "y": 371,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "fd4572f8.4a1fc8",
+        "type": "save",
+        "name": "get p-interface from aai",
+        "xml": "<get-resource plugin=\"org.onap.ccsdk.sli.adaptors.aai.AAIService\" \n\tresource=\"p-interface\"\n\t    key=\"pnf.pnf-name = $unique-src-node-Id\n\t        and p-interface.interface-name = $src-tpId\"\n\t\tlocal-only=\"false\" \n\t\tpfx=\"tmp.aai.p-interface\" >",
+        "comments": "",
+        "outputs": 1,
+        "x": 1207,
+        "y": 456,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "d91d5461.237b08",
+                "554f3cd2.29aafc",
+                "26188ec7.d70682"
+            ]
+        ]
+    },
+    {
+        "id": "d91d5461.237b08",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1450,
+        "y": 451,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "642df634.9cfcd"
+            ]
+        ]
+    },
+    {
+        "id": "554f3cd2.29aafc",
+        "type": "failure",
+        "name": "failure",
+        "xml": "<outcome value='failure'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1448,
+        "y": 540,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "da5c053.247edf8"
+            ]
+        ]
+    },
+    {
+        "id": "cc6294bd.db47a",
+        "type": "set",
+        "name": "set alternative unique link id",
+        "xml": "<set>\n<parameter name='alt-unique-linkId' value=\"`$tmp.aai.p-interface.inter-domain-plug-id`\" />\n<!--<parameter name='alt-unique-linkId' value=\"`'networkId-' + $unique-networkId + '-linkId-' + $tmp.aai.p-interface.inter-domain-plug-id`\" />-->\n\n",
+        "comments": "",
+        "x": 2123,
+        "y": 468,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "da5c053.247edf8",
+        "type": "returnFailure",
+        "name": "return failure",
+        "xml": "<return status='failure'>\n<parameter name='error-code' value='' />\n<parameter name='error-message' value='' />\n",
+        "comments": "",
+        "x": 1617,
+        "y": 541,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "db2a7a96.c095e8",
+        "type": "save",
+        "name": "get logical-link from aai",
+        "xml": "<get-resource plugin=\"org.onap.ccsdk.sli.adaptors.aai.AAIService\" \n\tresource=\"logical-link\"\n\t    key=\"logical-link.link-name = $alt-unique-linkId\"\n\t\tlocal-only=\"false\" \n\t\tpfx=\"tmp.aai.logical-link\" >",
+        "comments": "",
+        "outputs": 1,
+        "x": 915,
+        "y": 977,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "9cc79665.b0c1d8",
+                "ccb57d13.8728a"
+            ]
+        ]
+    },
+    {
+        "id": "26188ec7.d70682",
+        "type": "not-found",
+        "name": "not-found",
+        "xml": "<outcome value='not-found'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1459.490966796875,
+        "y": 493.57403564453125,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "2d6aa2de.7cc37e"
+            ]
+        ]
+    },
+    {
+        "id": "2d6aa2de.7cc37e",
+        "type": "returnFailure",
+        "name": "return failure",
+        "xml": "<return status='failure'>\n\t<parameter name='ack-final' value='Y'/>\n\t<parameter name=\"error-code\" value=\"500\" />\n    <parameter name=\"error-message\" value=\"`'An error occurred while querying pnf from AnAI with pnf-name = ' + $prop.l3vpn.pe1_id`\" />\n\n",
+        "comments": "",
+        "x": 1613.0623779296875,
+        "y": 496.8597717285156,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "e1b7cfff.245f78",
+        "type": "switchNode",
+        "name": "switch is-open-ended-link",
+        "xml": "<switch test='`$is-open-ended-link`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 494,
+        "y": 1016,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "23bae704.e702f8",
+                "41118ce4.589e94"
+            ]
+        ]
+    },
+    {
+        "id": "23bae704.e702f8",
+        "type": "outcomeFalse",
+        "name": "false",
+        "xml": "<outcome value='false'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 711,
+        "y": 1038,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "b47ecf24.d0d53"
+            ]
+        ]
+    },
+    {
+        "id": "41118ce4.589e94",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 714,
+        "y": 978,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "db2a7a96.c095e8"
+            ]
+        ]
+    },
+    {
+        "id": "9cc79665.b0c1d8",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1159,
+        "y": 647,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "472cc2a1.3bea84"
+            ]
+        ]
+    },
+    {
+        "id": "ccb57d13.8728a",
+        "type": "not-found",
+        "name": "not-found",
+        "xml": "<outcome value='not-found'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1184.490966796875,
+        "y": 842.5740356445312,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "3f879bbb.1b856c"
+            ]
+        ]
+    },
+    {
+        "id": "2fc9a33.5368fdc",
+        "type": "update",
+        "name": "save logical-link with alternative link id",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='logical-link' \n      key='logical-link.link-name = $alt-unique-linkId' >\n<parameter name='link-name' value='`$alt-unique-linkId`' />\n<parameter name='link-id' value='`$link.link-id`' />\n<parameter name='link-type' value='`$link.te.te-link-attributes.access-type`' />\n<parameter name='link-role' value='cross-domain' />\n\n\n\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1656,
+        "y": 864,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b47ecf24.d0d53",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic='true'>",
+        "atomic": "true",
+        "comments": "",
+        "outputs": 1,
+        "x": 889,
+        "y": 1046,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "cc2ac29e.5b4cb8",
+                "cd94c0c7.dca99",
+                "8b256a3b.c9fcf8",
+                "7d71c761.5d3918"
+            ]
+        ]
+    },
+    {
+        "id": "1a18f983.2948b6",
+        "type": "save",
+        "name": "update dest TP by putting src TP of the current link",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='logical-link:relationship-list' \n      key='logical-link.link-name = $alt-unique-linkId' force=\"true\" pfx=\"tmp.AnAI-data\">\n<!--<parameter name=\"relationship-list.relationship[0].related-to\" value=\"p-interface\" />-->\n<!--<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/pnfs/pnf/' + $unique-src-node-Id + '/p-interfaces/p-interface/' + $src-tpId`\" />-->\n<!--<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"p-interface.interface-name\" />-->\n<!--<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$src-tpId`\" />-->\n\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"p-interface\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/pnfs/pnf/' + $unique-src-node-Id + '/p-interfaces/p-interface/' + $src-tpId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"p-interface.interface-name\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$src-tpId`\" />",
+        "comments": "",
+        "outputs": 1,
+        "x": 2570,
+        "y": 693,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "8f7a6405.a639e",
+                "980c7498.2f0248"
+            ]
+        ]
+    },
+    {
+        "id": "74e95a4e.aaf1fc",
+        "type": "save",
+        "name": "save source and dest TP",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='logical-link:relationship-list' \n      key='logical-link.link-name = $unique-linkId' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"p-interface\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/pnfs/pnf/' + $unique-src-node-Id + '/p-interfaces/p-interface/' + $src-tpId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"p-interface.interface-name\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$src-tpId`\" />\n\n<parameter name=\"relationship-list.relationship[1].related-to\" value=\"p-interface\" />\n<parameter name=\"relationship-list.relationship[1].related-link\" value=\"`'/network/pnfs/pnf/' + $unique-dst-node-Id + '/p-interfaces/p-interface/' + $dst-tpId`\" />\n<parameter name=\"relationship-list.relationship[1].relationship-data[0].relationship-key\" value=\"p-interface.interface-name\" />\n<parameter name=\"relationship-list.relationship[1].relationship-data[0].relationship-value\" value=\"`$dst-tpId`\" />",
+        "comments": "",
+        "outputs": 1,
+        "x": 1119,
+        "y": 1485,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9cac56eb.170248",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 988,
+        "y": 432,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "4a74efae.a400d",
+                "fd4572f8.4a1fc8",
+                "33c2b566.b310c2"
+            ]
+        ]
+    },
+    {
+        "id": "3f879bbb.1b856c",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic='true'>",
+        "atomic": "true",
+        "comments": "",
+        "outputs": 1,
+        "x": 1373,
+        "y": 845,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "2fc9a33.5368fdc",
+                "2a78ca83.6ff14e",
+                "2b39dd9d.727772",
+                "a907e1c3.c2be48"
+            ]
+        ]
+    },
+    {
+        "id": "2a78ca83.6ff14e",
+        "type": "save",
+        "name": "save source only",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='logical-link:relationship-list' \n      key='logical-link.link-name = $alt-unique-linkId' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"p-interface\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/pnfs/pnf/' + $unique-src-node-Id + '/p-interfaces/p-interface/' + $src-tpId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"p-interface.interface-name\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$src-tpId`\" />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1585,
+        "y": 925,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cccf5ee2.02af4",
+        "type": "for",
+        "name": "for each label-restriction",
+        "xml": "<for index='tidx' start='0' end='`$link.te.te-link-attributes.label-restrictions.label-restriction_length`' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2112,
+        "y": 1051,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "e6f77baa.2a01a8",
+                "9164022b.f6d8e",
+                "d3edd22f.77b2c8",
+                "500f0218.4a402c",
+                "7b4521e8.06bc6",
+                "2f592aeb.8ac8a6"
+            ]
+        ]
+    },
+    {
+        "id": "e6f77baa.2a01a8",
+        "type": "set",
+        "name": "set label-restriction's local variables",
+        "xml": "<set>\n<parameter name='label-restriction.' value='`$link.te.te-link-attributes.label-restrictions.label-restriction[$tidx].`' />\n",
+        "comments": "",
+        "x": 2402.6669921875,
+        "y": 929.8889770507812,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "aa6afabb.060108",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2544.0555419921875,
+        "y": 1008.635009765625,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "56ad069a.c01ff"
+            ]
+        ]
+    },
+    {
+        "id": "a11a19e6.f83db",
+        "type": "failure",
+        "name": "failure",
+        "xml": "<outcome value='failure'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2551.734130859375,
+        "y": 1067.8493347167969,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "a2c16cc9.f432d8"
+            ]
+        ]
+    },
+    {
+        "id": "56ad069a.c01ff",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 2704.5556640625,
+        "y": 1007.8889465332031,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a2c16cc9.f432d8",
+        "type": "update",
+        "name": "save label-restriction",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='label-restriction' \n      key='logical-link.link-name = $alt-unique-linkId\n      AND label-restriction.id = $unique-lrId' >      \n<parameter name='id' value='`$unique-lrId`' />\n<parameter name='label-start' value='`$label-restriction.label-start`' />\n<parameter name='label-end' value='`$label-restriction.label-end`' />\n<parameter name='range-bitmap' value='`$label-restriction.range-bitmap`' />\n<parameter name='label-step' value='`$label-restriction.label-step.otn-tpn`' />\n<parameter name='inclusive-exclusive' value='`$label-restriction.restriction`' />\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2735.5556640625,
+        "y": 1067.8889465332031,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "97715e1e.68cf18",
+        "type": "save",
+        "name": "save link relationship to label-restriction in AAI",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='logical-link:relationship-list' \n      key='logical-link.link-name = $alt-unique-linkId' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"label-restriction\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/label-restrictions/label-restriction/' + $unique-lrId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"label-restriction.id\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$unique-lrId`\" />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2411.5556640625,
+        "y": 1200.888916015625,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9164022b.f6d8e",
+        "type": "update",
+        "name": "save label-restriction",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='label-restriction' \n      key='label-restriction.id = $unique-lrId' >      \n<parameter name='id' value='`$unique-lrId`' />\n<parameter name='label-start' value='`$label-restriction.label-start.te-label.otn-tpn`' />\n<parameter name='label-end' value='`$label-restriction.label-end.te-label.otn-tpn`' />\n<parameter name='range-bitmap' value='`$label-restriction.range-bitmap`' />\n<parameter name='label-step' value='`$label-restriction.label-step.otn-tpn`' />\n<parameter name='inclusive-exclusive' value='`$label-restriction.restriction`' />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2353.370849609375,
+        "y": 1040.444580078125,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "aa6afabb.060108",
+                "a11a19e6.f83db"
+            ]
+        ]
+    },
+    {
+        "id": "df65a3f.afb7d6",
+        "type": "set",
+        "name": "set more local variables",
+        "xml": "<set>\n<parameter name='unique-linkId' value=\"`'networkId-' + $unique-networkId + '-linkId-' + $link.link-id`\" />\n<parameter name='src-tpId' value=\"`'networkId-' + $unique-networkId + '-nodeId-' + $link.source.source-node + '-ltpId-' + $link.source.source-tp`\" />\n<parameter name='unique-src-node-Id' value=\"`'networkId-' + $unique-networkId + '-nodeId-' + $link.source.source-node`\" />\n",
+        "comments": "",
+        "x": 597,
+        "y": 455,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "8ffa23a3.fdd688",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 1539,
+        "y": 368,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "642df634.9cfcd",
+        "type": "switchNode",
+        "name": "switch inter-domain-plug-id of the src tp",
+        "xml": "<switch test='`$tmp.aai.p-interface.inter-domain-plug-id`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1689,
+        "y": 448,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "398a73a4.c141b4",
+                "b976aae8.9f6bf"
+            ]
+        ]
+    },
+    {
+        "id": "398a73a4.c141b4",
+        "type": "outcome",
+        "name": "Null",
+        "xml": "<outcome value=''>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1919,
+        "y": 395,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "1c8478c5.1051c7"
+            ]
+        ]
+    },
+    {
+        "id": "b976aae8.9f6bf",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1923,
+        "y": 468,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "cc6294bd.db47a"
+            ]
+        ]
+    },
+    {
+        "id": "1c8478c5.1051c7",
+        "type": "set",
+        "name": "unset is-open-ended-link",
+        "xml": "<set>\n<parameter name='is-open-ended-link' value='false' />\n<parameter name='is-invalid-open-ended-link' value='true' />\n\n",
+        "comments": "",
+        "x": 2107,
+        "y": 391,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "d68a82dd.baafa",
+        "type": "save",
+        "name": "delete logical-link",
+        "xml": "<delete plugin=\"org.onap.ccsdk.sli.adaptors.aai.AAIService\" \n\tresource=\"logical-link\" \n\tkey=\"logical-link.link-name = $tmp.link-name\" >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2088,
+        "y": 340,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1a9f47eb.9dd1b8",
+        "type": "set",
+        "name": "unset network link's local variables",
+        "xml": "<set>\n<parameter name='link.' value='' />\n<parameter name='dst-tpId' value='' />\n<parameter name='unique-dst-node-Id' value='' />\n<parameter name='is-open-ended-link' value='false' />\n<parameter name='is-invalid-open-ended-link' value='false' />\n\n",
+        "comments": "",
+        "x": 625,
+        "y": 347,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "95689fab.742d9",
+        "type": "switchNode",
+        "name": "switch is-invalid-open-ended-link",
+        "xml": "<switch test='`$is-invalid-open-ended-link`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 715,
+        "y": 1463,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "34ef56f.9c47daa",
+                "5046d09d.03023"
+            ]
+        ]
+    },
+    {
+        "id": "5046d09d.03023",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 922,
+        "y": 1431,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "62591c1c.412984"
+            ]
+        ]
+    },
+    {
+        "id": "34ef56f.9c47daa",
+        "type": "outcomeFalse",
+        "name": "false",
+        "xml": "<outcome value='false'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 919,
+        "y": 1491,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "74e95a4e.aaf1fc"
+            ]
+        ]
+    },
+    {
+        "id": "62591c1c.412984",
+        "type": "save",
+        "name": "save source only",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='logical-link:relationship-list' \n      key='logical-link.link-name = $unique-linkId' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"p-interface\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/pnfs/pnf/' + $unique-src-node-Id + '/p-interfaces/p-interface/' + $src-tpId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"p-interface.interface-name\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$src-tpId`\" />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1102,
+        "y": 1430,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "25746d3c.4940aa",
+        "type": "switchNode",
+        "name": "switch relationship-list_length",
+        "xml": "<switch test='`$tmp.aai.logical-link.relationship-list_length`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1431,
+        "y": 620,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "746a8004.09cff",
+                "73e19277.cd0d74",
+                "54f3128.186c6ec"
+            ]
+        ]
+    },
+    {
+        "id": "f940a5cf.482c7",
+        "type": "switchNode",
+        "name": "switch relationship-list_length != $src-tpId",
+        "xml": "<switch test='`$tmp.aai.logical-link.relationship-list.relationship[0].relationship-data[1].relationship-value != $src-tpId`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1882,
+        "y": 634,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "f5773dbe.bfd0b"
+            ]
+        ]
+    },
+    {
+        "id": "746a8004.09cff",
+        "type": "outcome",
+        "name": "0",
+        "xml": "<outcome value='0'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1649,
+        "y": 579,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "72a8794.b4b8e08"
+            ]
+        ]
+    },
+    {
+        "id": "73e19277.cd0d74",
+        "type": "outcome",
+        "name": "1",
+        "xml": "<outcome value='1'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1646,
+        "y": 616,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "f940a5cf.482c7"
+            ]
+        ]
+    },
+    {
+        "id": "54f3128.186c6ec",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1656,
+        "y": 690,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "5ae33948.bc4e98"
+            ]
+        ]
+    },
+    {
+        "id": "5ae33948.bc4e98",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 1793,
+        "y": 691,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "40998ac8.7fdebc"
+            ]
+        ]
+    },
+    {
+        "id": "72a8794.b4b8e08",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 1791,
+        "y": 587,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "cd475089.f525c8"
+            ]
+        ]
+    },
+    {
+        "id": "d95166a6.786718",
+        "type": "switchNode",
+        "name": "switch is-invalid-open-ended-link",
+        "xml": "<switch test='`$is-invalid-open-ended-link`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 492,
+        "y": 844,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "931f9360.8959a8",
+                "c70eb2bc.c116e"
+            ]
+        ]
+    },
+    {
+        "id": "c70eb2bc.c116e",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 699,
+        "y": 812,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "6d40a852.3c30b8"
+            ]
+        ]
+    },
+    {
+        "id": "931f9360.8959a8",
+        "type": "outcomeFalse",
+        "name": "false",
+        "xml": "<outcome value='false'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 696,
+        "y": 872,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "e1b7cfff.245f78"
+            ]
+        ]
+    },
+    {
+        "id": "6d40a852.3c30b8",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 850,
+        "y": 812,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8b256a3b.c9fcf8",
+        "type": "save",
+        "name": "save source and dest TP",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='logical-link:relationship-list' \n      key='logical-link.link-name = $unique-linkId' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"p-interface\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/pnfs/pnf/' + $unique-src-node-Id + '/p-interfaces/p-interface/' + $src-tpId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"p-interface.interface-name\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$src-tpId`\" />\n\n<parameter name=\"relationship-list.relationship[1].related-to\" value=\"p-interface\" />\n<parameter name=\"relationship-list.relationship[1].related-link\" value=\"`'/network/pnfs/pnf/' + $unique-dst-node-Id + '/p-interfaces/p-interface/' + $dst-tpId`\" />\n<parameter name=\"relationship-list.relationship[1].relationship-data[0].relationship-key\" value=\"p-interface.interface-name\" />\n<parameter name=\"relationship-list.relationship[1].relationship-data[0].relationship-value\" value=\"`$dst-tpId`\" />",
+        "comments": "",
+        "outputs": 1,
+        "x": 1117,
+        "y": 1134,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f5773dbe.bfd0b",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2129,
+        "y": 625,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4a8ff8f3.1a9e6",
+        "type": "record",
+        "name": "log file",
+        "xml": " <record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n    <parameter name=\"file\" value=\"/opt/onap/logTopologyDiscovery.txt\" />\n    <parameter name=\"field1\" value=\"__TIMESTAMP__\" />\n    <parameter name=\"field2\" value=\"uniqueLinkId\" />\n    <parameter name=\"field3\" value=\"`$unique-linkId`\" />\n    <parameter name=\"field4\" value=\"srcTpId\" />\n    <parameter name=\"field5\" value=\"`$src-tpId`\" />\n    <parameter name=\"field6\" value=\"dstTpId\" />\n    <parameter name=\"field7\" value=\"`$dst-tpId`\" />\n    ",
+        "comments": "",
+        "outputs": 1,
+        "x": 1062,
+        "y": 1079,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "33c2b566.b310c2",
+        "type": "set",
+        "name": "unset tmp.aai.p-interface",
+        "xml": "<set>\n<parameter name='tmp.aai.p-interface' value='' />\n<parameter name='tmp.aai.p-interface.inter-domain-plug-id' value='' />\n\n",
+        "comments": "",
+        "x": 1205,
+        "y": 409,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "4fdf002d.f301b8",
+        "type": "record",
+        "name": "log file",
+        "xml": " <record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n    <parameter name=\"file\" value=\"/opt/onap/logMerge.txt\" />\n    <parameter name=\"field1\" value=\"__TIMESTAMP__\" />\n    <parameter name=\"field2\" value=\"altUniqueLinkId\" />\n    <parameter name=\"field3\" value=\"`$alt-unique-linkId`\" />\n    <parameter name=\"field4\" value=\"srcTpId\" />\n    <parameter name=\"field5\" value=\"`$src-tpId`\" />\n    <parameter name=\"field6\" value=\"relationship-value\" />\n    <parameter name=\"field7\" value='`$tmp.aai.logical-link.relationship-list.relationship[0].relationship-data[1].relationship-value`' />\n    ",
+        "comments": "",
+        "outputs": 1,
+        "x": 2445,
+        "y": 597,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "472cc2a1.3bea84",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 2121,
+        "y": 842,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "4fdf002d.f301b8",
+                "1a18f983.2948b6",
+                "54aa9c80.30f7ac",
+                "beafe2da.650458"
+            ]
+        ]
+    },
+    {
+        "id": "8f7a6405.a639e",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2859,
+        "y": 663,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "80d026e.3108fd8"
+            ]
+        ]
+    },
+    {
+        "id": "980c7498.2f0248",
+        "type": "failure",
+        "name": "failure",
+        "xml": "<outcome value='failure'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2866.6785888671875,
+        "y": 722.2143249511719,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "e9dc5e3a.d617b8"
+            ]
+        ]
+    },
+    {
+        "id": "80d026e.3108fd8",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 3007,
+        "y": 658,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "36bd5bef.3c952c"
+            ]
+        ]
+    },
+    {
+        "id": "36bd5bef.3c952c",
+        "type": "record",
+        "name": "log file",
+        "xml": " <record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n    <parameter name=\"file\" value=\"/opt/onap/logMergeSuccess.txt\" />\n    <parameter name=\"field1\" value=\"__TIMESTAMP__\" />\n    <parameter name=\"field2\" value=\"altUniqueLinkId\" />\n    <parameter name=\"field3\" value=\"`$alt-unique-linkId`\" />\n    <parameter name=\"field4\" value=\"srcTpId\" />\n    <parameter name=\"field5\" value=\"`$src-tpId`\" />\n    <parameter name=\"field6\" value=\"relationship-value\" />\n    <parameter name=\"field7\" value='`$tmp.aai.logical-link.relationship-list.relationship[0].relationship-data[1].relationship-value`' />\n    ",
+        "comments": "",
+        "outputs": 1,
+        "x": 3152,
+        "y": 658,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e9dc5e3a.d617b8",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 3014,
+        "y": 720,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "aad51072.1ab57"
+            ]
+        ]
+    },
+    {
+        "id": "cd475089.f525c8",
+        "type": "record",
+        "name": "log file",
+        "xml": " <record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n    <parameter name=\"file\" value=\"/opt/onap/logNoRelationship.txt\" />\n    <parameter name=\"field1\" value=\"__TIMESTAMP__\" />\n    <parameter name=\"field2\" value=\"noRelationshipForLink:\" />\n    <parameter name=\"field3\" value=\"`$tmp.aai.logical-link.link-name`\" />",
+        "comments": "",
+        "outputs": 1,
+        "x": 1927,
+        "y": 585,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "40998ac8.7fdebc",
+        "type": "record",
+        "name": "log file",
+        "xml": " <record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n    <parameter name=\"file\" value=\"/opt/onap/logNoRelationship.txt\" />\n    <parameter name=\"field1\" value=\"__TIMESTAMP__\" />\n    <parameter name=\"field2\" value=\"moreThanOneRelationshipForLink:\" />\n    <parameter name=\"field3\" value=\"`$tmp.aai.logical-link.link-name`\" />\n    <parameter name=\"field4\" value=\"HowMany:\" />\n    <parameter name=\"field5\" value=\"`$tmp.aai.logical-link.relationship-list_length`\" />",
+        "comments": "",
+        "outputs": 1,
+        "x": 1938,
+        "y": 700,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "aad51072.1ab57",
+        "type": "record",
+        "name": "log file",
+        "xml": " <record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n    <parameter name=\"file\" value=\"/opt/onap/logMergeFailure.txt\" />\n    <parameter name=\"field1\" value=\"__TIMESTAMP__\" />\n    <parameter name=\"field2\" value=\"altUniqueLinkId\" />\n    <parameter name=\"field3\" value=\"`$alt-unique-linkId`\" />\n    <parameter name=\"field4\" value=\"srcTpId\" />\n    <parameter name=\"field5\" value=\"`$src-tpId`\" />\n    <parameter name=\"field6\" value=\"relationship-value\" />\n    <parameter name=\"field7\" value='`$tmp.aai.logical-link.relationship-list.relationship[0].relationship-data[1].relationship-value`' />\n    ",
+        "comments": "",
+        "outputs": 1,
+        "x": 3159,
+        "y": 720,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "90c65e1e.1b46a",
+        "type": "other",
+        "name": "Null",
+        "xml": "<outcome value=''>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1473,
+        "y": 1149,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "5ece6154.9b4de8"
+            ]
+        ]
+    },
+    {
+        "id": "bba73be.8f0e648",
+        "type": "outcome",
+        "name": "length 0",
+        "xml": "<outcome value='0'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1475,
+        "y": 1197,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "5ece6154.9b4de8"
+            ]
+        ]
+    },
+    {
+        "id": "89bc22d1.34b6f8",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1472,
+        "y": 1251,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "3d730288.0a9e8e"
+            ]
+        ]
+    },
+    {
+        "id": "5ece6154.9b4de8",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 1628,
+        "y": 1149,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2b39dd9d.727772",
+        "type": "switchNode",
+        "name": "switch te-link-attributes label-restriction_length",
+        "xml": "<switch test='`$link.te.te-link-attributes.label-restrictions.label-restriction_length`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1654,
+        "y": 1042,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "63fb4c18.c74d64",
+                "2a270231.4c1bfe",
+                "e61a6187.46dbb"
+            ]
+        ]
+    },
+    {
+        "id": "63fb4c18.c74d64",
+        "type": "other",
+        "name": "Null",
+        "xml": "<outcome value=''>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1926,
+        "y": 952,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "8419c37f.a7c378"
+            ]
+        ]
+    },
+    {
+        "id": "8419c37f.a7c378",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 2081,
+        "y": 952,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2a270231.4c1bfe",
+        "type": "outcome",
+        "name": "length 0",
+        "xml": "<outcome value='0'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1928,
+        "y": 1000,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "8419c37f.a7c378"
+            ]
+        ]
+    },
+    {
+        "id": "e61a6187.46dbb",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1927,
+        "y": 1051,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "cccf5ee2.02af4"
+            ]
+        ]
+    },
+    {
+        "id": "d3edd22f.77b2c8",
+        "type": "set",
+        "name": "unset label-restriction's local variables",
+        "xml": "<set>\n<parameter name='label-restriction.' value='' />\n<parameter name='unique-lrId' value=\"\" />\n",
+        "comments": "",
+        "x": 2408,
+        "y": 878,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "c048257b.948878",
+        "type": "set",
+        "name": "unset label-restriction's local variables",
+        "xml": "<set>\n<parameter name='label-restriction.' value='' />\n<parameter name='unique-lrId' value=\"\" />\n",
+        "comments": "",
+        "x": 1962,
+        "y": 1105,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "54aa9c80.30f7ac",
+        "type": "switchNode",
+        "name": "switch te-link-attributes label-restriction_length",
+        "xml": "<switch test='`$link.te.te-link-attributes.label-restrictions.label-restriction_length`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2746,
+        "y": 829,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "553db7a2.c22418",
+                "1cc0503b.5a6d68",
+                "b8719fd0.e9e07"
+            ]
+        ]
+    },
+    {
+        "id": "553db7a2.c22418",
+        "type": "other",
+        "name": "Null",
+        "xml": "<outcome value=''>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 3016,
+        "y": 791,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "416529b9.98998"
+            ]
+        ]
+    },
+    {
+        "id": "416529b9.98998",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 3171,
+        "y": 791,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1cc0503b.5a6d68",
+        "type": "outcome",
+        "name": "length 0",
+        "xml": "<outcome value='0'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 3018,
+        "y": 839,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "416529b9.98998"
+            ]
+        ]
+    },
+    {
+        "id": "b8719fd0.e9e07",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 3017,
+        "y": 890,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "7c7df4.0399fa0c"
+            ]
+        ]
+    },
+    {
+        "id": "7c7df4.0399fa0c",
+        "type": "for",
+        "name": "for each label-restriction",
+        "xml": "<for index='tidx' start='0' end='`$link.te.te-link-attributes.label-restrictions.label-restriction_length`' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 3202,
+        "y": 890,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "26ef8a14.1b2d0e",
+                "48b544fa.8f9e04",
+                "60812efb.8cb68",
+                "3261da0c.acaf2e",
+                "e930ab18.78d978",
+                "2bb6c31b.5fcc04"
+            ]
+        ]
+    },
+    {
+        "id": "60812efb.8cb68",
+        "type": "set",
+        "name": "unset label-restriction's local variables",
+        "xml": "<set>\n<parameter name='label-restriction.' value='' />\n<parameter name='unique-lrId' value=\"\" />\n",
+        "comments": "",
+        "x": 3500,
+        "y": 705,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "26ef8a14.1b2d0e",
+        "type": "set",
+        "name": "set label-restriction's local variables",
+        "xml": "<set>\n<parameter name='label-restriction.' value='`$link.te.te-link-attributes.label-restrictions.label-restriction[$tidx].`' />\n",
+        "comments": "",
+        "x": 3489.6669921875,
+        "y": 751.8889770507812,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "48b544fa.8f9e04",
+        "type": "update",
+        "name": "save label-restriction",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='label-restriction' \n      key='label-restriction.id = $unique-lrId' >      \n<parameter name='id' value='`$unique-lrId`' />\n<parameter name='label-start' value='`$label-restriction.label-start.te-label.otn-tpn`' />\n<parameter name='label-end' value='`$label-restriction.label-end.te-label.otn-tpn`' />\n<parameter name='range-bitmap' value='`$label-restriction.range-bitmap`' />\n<parameter name='label-step' value='`$label-restriction.label-step.otn-tpn`' />\n<parameter name='inclusive-exclusive' value='`$label-restriction.restriction`' />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 3443.370849609375,
+        "y": 879.444580078125,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "5cd8f390.b6a584",
+                "dea4e969.6c5628"
+            ]
+        ]
+    },
+    {
+        "id": "2c2affa2.8c3e2",
+        "type": "save",
+        "name": "save link relationship to label-restriction in AAI",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='logical-link:relationship-list' \n      key='logical-link.link-name = $alt-unique-linkId' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"label-restriction\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/label-restrictions/label-restriction/' + $unique-lrId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"label-restriction.id\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$unique-lrId`\" />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 3517.5556640625,
+        "y": 1063.888916015625,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5cd8f390.b6a584",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 3634.0555419921875,
+        "y": 847.635009765625,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "3d107091.6c1e18"
+            ]
+        ]
+    },
+    {
+        "id": "dea4e969.6c5628",
+        "type": "failure",
+        "name": "failure",
+        "xml": "<outcome value='failure'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 3641.734130859375,
+        "y": 906.8493347167969,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            [
+                "27136cba.661bb4"
+            ]
+        ]
+    },
+    {
+        "id": "3d107091.6c1e18",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 3794.5556640625,
+        "y": 846.8889465332031,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "27136cba.661bb4",
+        "type": "update",
+        "name": "save label-restriction",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='label-restriction' \n      key='label-restriction.id = $unique-lrId' >      \n<parameter name='id' value='`$unique-lrId`' />\n<parameter name='label-start' value='`$label-restriction.label-start.te-label.otn-tpn`' />\n<parameter name='label-end' value='`$label-restriction.label-end.te-label.otn-tpn`' />\n<parameter name='range-bitmap' value='`$label-restriction.range-bitmap`' />\n<parameter name='label-step' value='`$label-restriction.label-step.otn-tpn`' />\n<parameter name='inclusive-exclusive' value='`$label-restriction.restriction`' />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 3825.5556640625,
+        "y": 906.8889465332031,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3261da0c.acaf2e",
+        "type": "set",
+        "name": "set label-restriction's local variables",
+        "xml": "<set>\n<parameter name='unique-lrId' value=\"`$alt-unique-linkId + '-lrId-' + $label-restriction.index`\" />\n",
+        "comments": "",
+        "x": 3490,
+        "y": 801,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "500f0218.4a402c",
+        "type": "set",
+        "name": "set label-restriction's local variables",
+        "xml": "<set>\n<parameter name='unique-lrId' value=\"`$alt-unique-linkId + '-lrId-' + $label-restriction.index`\" />\n",
+        "comments": "",
+        "x": 2404,
+        "y": 970,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "186e1728.625819",
+        "type": "set",
+        "name": "set label-restriction's local variables",
+        "xml": "<set>\n<parameter name='label-restriction.' value='`$link.te.te-link-attributes.label-restrictions.label-restriction[$tidx].`' />\n",
+        "comments": "",
+        "x": 1959,
+        "y": 1157,
+        "z": "9586b8f9.18f7b",
+        "wires": []
+    },
+    {
+        "id": "7d71c761.5d3918",
+        "type": "update",
+        "name": "save te-link-attribute",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='te-link-attribute' \n      key='te-link-attribute.id = $link.te.te-link-attributes.name' >      \n<parameter name='id' value='`$link.te.te-link-attributes.name`' />\n<parameter name='access-type' value='`$link.te.te-link-attributes.access-type`' />\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1100,
+        "y": 1179,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b74e25a8.02a68",
+        "type": "save",
+        "name": "save te-link-attribute relationship to label-restriction",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='te-link-attribute:relationship-list' \n      key='te-link-attribute.id = $link.te.te-link-attributes.name' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"label-restriction\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/label-restrictions/label-restriction/' + $unique-lrId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"label-restriction.id\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$unique-lrId`\" />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1991,
+        "y": 1448,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b47043c.925bdc",
+        "type": "save",
+        "name": "save te-link-attribute relationship to logical-link in AAI",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='te-link-attribute:relationship-list' \n      key='te-link-attribute.id = $link.te.te-link-attributes.name' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"logical-link\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/logical-links/logical-link/' + $unique-linkId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"logical-link.link-name\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$unique-linkId`\" />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2000,
+        "y": 1388,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a907e1c3.c2be48",
+        "type": "update",
+        "name": "save te-link-attribute",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='te-link-attribute' \n      key='te-link-attribute.id = $link.te.te-link-attributes.name' >      \n<parameter name='id' value='`$link.te.te-link-attributes.name`' />\n<parameter name='access-type' value='`$link.te.te-link-attributes.access-type`' />\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1591,
+        "y": 977,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "beafe2da.650458",
+        "type": "update",
+        "name": "update te-link-attribute",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='te-link-attribute' \n      key='te-link-attribute.id = $link.te.te-link-attributes.name' >      \n<parameter name='id' value='`$link.te.te-link-attributes.name`' />\n<parameter name='access-type' value='`$link.te.te-link-attributes.access-type`' />\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2471,
+        "y": 762,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7b4521e8.06bc6",
+        "type": "save",
+        "name": "save te-link-attribute relationship to logical-link in AAI",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='te-link-attribute:relationship-list' \n      key='te-link-attribute.id = $link.te.te-link-attributes.name' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"logical-link\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/logical-links/logical-link/' + $alt-unique-linkId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"logical-link.link-name\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$alt-unique-linkId`\" />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2436,
+        "y": 1108,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2f592aeb.8ac8a6",
+        "type": "save",
+        "name": "save te-link-attribute relationship to label-restriction",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='te-link-attribute:relationship-list' \n      key='te-link-attribute.id = $link.te.te-link-attributes.name' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"label-restriction\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/label-restrictions/label-restriction/' + $unique-lrId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"label-restriction.id\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$unique-lrId`\" />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2429,
+        "y": 1154,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2bb6c31b.5fcc04",
+        "type": "save",
+        "name": "save te-link-attribute relationship to label-restriction",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='te-link-attribute:relationship-list' \n      key='te-link-attribute.id = $link.te.te-link-attributes.name' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"label-restriction\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/label-restrictions/label-restriction/' + $unique-lrId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"label-restriction.id\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$unique-lrId`\" />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 3526,
+        "y": 1006,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e930ab18.78d978",
+        "type": "save",
+        "name": "save te-link-attribute relationship to logical-link in AAI",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' resource='te-link-attribute:relationship-list' \n      key='te-link-attribute.id = $link.te.te-link-attributes.name' force=\"true\" pfx=\"tmp.AnAI-data\">\n<parameter name=\"relationship-list.relationship[0].related-to\" value=\"logical-link\" />\n<parameter name=\"relationship-list.relationship[0].related-link\" value=\"`'/network/logical-links/logical-link/' + $alt-unique-linkId`\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-key\" value=\"logical-link.link-name\" />\n<parameter name=\"relationship-list.relationship[0].relationship-data[0].relationship-value\" value=\"`$alt-unique-linkId`\" />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 3533,
+        "y": 960,
+        "z": "9586b8f9.18f7b",
+        "wires": [
+            []
+        ]
+    }
+]

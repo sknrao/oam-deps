@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: $CR_APP_NAME
+  namespace: $KUBE_SIM_NAMESPACE
+  labels:
+    run: $CR_APP_NAME
+    autotest: CR
+spec:
+  replicas: $CR_APP_COUNT
+  serviceName: $CR_APP_NAME
+  selector:
+    matchLabels:
+      run: $CR_APP_NAME
+  template:
+    metadata:
+      labels:
+        run: $CR_APP_NAME
+        autotest: CR
+    spec:
+      containers:
+      - name: $CR_APP_NAME
+        image: $CR_IMAGE
+        imagePullPolicy: $KUBE_IMAGE_PULL_POLICY
+        ports:
+        - name: http
+          containerPort: $CR_INTERNAL_PORT
+        - name: https
+          containerPort: $CR_INTERNAL_SECURE_PORT

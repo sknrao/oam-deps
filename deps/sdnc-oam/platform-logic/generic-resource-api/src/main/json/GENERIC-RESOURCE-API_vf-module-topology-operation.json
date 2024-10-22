@@ -1,0 +1,1781 @@
+[
+    {
+        "id": "153cea09.c75a8e",
+        "type": "dgstart",
+        "name": "DGSTART",
+        "outputs": 1,
+        "x": 101.66668701171875,
+        "y": 63.33332824707031,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "fe3324a.ad54558"
+            ]
+        ]
+    },
+    {
+        "id": "fe3324a.ad54558",
+        "type": "service-logic",
+        "name": "GENERIC-RESOURCE-API ${project.version}",
+        "module": "GENERIC-RESOURCE-API",
+        "version": "${project.version}",
+        "comments": "",
+        "xml": "<service-logic xmlns='http://www.onap.org/sdnc/svclogic' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.onap.org/sdnc/svclogic ./svclogic.xsd' module='GENERIC-RESOURCE-API' version='${project.version}'>",
+        "outputs": 1,
+        "x": 214.952392578125,
+        "y": 103.57143974304199,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "1618b716.647759"
+            ]
+        ]
+    },
+    {
+        "id": "1618b716.647759",
+        "type": "method",
+        "name": "method vf-module-topology-operation",
+        "xml": "<method rpc='vf-module-topology-operation' mode='sync'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 189.0953140258789,
+        "y": 143.3333225250244,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "647ccf73.e9d16"
+            ]
+        ]
+    },
+    {
+        "id": "f21f2bc9.a7ee3",
+        "type": "comment",
+        "name": "vf-module-topology-operation",
+        "info": "",
+        "comments": "",
+        "x": 419.0115203857422,
+        "y": 45.91967010498047,
+        "z": "c4b0d07d.92515",
+        "wires": []
+    },
+    {
+        "id": "647ccf73.e9d16",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">",
+        "atomic": "true",
+        "outputs": 1,
+        "x": 163.16673278808594,
+        "y": 476.6934881210327,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "5a3085f5.d5ce44",
+                "3e48de1f.c44b7a",
+                "3ef5ce22.88127a"
+            ]
+        ]
+    },
+    {
+        "id": "5a3085f5.d5ce44",
+        "type": "returnSuccess",
+        "name": "return success",
+        "xml": "<return status='success'>\n<parameter name=\"ack-final-indicator\" value=\"Y\" />\n<parameter name=\"error-code\" value=\"200\" />\n<parameter name=\"error-message\" value=\"`$error-message`\" />\n",
+        "comments": "",
+        "x": 448.6667251586914,
+        "y": 650.1908769607544,
+        "z": "c4b0d07d.92515",
+        "wires": []
+    },
+    {
+        "id": "3e48de1f.c44b7a",
+        "type": "switchNode",
+        "name": "switch svc-action",
+        "xml": "<switch test='`$vf-module-topology-operation-input.sdnc-request-header.svc-action`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 459.5713348388672,
+        "y": 474.90471267700195,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "e696c7e9.b47468",
+                "b98403f7.cef768",
+                "cee42607.61438",
+                "82718d35.9a5ac",
+                "c48c6e.2684d39",
+                "ddd5b918.cd6bc",
+                "b60cf1f8.580f9",
+                "56a5d05d.f27d2",
+                "d6e391fa.c98b78"
+            ]
+        ]
+    },
+    {
+        "id": "e696c7e9.b47468",
+        "type": "outcome",
+        "name": "assign",
+        "xml": "<outcome value='assign'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 671.0476150512695,
+        "y": 323.1906147003174,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "69a629d9.7b14c"
+            ]
+        ]
+    },
+    {
+        "id": "b98403f7.cef768",
+        "type": "outcome",
+        "name": "unassign",
+        "xml": "<outcome value='unassign'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 677.4286003112793,
+        "y": 511.3812417984009,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "66800c86.c97024"
+            ]
+        ]
+    },
+    {
+        "id": "cee42607.61438",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 586.1429672241211,
+        "y": 2046.904836654663,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "11e297b8.71dcb"
+            ]
+        ]
+    },
+    {
+        "id": "11e297b8.71dcb",
+        "type": "returnFailure",
+        "name": "return failure",
+        "xml": "<return status='failure'>\n\t<parameter name='ack-final' value='Y'/>\n\t<parameter name=\"error-code\" value=\"500\" />\n    <parameter name=\"error-message\" value=\"`$vnf-topology-operation-input.sdnc-request-header.svc-action + ' is not a valid svc-action'`\" />\n",
+        "comments": "",
+        "x": 787.0000190734863,
+        "y": 2136.9048748016357,
+        "z": "c4b0d07d.92515",
+        "wires": []
+    },
+    {
+        "id": "3ef5ce22.88127a",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:validate-vf-module-input",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='validate-vf-module-input' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 586.7499694824219,
+        "y": 220.7143850326538,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d40c65e8.5ae13",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:vf-module-topology-operation-deactivate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vf-module-topology-operation-deactivate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1053.1904067993164,
+        "y": 461.4286575317383,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "66800c86.c97024",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:vf-module-topology-operation-unassign",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vf-module-topology-operation-unassign' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1047.5236778259277,
+        "y": 511.0953769683838,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a46899f8.43c288",
+        "type": "outcome",
+        "name": "deactivate",
+        "xml": "<outcome value='deactivate'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 681.5236930847168,
+        "y": 462.0953311920166,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "d40c65e8.5ae13"
+            ]
+        ]
+    },
+    {
+        "id": "82718d35.9a5ac",
+        "type": "outcome",
+        "name": "changeassign",
+        "xml": "<outcome value='changeassign'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 692.0000152587891,
+        "y": 558.9999713897705,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "e923b3d2.aa64b"
+            ]
+        ]
+    },
+    {
+        "id": "e923b3d2.aa64b",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:vf-module-topology-operation-changeassign",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vf-module-topology-operation-changeassign' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1061.095085144043,
+        "y": 558.7141075134277,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c48c6e.2684d39",
+        "type": "outcome",
+        "name": "create",
+        "xml": "<outcome value='create'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 677.6666946411133,
+        "y": 757.3333158493042,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "1e5afca3.bad373"
+            ]
+        ]
+    },
+    {
+        "id": "32944a32.f5fae6",
+        "type": "switchNode",
+        "name": "switch request-action",
+        "xml": "<switch test='`$vf-module-topology-operation-input.request-information.request-action`'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 916.0002975463867,
+        "y": 764.9196790158749,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "dbc501f4.15c418",
+                "d866165c.1a50c",
+                "daf35240.82eef",
+                "11f10ff7.8f31",
+                "f7d471cc.6d2f08",
+                "daacc1e1.3a252",
+                "f1d4d27b.a55f18",
+                "cd308409.06664"
+            ]
+        ]
+    },
+    {
+        "id": "d866165c.1a50c",
+        "type": "outcome",
+        "name": "CreateSDWANSiteInstance",
+        "xml": "<outcome value='CreateSDWANSiteInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1206.4766159057617,
+        "y": 673.3990478515625,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "8c575c9d.eb50e8"
+            ]
+        ]
+    },
+    {
+        "id": "dbc501f4.15c418",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1126.3809814453125,
+        "y": 922.1103363037109,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "3de35ea1.4611ca"
+            ]
+        ]
+    },
+    {
+        "id": "1e5afca3.bad373",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">",
+        "atomic": "true",
+        "outputs": 1,
+        "x": 864.0002136230469,
+        "y": 684.919680595398,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "32944a32.f5fae6",
+                "6b98be15.5c31b8"
+            ]
+        ]
+    },
+    {
+        "id": "8c575c9d.eb50e8",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-site-create",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-site-create' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1630.00048828125,
+        "y": 671.9198241233826,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3de35ea1.4611ca",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 1276.333251953125,
+        "y": 920.5000152587891,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "daf35240.82eef",
+        "type": "outcome",
+        "name": "CreateSDWANPortInstance",
+        "xml": "<outcome value='CreateSDWANPortInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1180.3334732055664,
+        "y": 807.1668329238892,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "4c73beae.c4f208"
+            ]
+        ]
+    },
+    {
+        "id": "4c73beae.c4f208",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-wanport-create",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-wanport-create' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1652.8571701049805,
+        "y": 806.6875848770142,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "11f10ff7.8f31",
+        "type": "outcome",
+        "name": "CreateSDWANDeviceInstance",
+        "xml": "<outcome value='CreateSDWANDeviceInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1188.69779586792,
+        "y": 727.3647933006287,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "16bfb20e.6eff86"
+            ]
+        ]
+    },
+    {
+        "id": "16bfb20e.6eff86",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-device-create",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-device-create' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1644.2215843200684,
+        "y": 726.8856625556946,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f7d471cc.6d2f08",
+        "type": "outcome",
+        "name": "CreateSDWANVpnInstance",
+        "xml": "<outcome value='CreateSDWANVpnInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1218.6667137145996,
+        "y": 626.3333678245544,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "e9749f09.7aac68"
+            ]
+        ]
+    },
+    {
+        "id": "e9749f09.7aac68",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-vpn-create",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-vpn-create' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1627.190486907959,
+        "y": 623.8541350364685,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ddd5b918.cd6bc",
+        "type": "outcome",
+        "name": "activate",
+        "xml": "<outcome value='activate'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 676,
+        "y": 1039.3333129882812,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "30af29ca.390ed6"
+            ]
+        ]
+    },
+    {
+        "id": "7ab05668.71ae18",
+        "type": "outcome",
+        "name": "ActivateSDWANSiteInstance",
+        "xml": "<outcome value='ActivateSDWANSiteInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1206.143051147461,
+        "y": 1042.2322664260864,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "1fcb5a9.ae883a5"
+            ]
+        ]
+    },
+    {
+        "id": "30af29ca.390ed6",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">",
+        "atomic": "true",
+        "outputs": 1,
+        "x": 856.6667709350586,
+        "y": 1034.752989768982,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "de6a9866.aa5828"
+            ]
+        ]
+    },
+    {
+        "id": "1fcb5a9.ae883a5",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-site-activate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-site-activate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1618.6669387817383,
+        "y": 1035.7530488967896,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e66705a2.bbcc4",
+        "type": "outcome",
+        "name": "ActivateSDWANDeviceInstance",
+        "xml": "<outcome value='ActivateSDWANDeviceInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1195.3334884643555,
+        "y": 1088.2530550956726,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "c1805771.0819f8"
+            ]
+        ]
+    },
+    {
+        "id": "c1805771.0819f8",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-device-activate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-device-activate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1630.8571853637695,
+        "y": 1087.7738275527954,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "64b056c.8877b28",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-wanport-activate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-wanport-activate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1629.3333129882812,
+        "y": 1173.2530093193054,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8e3e13b7.4d7fd8",
+        "type": "outcome",
+        "name": "ActivateSDWANPortInstance",
+        "xml": "<outcome value='ActivateSDWANPortInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1193.8096160888672,
+        "y": 1173.7322368621826,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "64b056c.8877b28"
+            ]
+        ]
+    },
+    {
+        "id": "de6a9866.aa5828",
+        "type": "switchNode",
+        "name": "switch request-action",
+        "xml": "<switch test='`$vf-module-topology-operation-input.request-information.request-action`'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 933,
+        "y": 1101.3333129882812,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "7ab05668.71ae18",
+                "e66705a2.bbcc4",
+                "8e3e13b7.4d7fd8",
+                "ae7ebf9a.9d5728",
+                "e786a9cd.c7b768",
+                "c6ae21b.9d991e",
+                "470b9ad1.39ed14",
+                "7418d7ec.38a8f"
+            ]
+        ]
+    },
+    {
+        "id": "ae7ebf9a.9d5728",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1123.9047241210938,
+        "y": 1277.5447998046875,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "3422a44a.60f054"
+            ]
+        ]
+    },
+    {
+        "id": "e786a9cd.c7b768",
+        "type": "outcome",
+        "name": "ActivateSDWANVpnInstance",
+        "xml": "<outcome value='ActivateSDWANVpnInstance'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1209,
+        "y": 997.3333129882812,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "76d36ae2.9c9924"
+            ]
+        ]
+    },
+    {
+        "id": "76d36ae2.9c9924",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-vpn-activate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-vpn-activate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1624.5238037109375,
+        "y": 990.8540897369385,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b60cf1f8.580f9",
+        "type": "outcome",
+        "name": "deactivate",
+        "xml": "<outcome value='deactivate'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 668.333251953125,
+        "y": 1378.6666259765625,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "d902e7.6b323d18"
+            ]
+        ]
+    },
+    {
+        "id": "b02c158c.dcddd",
+        "type": "outcome",
+        "name": "DeactivateSDWANSiteInstance",
+        "xml": "<outcome value='DeactivateSDWANSiteInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1189.8097457885742,
+        "y": 1380.232195854187,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "8c270238.c3c8c8"
+            ]
+        ]
+    },
+    {
+        "id": "d902e7.6b323d18",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">",
+        "atomic": "true",
+        "outputs": 1,
+        "x": 832.3333969116211,
+        "y": 1375.752902507782,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "2518a88.ea22ad8"
+            ]
+        ]
+    },
+    {
+        "id": "8c270238.c3c8c8",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-site-activate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-site-deactivate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1607.333511352539,
+        "y": 1381.752932548523,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fa38900c.4b0c9",
+        "type": "outcome",
+        "name": "DeactivateSDWANDeviceInstance",
+        "xml": "<outcome value='DeactivateSDWANDeviceInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1171.000114440918,
+        "y": 1429.2529678344727,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "49cf5463.b68144"
+            ]
+        ]
+    },
+    {
+        "id": "49cf5463.b68144",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-device-deactivate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-device-deactivate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1606.523811340332,
+        "y": 1428.7737402915955,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "55d87d86.c7c894",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-wanport-deactivate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-wanport-deactivate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1604.0000228881836,
+        "y": 1507.252942085266,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9b4c7c3a.81ad58",
+        "type": "outcome",
+        "name": "DeactivateSDWANPortInstance",
+        "xml": "<outcome value='DeactivateSDWANPortInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1168.4763259887695,
+        "y": 1507.7321696281433,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "55d87d86.c7c894"
+            ]
+        ]
+    },
+    {
+        "id": "2518a88.ea22ad8",
+        "type": "switchNode",
+        "name": "switch request-action",
+        "xml": "<switch test='`$vf-module-topology-operation-input.request-information.request-action`'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 908.6666259765625,
+        "y": 1442.3332257270813,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "b02c158c.dcddd",
+                "fa38900c.4b0c9",
+                "9b4c7c3a.81ad58",
+                "432728ba.c11a38",
+                "84d60925.31d678",
+                "a8e829e3.8183",
+                "ccae6641.31434",
+                "a6a8695d.564e28"
+            ]
+        ]
+    },
+    {
+        "id": "432728ba.c11a38",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1102.5712280273438,
+        "y": 1642.5446166992188,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "c7edf50f.976288"
+            ]
+        ]
+    },
+    {
+        "id": "84d60925.31d678",
+        "type": "outcome",
+        "name": "DeactivateSDWANVpnInstance",
+        "xml": "<outcome value='DeactivateSDWANVpnInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1184.6666259765625,
+        "y": 1338.3332257270813,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "db35e090.10dfe8"
+            ]
+        ]
+    },
+    {
+        "id": "db35e090.10dfe8",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-vpn-activate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-vpn-deactivate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1600.1904296875,
+        "y": 1331.8540024757385,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c7edf50f.976288",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:vf-module-topology-operation-deactivate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vf-module-topology-operation-deactivate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1457.6663208007812,
+        "y": 1642.9998168945312,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3422a44a.60f054",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:vf-module-topology-operation-activate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vf-module-topology-operation-activate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1632.666748046875,
+        "y": 1276.666748046875,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e231092d.d187b8",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:vf-module-topology-operation-activate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vf-module-topology-operation-activate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1045.6666526794434,
+        "y": 412.3333034515381,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d176524b.1e092",
+        "type": "outcome",
+        "name": "activate",
+        "xml": "<outcome value='activate'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 673.6666374206543,
+        "y": 412.9999809265137,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "e231092d.d187b8"
+            ]
+        ]
+    },
+    {
+        "id": "56a5d05d.f27d2",
+        "type": "outcome",
+        "name": "delete",
+        "xml": "<outcome value='delete'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 619.666748046875,
+        "y": 1704,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "dd00380.83700c8"
+            ]
+        ]
+    },
+    {
+        "id": "6af9eda8.4f30b4",
+        "type": "switchNode",
+        "name": "switch request-action",
+        "xml": "<switch test='`$vf-module-topology-operation-input.request-information.request-action`'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 865.6668930053711,
+        "y": 1794.5863361358643,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "acdba1bb.271aa8",
+                "41e45c65.4f48b4",
+                "365b77d0.aa0eb8",
+                "ac104092.6353d8",
+                "bd543300.11b69",
+                "63b5bf9.29c61c",
+                "24867b99.975184",
+                "86ad5770.f9ee38"
+            ]
+        ]
+    },
+    {
+        "id": "41e45c65.4f48b4",
+        "type": "outcome",
+        "name": "DeleteSDWANSiteInstance",
+        "xml": "<outcome value='DeleteSDWANSiteInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1151.143440246582,
+        "y": 1728.0657358169556,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "80fe0e03.e986c"
+            ]
+        ]
+    },
+    {
+        "id": "acdba1bb.271aa8",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1075.047622680664,
+        "y": 1948.7767133712769,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "b65e68d0.d5eb2"
+            ]
+        ]
+    },
+    {
+        "id": "dd00380.83700c8",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">",
+        "atomic": "true",
+        "outputs": 1,
+        "x": 812.6668930053711,
+        "y": 1721.5863342285156,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "6af9eda8.4f30b4"
+            ]
+        ]
+    },
+    {
+        "id": "80fe0e03.e986c",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-site-delete",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-site-delete' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1554.6670532226562,
+        "y": 1723.5865807533264,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b65e68d0.d5eb2",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 1226.6664581298828,
+        "y": 1953.8332319259644,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "365b77d0.aa0eb8",
+        "type": "outcome",
+        "name": "DeleteSDWANPortInstance",
+        "xml": "<outcome value='DeleteSDWANPortInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1140.666763305664,
+        "y": 1843.8334760665894,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "fa46a4df.465f48"
+            ]
+        ]
+    },
+    {
+        "id": "fa46a4df.465f48",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-wanport-delete",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-wanport-delete' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1601.5238494873047,
+        "y": 1843.3542385101318,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ac104092.6353d8",
+        "type": "outcome",
+        "name": "DeleteSDWANDeviceInstance",
+        "xml": "<outcome value='DeleteSDWANDeviceInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1153.3645477294922,
+        "y": 1767.0313744544983,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "20de69e5.be86ce"
+            ]
+        ]
+    },
+    {
+        "id": "20de69e5.be86ce",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-device-delete",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-device-delete' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1567.8883666992188,
+        "y": 1762.552278995514,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bd543300.11b69",
+        "type": "outcome",
+        "name": "DeleteSDWANVpnInstance",
+        "xml": "<outcome value='DeleteSDWANVpnInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1157.3334045410156,
+        "y": 1686.9999866485596,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "a935d1ef.f74388"
+            ]
+        ]
+    },
+    {
+        "id": "a935d1ef.f74388",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-vpn-delete",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-vpn-delete' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1550.8572082519531,
+        "y": 1687.5207543373108,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6b98be15.5c31b8",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/svclogic.log\"/>\n<parameter name=\"field1\" value=\"__TIMESTAMP__\"/>\n<parameter name=\"field2\" value=\"request-action\"/>\n<parameter name=\"field3\" value='`$vf-module-topology-operation-input.request-information.request-action`'/>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1005.4166946411133,
+        "y": 633.9235652387142,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "daacc1e1.3a252",
+        "type": "outcome",
+        "name": "CreateSDWANLanPortInstance",
+        "xml": "<outcome value='CreateSDWANLanPortInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1182.4101943969727,
+        "y": 768.1735663414001,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "7725c009.749b4"
+            ]
+        ]
+    },
+    {
+        "id": "7725c009.749b4",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-lanport-create",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-lanport-create' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1654.9338912963867,
+        "y": 767.6943182945251,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c6ae21b.9d991e",
+        "type": "outcome",
+        "name": "ActivateSDWANLanPortInstance",
+        "xml": "<outcome value='ActivateSDWANLanPortInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1202.7434997558594,
+        "y": 1132.090250492096,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "a9085f43.fb5d98"
+            ]
+        ]
+    },
+    {
+        "id": "a9085f43.fb5d98",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-lanport-activate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-lanport-activate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1620.2671508789062,
+        "y": 1131.611011981964,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a8e829e3.8183",
+        "type": "outcome",
+        "name": "DeactivateSDWANLanPortInstance",
+        "xml": "<outcome value='DeactivateSDWANLanPortInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1180.4101333618164,
+        "y": 1473.3400702476501,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "a0352b06.1ab6a"
+            ]
+        ]
+    },
+    {
+        "id": "a0352b06.1ab6a",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-lanport-deactivate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-lanport-deactivate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1597.9337844848633,
+        "y": 1472.8608317375183,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "63b5bf9.29c61c",
+        "type": "outcome",
+        "name": "DeleteSDWANLanPortInstance",
+        "xml": "<outcome value='DeleteSDWANLanPortInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1156.0768356323242,
+        "y": 1804.6734852790833,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "d935e9d8.5a3f98"
+            ]
+        ]
+    },
+    {
+        "id": "d935e9d8.5a3f98",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-vf-operation-lanport-delete",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-vf-operation-lanport-delete' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1573.600486755371,
+        "y": 1804.1942467689514,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d6e391fa.c98b78",
+        "type": "outcome",
+        "name": "update",
+        "xml": "<outcome value='update'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 590.6667098999023,
+        "y": 1842.9196071624756,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "11620b80.062a65"
+            ]
+        ]
+    },
+    {
+        "id": "11620b80.062a65",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">",
+        "atomic": "true",
+        "outputs": 1,
+        "x": 771.6668319702148,
+        "y": 1937.5060634613037,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "3c40302c.ff9b98"
+            ]
+        ]
+    },
+    {
+        "id": "3c40302c.ff9b98",
+        "type": "switchNode",
+        "name": "switch request-action",
+        "xml": "<switch test='`$vf-module-topology-operation-input.request-information.request-action`'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 924.3335113525391,
+        "y": 2042.5059614181519,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "69288b61.625154",
+                "ce72f259.349b28"
+            ]
+        ]
+    },
+    {
+        "id": "69288b61.625154",
+        "type": "outcome",
+        "name": "SdwanBandwidthChange",
+        "xml": "<outcome value='SdwanBandwidthChange'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1167.9998931884766,
+        "y": 2001.2531538009644,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "66378131.684b6"
+            ]
+        ]
+    },
+    {
+        "id": "66378131.684b6",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sdwan-bandwidth-policy-change",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sdwan-bandwidth-policy-change' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1561.5237579345703,
+        "y": 2020.1070356369019,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ce72f259.349b28",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1088.7141876220703,
+        "y": 2089.696635246277,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "51152d6d.2147ec"
+            ]
+        ]
+    },
+    {
+        "id": "51152d6d.2147ec",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 1252.000015258789,
+        "y": 2094.7529706954956,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f4f08860.8e36f",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">",
+        "atomic": "true",
+        "outputs": 1,
+        "x": 1928.5240783691406,
+        "y": 263.6190643310547,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "4bf22256.7fc7ac",
+                "c762aa36.1446a8"
+            ]
+        ]
+    },
+    {
+        "id": "4bf22256.7fc7ac",
+        "type": "set",
+        "name": "set skip-mdsal-update to Y",
+        "xml": "<set>\n<parameter name='skip-mdsal-update' value='Y' />\n",
+        "comments": "",
+        "x": 2175.3096313476562,
+        "y": 239.97310829162598,
+        "z": "c4b0d07d.92515",
+        "wires": []
+    },
+    {
+        "id": "c762aa36.1446a8",
+        "type": "set",
+        "name": "set ack-final to 'N' (default)",
+        "xml": "<set>\n<parameter name='ack-final' value='N' />\n",
+        "comments": "",
+        "x": 2175.7382049560547,
+        "y": 279.9731922149658,
+        "z": "c4b0d07d.92515",
+        "wires": []
+    },
+    {
+        "id": "e1bfb2c0.c48e28",
+        "type": "switchNode",
+        "name": "so-response-url empty?",
+        "xml": "<switch test='`length($vf-module-topology-operation-input.sdnc-request-header.svc-notification-url) == 0`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1063.0952453613281,
+        "y": 117.61903381347656,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "33bd04c7.af5b24",
+                "f2d7cddb.b68ca"
+            ]
+        ]
+    },
+    {
+        "id": "33bd04c7.af5b24",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1288.0952453613281,
+        "y": 73.61903381347656,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "782ea3fd.5ac0f4"
+            ]
+        ]
+    },
+    {
+        "id": "f2d7cddb.b68ca",
+        "type": "outcomeFalse",
+        "name": "false",
+        "xml": "<outcome value='false'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1278.0952453613281,
+        "y": 165.61903381347656,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "571c94fa.79ac6c"
+            ]
+        ]
+    },
+    {
+        "id": "571c94fa.79ac6c",
+        "type": "switchNode",
+        "name": "so-response-url = ignored URL?",
+        "xml": "<switch test='`$vf-module-topology-operation-input.sdnc-request-header.svc-notification-url == $prop.so.ignore-url`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1500.0952453613281,
+        "y": 166.61903381347656,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "4b5b497a.23ca3",
+                "82a707d0.94da68"
+            ]
+        ]
+    },
+    {
+        "id": "4b5b497a.23ca3",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1740.0952453613281,
+        "y": 165.61903381347656,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "782ea3fd.5ac0f4"
+            ]
+        ]
+    },
+    {
+        "id": "82a707d0.94da68",
+        "type": "outcomeFalse",
+        "name": "false",
+        "xml": "<outcome value='false'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1748.0952453613281,
+        "y": 266.61903381347656,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "f4f08860.8e36f"
+            ]
+        ]
+    },
+    {
+        "id": "782ea3fd.5ac0f4",
+        "type": "call",
+        "name": "call vf-module-topology-operation-assign-sync",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vf-module-topology-operation-assign-sync' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 2246.9525451660156,
+        "y": 71.76188659667969,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "df9ced4b.6be258",
+        "type": "execute",
+        "name": "execute getProperties",
+        "xml": "<execute plugin='org.onap.ccsdk.sli.plugins.prop.PropertiesNode' method='readProperties' >\n    <parameter name='fileName' value='%SDNC_CONFIG_DIR%/generic-resource-api-dg.properties' />\n    <parameter name='contextPrefix' value='prop' />\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1054.0043029785156,
+        "y": 26.450180053710938,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "69a629d9.7b14c",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 863.0953674316406,
+        "y": 24.632003784179688,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "df9ced4b.6be258",
+                "e1bfb2c0.c48e28"
+            ]
+        ]
+    },
+    {
+        "id": "f1d4d27b.a55f18",
+        "type": "outcome",
+        "name": "CreateSOTNUniInstance",
+        "xml": "<outcome value='CreateSOTNUniInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1180,
+        "y": 841.6666870117188,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "7c693995.3f2d28"
+            ]
+        ]
+    },
+    {
+        "id": "7c693995.3f2d28",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sotn-vf-operation-uni-create",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sotn-vf-operation-uni-create' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1652.523696899414,
+        "y": 841.1874389648438,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "470b9ad1.39ed14",
+        "type": "outcome",
+        "name": "ActivateSOTNUniInstance",
+        "xml": "<outcome value='ActivateSOTNUniInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1194.9999923706055,
+        "y": 1208.3333101272583,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "7e2db8fc.02b99"
+            ]
+        ]
+    },
+    {
+        "id": "7e2db8fc.02b99",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sotn-vf-operation-uni-activate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sotn-vf-operation-uni-activate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1605.8568649291992,
+        "y": 1206.187252998352,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ccae6641.31434",
+        "type": "outcome",
+        "name": "DeactivateSOTNUniInstance",
+        "xml": "<outcome value='DeactivateSOTNUniInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1155.2777099609375,
+        "y": 1543.6109008789062,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "d1293598.e627c8"
+            ]
+        ]
+    },
+    {
+        "id": "d1293598.e627c8",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sotn-vf-operation-uni-deactivate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sotn-vf-operation-uni-deactivate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1581.1347045898438,
+        "y": 1541.4649047851562,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "24867b99.975184",
+        "type": "outcome",
+        "name": "DeleteSOTNUniInstance",
+        "xml": "<outcome value='DeleteSOTNUniInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1131.9444122314453,
+        "y": 1880.2776288986206,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "7e42b134.72d018"
+            ]
+        ]
+    },
+    {
+        "id": "7e42b134.72d018",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sotn-vf-operation-uni-delete",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sotn-vf-operation-uni-delete' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1554.4679718017578,
+        "y": 1881.4649152755737,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "86ad5770.f9ee38",
+        "type": "outcome",
+        "name": "DeleteSOTNL2VpnInstance",
+        "xml": "<outcome value='DeleteSOTNL2VpnInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1130.2777252197266,
+        "y": 1915.2776594161987,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "a36b8be3.d2254"
+            ]
+        ]
+    },
+    {
+        "id": "a36b8be3.d2254",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sotn-vf-operation-l2vpn-delete",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sotn-vf-operation-l2vpn-delete' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1552.801284790039,
+        "y": 1916.4649457931519,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a6a8695d.564e28",
+        "type": "outcome",
+        "name": "DeactivateSOTNL2VpnInstance",
+        "xml": "<outcome value='DeactivateSOTNL2VpnInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1183.61083984375,
+        "y": 1590.2775268554688,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "ca6eae0f.1d2c38"
+            ]
+        ]
+    },
+    {
+        "id": "ca6eae0f.1d2c38",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sotn-vf-operation-l2vpn-deactivate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sotn-vf-operation-l2vpn-deactivate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1597.8012084960938,
+        "y": 1589.7981262207031,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5441c097.300118",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sotn-vf-operation-l2vpn-activate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sotn-vf-operation-l2vpn-activate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1633.6109619140625,
+        "y": 1240.2778930664062,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7418d7ec.38a8f",
+        "type": "outcome",
+        "name": "ActivateSOTNL2VpnInstance",
+        "xml": "<outcome value='ActivateSOTNL2VpnInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1209.4207458496094,
+        "y": 1242.4239501953125,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "5441c097.300118"
+            ]
+        ]
+    },
+    {
+        "id": "cd308409.06664",
+        "type": "outcome",
+        "name": "CreateSOTNL2VpnInstance",
+        "xml": "<outcome value='CreateSOTNL2VpnInstance'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1198.6110229492188,
+        "y": 881.9444274902344,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            [
+                "3fcd184d.9e71a"
+            ]
+        ]
+    },
+    {
+        "id": "3fcd184d.9e71a",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:sotn-vf-operation-l2vpn-create",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='sotn-vf-operation-l2vpn-create' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1672.8011474609375,
+        "y": 879.7983093261719,
+        "z": "c4b0d07d.92515",
+        "wires": [
+            []
+        ]
+    }
+]

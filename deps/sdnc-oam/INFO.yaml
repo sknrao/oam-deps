@@ -1,0 +1,56 @@
+---
+project: 'sdnc-oam'
+project_creation_date: '2017-02-14'
+project_category: ''
+lifecycle_state: 'Incubation'
+project_lead: &onap_sdnc_ptl
+    name: 'Dan Timoney'
+    email: 'dtimoney@att.com'
+    id: 'djtimoney'
+    company: 'ATT'
+    timezone: 'America/New York'
+primary_contact: *onap_sdnc_ptl
+issue_tracking:
+    type: 'jira'
+    url: 'https://jira.onap.org/projects/SDNC'
+    key: 'SDNC'
+mailing_list:
+    type: 'groups.io'
+    url: 'lists.onap.org'
+    tag: '<[vid]>'
+realtime_discussion: ''
+meetings:
+    - type: 'zoom'
+      server: 'n/a'
+      channel: 'n/a'
+      repeats: 'weekly'
+      time: '13:00 UTC'
+repositories:
+    - 'sdnc/oam'
+committers:
+    - <<: *onap_sdnc_ptl
+    - name: 'Herbert Eiselt'
+      email: 'herbert.eiselt@highstreet-technologies.com'
+      company: 'Highstreet Technologies'
+      id: 'highstreetherbert'
+      timezone: 'Germany/Berlin'
+    - name: 'Michael Durre'
+      email: 'michael.duerre@highstreet-technologies.com'
+      company: 'Highstreet Technologies'
+      id: 'metaljackL'
+      timezone: 'Germany/Berlin'
+tsc:
+    approval: 'https://lists.onap.org/pipermail/onap-tsc'
+    changes:
+        - type: 'Deletion'
+          name: 'Ryan Goulding'
+          link: 'https://lists.onap.org/g/onap-tsc/message/4261'
+        - type: 'Addition'
+          name: 'Herbert Eiselt'
+          link: 'https://lists.onap.org/g/onap-tsc/message/6952'
+        - type: 'Addition'
+          name: 'Michael Durre'
+          link: 'https://lists.onap.org/g/onap-tsc/message/6952'
+        - type: 'Deletion'
+          name: 'David Stilwell'
+          link: 'https://lists.onap.org/g/onap-tsc/message/8308'

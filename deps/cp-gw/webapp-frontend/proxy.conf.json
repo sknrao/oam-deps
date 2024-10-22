@@ -1,0 +1,14 @@
+{
+  "/a1-policy": {
+     "target": "http://localhost:9090",
+     "secure": false
+  },
+  "/data-producer": {
+    "target": "http://localhost:9090",
+    "secure": false
+  },
+  "/data-consumer": {
+    "target": "http://localhost:9090",
+    "secure": false
+  }
+}

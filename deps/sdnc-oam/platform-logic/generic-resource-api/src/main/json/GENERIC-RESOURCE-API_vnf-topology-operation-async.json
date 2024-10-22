@@ -1,0 +1,175 @@
+[
+    {
+        "id": "a8562ad4.6a0458",
+        "type": "dgstart",
+        "name": "DGSTART",
+        "outputs": 1,
+        "x": 161,
+        "y": 103.41365623474121,
+        "z": "23d0140b.bcf30c",
+        "wires": [
+            [
+                "8aa2e22b.2999c8"
+            ]
+        ]
+    },
+    {
+        "id": "8aa2e22b.2999c8",
+        "type": "service-logic",
+        "name": "GENERIC-RESOURCE-API ${project.version}",
+        "module": "GENERIC-RESOURCE-API",
+        "version": "${project.version}",
+        "comments": "",
+        "xml": "<service-logic xmlns='http://www.onap.org/sdnc/svclogic' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.onap.org/sdnc/svclogic ./svclogic.xsd' module='GENERIC-RESOURCE-API' version='${project.version}'>",
+        "outputs": 1,
+        "x": 275.28570556640625,
+        "y": 143.6517677307129,
+        "z": "23d0140b.bcf30c",
+        "wires": [
+            [
+                "8f1fc900.bf623"
+            ]
+        ]
+    },
+    {
+        "id": "8f1fc900.bf623",
+        "type": "method",
+        "name": "method vnf-topology-operation-async",
+        "xml": "<method rpc='vnf-topology-operation-async' mode='sync'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 248.8572006225586,
+        "y": 184.84222221374512,
+        "z": "23d0140b.bcf30c",
+        "wires": [
+            [
+                "1753c63.85e9dba"
+            ]
+        ]
+    },
+    {
+        "id": "c9cdb08.85991d",
+        "type": "comment",
+        "name": "vnf-topology-operation-async",
+        "info": "",
+        "comments": "",
+        "x": 555.344856262207,
+        "y": 51,
+        "z": "23d0140b.bcf30c",
+        "wires": []
+    },
+    {
+        "id": "1753c63.85e9dba",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">",
+        "atomic": "true",
+        "outputs": 1,
+        "x": 273.59528732299805,
+        "y": 332.5357971191406,
+        "z": "23d0140b.bcf30c",
+        "wires": [
+            [
+                "6fc71f07.688f6",
+                "60b26c36.43d504",
+                "a19ac06f.2f1d7"
+            ]
+        ]
+    },
+    {
+        "id": "6fc71f07.688f6",
+        "type": "returnSuccess",
+        "name": "return success",
+        "xml": "<return status='success'>\n<parameter name=\"ack-final-indicator\" value=\"Y\" />\n<parameter name=\"error-code\" value=\"200\" />\n<parameter name=\"error-message\" value=\"`$error-message`\" />\n",
+        "comments": "",
+        "x": 463.23809814453125,
+        "y": 396.9854040145874,
+        "z": "23d0140b.bcf30c",
+        "wires": []
+    },
+    {
+        "id": "60b26c36.43d504",
+        "type": "switchNode",
+        "name": "switch svc-action",
+        "xml": "<switch test='`$vnf-topology-operation-input.sdnc-request-header.svc-action`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 471.8571014404297,
+        "y": 333.60414695739746,
+        "z": "23d0140b.bcf30c",
+        "wires": [
+            [
+                "6bd9fb5a.0be96c",
+                "2681c253.32360e"
+            ]
+        ]
+    },
+    {
+        "id": "6bd9fb5a.0be96c",
+        "type": "outcome",
+        "name": "assign",
+        "xml": "<outcome value='assign'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 667.8094711303711,
+        "y": 310.50899600982666,
+        "z": "23d0140b.bcf30c",
+        "wires": [
+            [
+                "138714bc.ad7d9b"
+            ]
+        ]
+    },
+    {
+        "id": "2681c253.32360e",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 665.1427307128906,
+        "y": 354.8898162841797,
+        "z": "23d0140b.bcf30c",
+        "wires": [
+            [
+                "103914f7.2438b3"
+            ]
+        ]
+    },
+    {
+        "id": "103914f7.2438b3",
+        "type": "returnFailure",
+        "name": "return failure",
+        "xml": "<return status='failure'>\n\t<parameter name='ack-final' value='Y'/>\n\t<parameter name=\"error-code\" value=\"500\" />\n    <parameter name=\"error-message\" value=\"`$vnf-topology-operation-input.sdnc-request-header.svc-action + ' is not a valid svc-action'`\" />\n",
+        "comments": "",
+        "x": 817.0474662780762,
+        "y": 354.8898983001709,
+        "z": "23d0140b.bcf30c",
+        "wires": []
+    },
+    {
+        "id": "a19ac06f.2f1d7",
+        "type": "set",
+        "name": "set skip-mdsal-update to Y",
+        "xml": "<set>\n<parameter name='skip-mdsal-update' value='Y' />\n",
+        "comments": "",
+        "x": 501.4762496948242,
+        "y": 273.1428556442261,
+        "z": "23d0140b.bcf30c",
+        "wires": []
+    },
+    {
+        "id": "138714bc.ad7d9b",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:vnf-topology-operation-assign-async",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vnf-topology-operation-assign-async' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 972.4286041259766,
+        "y": 310.55646896362305,
+        "z": "23d0140b.bcf30c",
+        "wires": [
+            []
+        ]
+    }
+]

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.onap.sdnc.oam</groupId>
+        <artifactId>sdnc-oam</artifactId>
+        <version>2.6.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>installation</artifactId>
+    <packaging>pom</packaging>
+
+    <name>sdnc-oam :: installation</name>
+    <description>Installs SDN-C on local file system</description>
+
+    <modules>
+        <module>ansible-server</module>
+        <module>sdnc</module>
+        <module>sdnc-web</module>
+        <module>ueb-listener</module>
+        <module>dmaap-listener</module>
+    </modules>
+
+    <properties>
+        <application.name>installation</application.name>
+        <maven.build.timestamp.format>yyyyMMdd'T'HHmmss'Z'</maven.build.timestamp.format>
+        <build.number>${maven.build.timestamp}</build.number>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <docker.skip.push>false</docker.skip.push>
+        <docker.verbose>true</docker.verbose>
+    </properties>
+</project>

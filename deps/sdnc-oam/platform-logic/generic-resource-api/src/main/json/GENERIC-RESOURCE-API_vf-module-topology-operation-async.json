@@ -1,0 +1,295 @@
+[
+    {
+        "id": "a214adf2.6e9a7",
+        "type": "dgstart",
+        "name": "DGSTART",
+        "outputs": 1,
+        "x": 148,
+        "y": 131,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            [
+                "acad4057.f1dc8"
+            ]
+        ]
+    },
+    {
+        "id": "acad4057.f1dc8",
+        "type": "service-logic",
+        "name": "GENERIC-RESOURCE-API ${project.version}",
+        "module": "GENERIC-RESOURCE-API",
+        "version": "${project.version}",
+        "comments": "",
+        "xml": "<service-logic xmlns='http://www.onap.org/sdnc/svclogic' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.onap.org/sdnc/svclogic ./svclogic.xsd' module='GENERIC-RESOURCE-API' version='${project.version}'>",
+        "outputs": 1,
+        "x": 261.28570556640625,
+        "y": 171.23811149597168,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            [
+                "31cfeaa.0698f16"
+            ]
+        ]
+    },
+    {
+        "id": "31cfeaa.0698f16",
+        "type": "method",
+        "name": "method vf-module-topology-operation-async",
+        "xml": "<method rpc='vf-module-topology-operation-async' mode='sync'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 282.9286193847656,
+        "y": 229.75000667572021,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            [
+                "8595d903.6762c8"
+            ]
+        ]
+    },
+    {
+        "id": "345b7934.bee34e",
+        "type": "comment",
+        "name": "vf-module-topology-operation-async",
+        "info": "",
+        "comments": "",
+        "x": 611.094856262207,
+        "y": 96.08634281158447,
+        "z": "a1afab29.23bf58",
+        "wires": []
+    },
+    {
+        "id": "8595d903.6762c8",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">",
+        "atomic": "true",
+        "outputs": 1,
+        "x": 605.8928756713867,
+        "y": 383.2173435688019,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            [
+                "bafb388d.d3ff18",
+                "b6506244.4b8f28",
+                "da8a0537.fb39c8"
+            ]
+        ]
+    },
+    {
+        "id": "bafb388d.d3ff18",
+        "type": "returnSuccess",
+        "name": "return success",
+        "xml": "<return status='success'>\n<parameter name=\"ack-final\" value=\"Y\" />\n<parameter name=\"error-code\" value=\"200\" />\n<parameter name=\"error-message\" value=\"`$error-message`\" />\n",
+        "comments": "",
+        "x": 810.2023849487305,
+        "y": 590.524255990982,
+        "z": "a1afab29.23bf58",
+        "wires": []
+    },
+    {
+        "id": "b6506244.4b8f28",
+        "type": "switchNode",
+        "name": "switch svc-action",
+        "xml": "<switch test='`$vf-module-topology-operation-input.sdnc-request-header.svc-action`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 816.8212890625,
+        "y": 382.3809435367584,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            [
+                "421d299d.d9d868",
+                "9ad26040.05a2c8"
+            ]
+        ]
+    },
+    {
+        "id": "421d299d.d9d868",
+        "type": "outcome",
+        "name": "assign",
+        "xml": "<outcome value='assign'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1030.5832595825195,
+        "y": 272.6667740345001,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            [
+                "6fc1719e.706bd"
+            ]
+        ]
+    },
+    {
+        "id": "6c17aa78.ce2f54",
+        "type": "outcome",
+        "name": "unassign",
+        "xml": "<outcome value='unassign'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1130.2142944335938,
+        "y": 422.6074516773224,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            [
+                "5f96ee10.e20a88"
+            ]
+        ]
+    },
+    {
+        "id": "9ad26040.05a2c8",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1030.6785011291504,
+        "y": 515.0475866794586,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            [
+                "ec88d0ff.5947e8"
+            ]
+        ]
+    },
+    {
+        "id": "ec88d0ff.5947e8",
+        "type": "returnFailure",
+        "name": "return failure",
+        "xml": "<return status='failure'>\n\t<parameter name='ack-final' value='Y'/>\n\t<parameter name=\"error-code\" value=\"500\" />\n    <parameter name=\"error-message\" value=\"`$vnf-topology-operation-input.sdnc-request-header.svc-action + ' is not a valid svc-action'`\" />\n",
+        "comments": "",
+        "x": 1224.8689270019531,
+        "y": 515.0476553440094,
+        "z": "a1afab29.23bf58",
+        "wires": []
+    },
+    {
+        "id": "6fc1719e.706bd",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:vf-module-topology-operation-assign-async",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vf-module-topology-operation-assign-async' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1402.7260932922363,
+        "y": 272.23823857307434,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4cf7949.73fefec",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:vf-module-topology-operation-deactivate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vf-module-topology-operation-deactivate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1505.9761009216309,
+        "y": 372.6548674106598,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5f96ee10.e20a88",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:vf-module-topology-operation-unassign",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vf-module-topology-operation-unassign' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1500.3093719482422,
+        "y": 422.3215868473053,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "784769e3.ccc1d",
+        "type": "outcome",
+        "name": "deactivate",
+        "xml": "<outcome value='deactivate'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1134.3093872070312,
+        "y": 373.3215410709381,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            [
+                "4cf7949.73fefec"
+            ]
+        ]
+    },
+    {
+        "id": "a1c2a7bf.2c822",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:vf-module-topology-operation-activate",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vf-module-topology-operation-activate' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1498.4523468017578,
+        "y": 323.5595133304596,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "36c8dc56.9339c4",
+        "type": "outcome",
+        "name": "activate",
+        "xml": "<outcome value='activate'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1126.4523315429688,
+        "y": 324.2261908054352,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            [
+                "a1c2a7bf.2c822"
+            ]
+        ]
+    },
+    {
+        "id": "389bcb7f.ec6dfc",
+        "type": "outcome",
+        "name": "changeassign",
+        "xml": "<outcome value='changeassign'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1144.7857093811035,
+        "y": 470.226181268692,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            [
+                "d47f4ab1.be5318"
+            ]
+        ]
+    },
+    {
+        "id": "d47f4ab1.be5318",
+        "type": "call",
+        "name": "call GENERIC-RESOURCE-API:vf-module-topology-operation-changeassign",
+        "xml": "<call module='GENERIC-RESOURCE-API' rpc='vf-module-topology-operation-changeassign' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1513.8807792663574,
+        "y": 469.94031739234924,
+        "z": "a1afab29.23bf58",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "da8a0537.fb39c8",
+        "type": "set",
+        "name": "set skip-mdsal-update to Y",
+        "xml": "<set>\n<parameter name='skip-mdsal-update' value='Y' />\n",
+        "comments": "",
+        "x": 854.0118751525879,
+        "y": 226.4762032032013,
+        "z": "a1afab29.23bf58",
+        "wires": []
+    }
+]

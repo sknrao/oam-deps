@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+============LICENSE_START=======================================================
+    dcaegen2-collectors-ves
+================================================================================
+Copyright (c) 2022 AT&T Intellectual Property. All rights reserved.
+================================================================================
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+============LICENSE_END=========================================================
+
+-->
+
+<Configuration status="INFO">
+
+  <Appenders>
+
+    <Console name="CONSOLE" target="SYSTEM_OUT" >
+      <LevelRangeFilter maxLevel="INFO" minLevel="ERROR"/>
+      <JsonLayout eventEOL="true" compact="true" stacktraceAsString="true" properties="true" propertiesAsList="true">
+        <KeyValuePair key="logTimeStamp" value="$${date:yyyy-MM-dd HH:mm:ss:-null}" />
+        <KeyValuePair key="logTypeName" value="$${event:Logger:-null}" />
+        <KeyValuePair key="logLevel" value="$${event:Level:-null}" />
+        <KeyValuePair key="traceId" value="${:-null}" />
+        <KeyValuePair key="statusCode" value="${:-null}" />
+        <KeyValuePair key="pricipalId" value="${:-vescollector}" />
+        <KeyValuePair key="serviceName" value="${k8s:containerName:-vescollector}" />
+        <KeyValuePair key="exception" value="$${event:Exception:-None}" />
+        <KeyValuePair key="PID" value="$${sys:pid:-null}" />
+      </JsonLayout>
+    </Console>
+
+    <RollingFile fileName="logs/collector.log" filePattern="logs/collector-%d{yyyy-MM-dd}-%i.log" name="ROL_CONSOLE">
+      <LevelRangeFilter maxLevel="INFO" minLevel="ERROR"/>
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="64 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="10"/>
+    </RollingFile>
+
+    <RollingFile fileName="logs/input.log" filePattern="logs/input-%d{yyyy-MM-dd}-%i.log" name="IFILE">
+      <LevelRangeFilter maxLevel="INFO" minLevel="INFO"/>
+      <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="32 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="10"/>
+    </RollingFile>
+
+    <RollingFile fileName="logs/output.log" filePattern="logs/output-%d{yyyy-MM-dd}-%i.log" name="OFILE">
+      <LevelRangeFilter maxLevel="INFO" minLevel="INFO"/>
+      <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="32 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="10"/>
+    </RollingFile>
+
+    <RollingFile fileName="logs/error.log" filePattern="logs/error-%d{yyyy-MM-dd}-%i.log" name="EFILE">
+      <LevelRangeFilter maxLevel="ERROR" minLevel="ERROR"/>
+      <PatternLayout pattern="[%d{ISO8601}][%-5p][%-10t][%-5c]%m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="64 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="10"/>
+    </RollingFile>
+
+    <RollingFile fileName="logs/eelf/audit.log" filePattern="logs/eelf/audit-%d{yyyy-MM-dd}-%i.log" name="EELF_AUDIT">
+      <LevelRangeFilter maxLevel="TRACE" minLevel="INFO"/>
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="64 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="20"/>
+    </RollingFile>
+
+    <RollingFile fileName="logs/eelf/metric.log" filePattern="logs/eelf/metric-%d{yyyy-MM-dd}-%i.log" name="EELF_METRIC">
+      <LevelRangeFilter maxLevel="INFO" minLevel="INFO"/>
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="64 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="20"/>
+    </RollingFile>
+
+
+    <RollingFile fileName="logs/eelf/error.log" filePattern="logs/eelf/error-%d{yyyy-MM-dd}-%i.log" name="EELF_ERROR">
+      <LevelRangeFilter maxLevel="ERROR" minLevel="ERROR"/>
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="64 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="20"/>
+    </RollingFile>
+
+
+    <RollingFile fileName="logs/eelf/debug.log" filePattern="logs/eelf/debug-%d{yyyy-MM-dd}-%i.log" name="EELF_DEBUG">
+      <LevelRangeFilter maxLevel="DEBUG" minLevel="DEBUG"/>
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="64 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="20"/>
+    </RollingFile>
+
+  </Appenders>
+
+  <Loggers>
+    <logger additivity="true" level="trace" name="org.onap.dcaegen2.services.sdk">
+      <AppenderRef ref="ROL_CONSOLE"/>
+      <AppenderRef ref="EFILE"/>
+    </logger>
+
+    <logger additivity="false" level="error" name="org.onap.dcae.restapi">
+      <AppenderRef ref="ROL_CONSOLE"/>
+      <AppenderRef ref="EFILE"/>
+    </logger>
+
+    <Logger additivity="false" level="info" name="org.onap.dcae.common.input">
+      <AppenderRef ref="IFILE"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
+    </Logger>
+
+    <Logger additivity="false" level="info" name="org.onap.dcae.common.output">
+      <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="OFILE"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
+    </Logger>
+
+    <Logger additivity="false" level="debug" name="org.onap.dcae.common.error">
+      <AppenderRef ref="EFILE"/>
+      <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="EELF_ERROR"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
+    </Logger>
+
+    <!--NOT USED-->
+    <Logger additivity="false" level="info" name="com.att.ecomp.audit">
+      <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="EELF_AUDIT"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
+    </Logger>
+
+    <Logger additivity="false" level="info" name="com.att.ecomp.metrics">
+      <AppenderRef ref="EELF_METRIC"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
+    </Logger>
+
+    <!--NOT USED-->
+    <Logger additivity="false" level="info" name="com.att.ecomp.error">
+      <AppenderRef ref="EELF_ERROR"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
+    </Logger>
+
+    <!--NOT USED-->
+    <Logger additivity="false" level="info" name="com.att.ecomp.debug">
+      <AppenderRef ref="EELF_DEBUG"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
+    </Logger>
+
+    <!--NOT USED-->
+    <Logger additivity="false" level="debug" name="org.onap.dcae.common.EventPublisher">
+      <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
+    </Logger>
+
+    <!--NOT USED-->
+    <Logger additivity="false" level="info" name="com.att.nsa.apiClient.http.HttpClient">
+      <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
+    </Logger>
+
+    <!--NOT USED-->
+    <Logger additivity="false" level="info"
+      name="com.att.nsa.cambria.client.impl.CambriaSimplerBatchPublisher">
+      <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
+    </Logger>
+
+    <Root additivity="false" level="debug">
+      <AppenderRef ref="CONSOLE"/>
+      <AppenderRef ref="ROL_CONSOLE"/>
+      <AppenderRef ref="EELF_AUDIT"/>
+      <AppenderRef ref="EELF_DEBUG"/>
+      <AppenderRef ref="EELF_ERROR"/>
+    </Root>
+
+  </Loggers>
+
+</Configuration>

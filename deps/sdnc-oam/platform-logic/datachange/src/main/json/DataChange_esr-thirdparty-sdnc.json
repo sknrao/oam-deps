@@ -1,0 +1,451 @@
+[
+    {
+        "id": "ef9f11e3.e25b8",
+        "type": "dgstart",
+        "name": "DGSTART",
+        "outputs": 1,
+        "x": 162,
+        "y": 62,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "8cba6f11.c1b35"
+            ]
+        ]
+    },
+    {
+        "id": "8cba6f11.c1b35",
+        "type": "service-logic",
+        "name": "DataChange ${project.version}",
+        "module": "DataChange",
+        "version": "${project.version}",
+        "comments": "",
+        "xml": "<service-logic xmlns='http://www.onap.org/sdnc/svclogic' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.onap.org/sdnc/svclogic ./svclogic.xsd' module='DataChange' version='${project.version}'>",
+        "outputs": 1,
+        "x": 348.1111488342285,
+        "y": 166.44447135925293,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "b34b0f2b.a26b6"
+            ]
+        ]
+    },
+    {
+        "id": "b34b0f2b.a26b6",
+        "type": "method",
+        "name": "method esr-thirdparty-sdnc",
+        "xml": "<method rpc='esr-thirdparty-sdnc' mode='sync'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 345.5556983947754,
+        "y": 330.2222566604614,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "c51c8801.1083a8"
+            ]
+        ]
+    },
+    {
+        "id": "c51c8801.1083a8",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic=\"true\">\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 300.7779655456543,
+        "y": 465.1113119125366,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "b07b5277.3d4a68",
+                "b9203f9f.499548",
+                "d3ed9870.114e5"
+            ]
+        ]
+    },
+    {
+        "id": "76c0732c.b84824",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/svclogic.log\"/>\n<parameter name=\"field1\" value=\"__TIMESTAMP__\"/>\n<parameter name=\"field2\" value=\"data-change-notification\"/>\n<parameter name=\"field3\" value=\"Config\"/>\n<parameter name=\"field4\" value=\"`service-url`\"/>\n<parameter name=\"field5\" value=\"`$prop.sdncRestApi.thirdpartySdnc.url`\"/>",
+        "comments": "",
+        "outputs": 1,
+        "x": 590,
+        "y": 536,
+        "z": "aef0e494.212df8",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b07b5277.3d4a68",
+        "type": "for",
+        "name": "for 0..key-data_length",
+        "xml": "<for index='idx' start='0' end='`$data-change-notification-input.key-data_length`' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 638.4441070556641,
+        "y": 481.19078826904297,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "e5460d9.eb92a7"
+            ]
+        ]
+    },
+    {
+        "id": "e5460d9.eb92a7",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 810.3335723876953,
+        "y": 480.4130334854126,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "1f482195.4aed1e",
+                "e326585b.5a2c8",
+                "62f527aa.843a1",
+                "a3b99d23.ded5b8",
+                "6c2b24b6.182ef4",
+                "7c3962c6.d95fe4",
+                "27459292.aa5326"
+            ]
+        ]
+    },
+    {
+        "id": "1f482195.4aed1e",
+        "type": "switchNode",
+        "name": "switch service-url",
+        "xml": "<switch test=\"`$data-change-notification-input.key-data[$idx].key-name == 'service-url'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1022.5552749633789,
+        "y": 390.5241861343384,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "e24bf338.0aa118"
+            ]
+        ]
+    },
+    {
+        "id": "e24bf338.0aa118",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1186.5553970336914,
+        "y": 389.5554189682007,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "6a8ce1d8.40cb08"
+            ]
+        ]
+    },
+    {
+        "id": "6a8ce1d8.40cb08",
+        "type": "set",
+        "name": "set service-url",
+        "xml": "<set>\n<parameter name='prop.sdncRestApi.thirdpartySdnc.url' value='`$data-change-notification-input.key-data[$idx].key-value`' />\n",
+        "comments": "",
+        "x": 1340.5554885864258,
+        "y": 389.1554126739502,
+        "z": "aef0e494.212df8",
+        "wires": []
+    },
+    {
+        "id": "e326585b.5a2c8",
+        "type": "switchNode",
+        "name": "switch user-name",
+        "xml": "<switch test=\"`$data-change-notification-input.key-data[$idx].key-name == 'user-name'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1019.8450202941895,
+        "y": 459.7712459564209,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "6369ccba.44219c"
+            ]
+        ]
+    },
+    {
+        "id": "6369ccba.44219c",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1188.8450088500977,
+        "y": 457.8024892807007,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "29fc0e59.2a42b2"
+            ]
+        ]
+    },
+    {
+        "id": "29fc0e59.2a42b2",
+        "type": "set",
+        "name": "set user",
+        "xml": "<set>\n<parameter name='prop.sdncRestApi.thirdpartySdnc.user' value='`$data-change-notification-input.key-data[$idx].key-value`' />\n",
+        "comments": "",
+        "x": 1324.8451614379883,
+        "y": 457.40248012542725,
+        "z": "aef0e494.212df8",
+        "wires": []
+    },
+    {
+        "id": "62f527aa.843a1",
+        "type": "switchNode",
+        "name": "switch password",
+        "xml": "<switch test=\"`$data-change-notification-input.key-data[$idx].key-name == 'password'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1017.6228523254395,
+        "y": 525.3267955780029,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "4646e0ce.227428"
+            ]
+        ]
+    },
+    {
+        "id": "4646e0ce.227428",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1189.6228103637695,
+        "y": 525.3580408096313,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "95ef44fa.193e88"
+            ]
+        ]
+    },
+    {
+        "id": "95ef44fa.193e88",
+        "type": "set",
+        "name": "set password",
+        "xml": "<set>\n<parameter name='prop.sdncRestApi.thirdpartySdnc.password' value='`$data-change-notification-input.key-data[$idx].key-value`' />\n",
+        "comments": "",
+        "x": 1344.6230545043945,
+        "y": 523.9580202102661,
+        "z": "aef0e494.212df8",
+        "wires": []
+    },
+    {
+        "id": "b9203f9f.499548",
+        "type": "call",
+        "name": "call esr-thirdparty-sdnc-discovery",
+        "xml": "<call module='DataChange' rpc='esr-thirdparty-sdnc-discovery' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 661.4377593994141,
+        "y": 607.5490007400513,
+        "z": "aef0e494.212df8",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a3b99d23.ded5b8",
+        "type": "switchNode",
+        "name": "switch esr-system-info-id",
+        "xml": "<switch test=\"`$data-change-notification-input.key-data[$idx].key-name == 'esr-system-info-id'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1039.4441528320312,
+        "y": 579.3331909179688,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "1ac41cc3.373a63"
+            ]
+        ]
+    },
+    {
+        "id": "1ac41cc3.373a63",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1214.4441375732422,
+        "y": 577.3643522262573,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "e82e9936.a40cf"
+            ]
+        ]
+    },
+    {
+        "id": "e82e9936.a40cf",
+        "type": "set",
+        "name": "set esr-system-info-id",
+        "xml": "<set>\n<parameter name='prop.sdncRestApi.thirdpartySdnc.system-info-id' value='`$data-change-notification-input.key-data[$idx].key-value`' />\n",
+        "comments": "",
+        "x": 1380.444107055664,
+        "y": 578.964376449585,
+        "z": "aef0e494.212df8",
+        "wires": []
+    },
+    {
+        "id": "6c2b24b6.182ef4",
+        "type": "switchNode",
+        "name": "switch thirdparty-sdnc-id",
+        "xml": "<switch test=\"`$data-change-notification-input.key-data[$idx].key-name == 'thirdparty-sdnc-id'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1034,
+        "y": 624,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "ce1afedb.52692"
+            ]
+        ]
+    },
+    {
+        "id": "ce1afedb.52692",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1208.999984741211,
+        "y": 622.0311613082886,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "a512db5a.75ca9"
+            ]
+        ]
+    },
+    {
+        "id": "a512db5a.75ca9",
+        "type": "set",
+        "name": "set thirdparty-sdnc-id",
+        "xml": "<set>\n<parameter name='prop.sdncRestApi.thirdpartySdnc.id' value='`$data-change-notification-input.key-data[$idx].key-value`' />\n",
+        "comments": "",
+        "x": 1374.9999542236328,
+        "y": 623.6311855316162,
+        "z": "aef0e494.212df8",
+        "wires": []
+    },
+    {
+        "id": "7c3962c6.d95fe4",
+        "type": "switchNode",
+        "name": "switch type",
+        "xml": "<switch test=\"`$data-change-notification-input.key-data[$idx].key-name == 'type'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 984.0000305175781,
+        "y": 673.0000200271606,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "32efc971.8d4076"
+            ]
+        ]
+    },
+    {
+        "id": "32efc971.8d4076",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1129.0000343322754,
+        "y": 672.0311889648438,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "fdd2a7f.f2554d8"
+            ]
+        ]
+    },
+    {
+        "id": "fdd2a7f.f2554d8",
+        "type": "set",
+        "name": "set type",
+        "xml": "<set>\n<parameter name='prop.sdncRestApi.type' value='`$data-change-notification-input.key-data[$idx].key-value`' />\n",
+        "comments": "",
+        "x": 1261.0000381469727,
+        "y": 671.6312046051025,
+        "z": "aef0e494.212df8",
+        "wires": []
+    },
+    {
+        "id": "27459292.aa5326",
+        "type": "switchNode",
+        "name": "switch vendor",
+        "xml": "<switch test=\"`$data-change-notification-input.key-data[$idx].key-name == 'vendor'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 985.0000267028809,
+        "y": 729.0000219345093,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "597caf68.90ecf"
+            ]
+        ]
+    },
+    {
+        "id": "597caf68.90ecf",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1130.0000305175781,
+        "y": 728.0311908721924,
+        "z": "aef0e494.212df8",
+        "wires": [
+            [
+                "f6b454f7.14ca"
+            ]
+        ]
+    },
+    {
+        "id": "f6b454f7.14ca",
+        "type": "set",
+        "name": "set vendor",
+        "xml": "<set>\n<parameter name='prop.sdncRestApi.vendor' value='`$data-change-notification-input.key-data[$idx].key-value`' />\n",
+        "comments": "",
+        "x": 1262.0000343322754,
+        "y": 727.6312065124512,
+        "z": "aef0e494.212df8",
+        "wires": []
+    },
+    {
+        "id": "d3ed9870.114e5",
+        "type": "call",
+        "name": "call validate-esr-thirdparty-sdnc-input",
+        "xml": "<call module='DataChange' rpc='validate-esr-thirdparty-sdnc-input' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 703.7776336669922,
+        "y": 398.9998035430908,
+        "z": "aef0e494.212df8",
+        "wires": [
+            []
+        ]
+    }
+]

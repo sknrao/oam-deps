@@ -1,0 +1,17 @@
+{
+  "policy_id": "2001",
+  "policytype_id": "",
+  "ric_id": "ric1",
+  "policy_data": {
+    "scope": {
+      "ueId": "ue3200",
+      "qosId": "qos3200"
+    },
+    "qosObjectives": {
+      "priorityLevel": 3100
+    }
+  },
+  "service_id": "service1",
+  "transient": false,
+  "status_notification_uri": ""
+}

@@ -1,0 +1,382 @@
+[
+    {
+        "id": "f8033564.9370d8",
+        "type": "dgstart",
+        "name": "DGSTART",
+        "outputs": 1,
+        "x": 181.6761474609375,
+        "y": 191.33330249786377,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            [
+                "396bd8ff.6c58d8"
+            ]
+        ]
+    },
+    {
+        "id": "396bd8ff.6c58d8",
+        "type": "service-logic",
+        "name": "optical-service ${project.version}",
+        "module": "optical-service",
+        "version": "${project.version}",
+        "comments": "",
+        "xml": "<service-logic xmlns='http://www.onap.org/sdnc/svclogic' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.onap.org/sdnc/svclogic ./svclogic.xsd' module='optical-service' version='${project.version}'>",
+        "outputs": 1,
+        "x": 425.3428039550781,
+        "y": 190.33333206176758,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            [
+                "f3cde665.570898"
+            ]
+        ]
+    },
+    {
+        "id": "f3cde665.570898",
+        "type": "method",
+        "name": "method",
+        "xml": "<method rpc='create-service-async' mode='sync'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 279.3428039550781,
+        "y": 364.3333320617676,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            [
+                "5d03132f.ed8e9c"
+            ]
+        ]
+    },
+    {
+        "id": "5d03132f.ed8e9c",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic='true'>",
+        "atomic": "true",
+        "comments": "",
+        "outputs": 1,
+        "x": 452.3428039550781,
+        "y": 363.3333320617676,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            [
+                "c00ad46.901e428",
+                "740307b2.aec648",
+                "8396b208.e8981",
+                "f2d65098.e5d31",
+                "88fbe255.2e8d8"
+            ]
+        ]
+    },
+    {
+        "id": "c00ad46.901e428",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/async-notif.log\" />\n<parameter name=\"level\" value=\"info\" />\n<parameter name=\"field1\" value=\"Inside Create Service Async\"/>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 625.3428039550781,
+        "y": 274.3333320617676,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2095fee4.0c3a12",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/async-notif.log\" />\n<parameter name=\"level\" value=\"info\" />\n<parameter name=\"field1\" value=\"Finished updating service in AAI and DB to CREATED\"/>\n<parameter name=\"field2\" value=\"`$access.request-id`\"/>\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1153.3428039550781,
+        "y": 356.3333320617676,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c0a2442.32b91b8",
+        "type": "update",
+        "name": "update AAI service 'CREATED'",
+        "xml": "<update plugin='org.onap.ccsdk.sli.adaptors.aai.AAIService' \nforce='true'\nresource='service-instance'\n     key='customer.global-customer-id = $output.global-customer-id AND\n     service-subscription.service-type = $output.service-type AND\n     service-instance.service-instance-id = $output.service-instance-id' \n      local-only='false'>\n<parameter name='orchestration-status' value='CREATED' />\n\n\n\n\n\n\n\n\n\n    \n    \n    \n    \n    \n    \n    \n    \n   \n    \n    \n    \n\n \n \n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1171.342788696289,
+        "y": 124.33332633972168,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1636ba76.3cb676",
+        "type": "outcome",
+        "name": "outcome",
+        "xml": "<outcome value='200'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 757.3428039550781,
+        "y": 325.3333320617676,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            [
+                "6a3de87a.5b8598"
+            ]
+        ]
+    },
+    {
+        "id": "40e998b6.692d98",
+        "type": "other",
+        "name": "other",
+        "xml": "<outcome value='Other'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 748.3428039550781,
+        "y": 437.3333320617676,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            [
+                "c72fdddc.3040e"
+            ]
+        ]
+    },
+    {
+        "id": "6a3de87a.5b8598",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic='true'>",
+        "atomic": "true",
+        "comments": "",
+        "outputs": 1,
+        "x": 927.3428039550781,
+        "y": 303.3333320617676,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            [
+                "2095fee4.0c3a12",
+                "c0a2442.32b91b8",
+                "c32477f.3156e88",
+                "28d57db1.c0d9d2",
+                "deb2202e.47c5f",
+                "60087b41.b7d234"
+            ]
+        ]
+    },
+    {
+        "id": "c72fdddc.3040e",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic='true'>",
+        "atomic": "true",
+        "comments": "",
+        "outputs": 1,
+        "x": 920.3428039550781,
+        "y": 440.3333320617676,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            [
+                "8b92a1e7.bc27c",
+                "aff39e4d.84164"
+            ]
+        ]
+    },
+    {
+        "id": "740307b2.aec648",
+        "type": "switchNode",
+        "name": "switch",
+        "xml": "<switch test='`$response-code`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 626.3428039550781,
+        "y": 363.3333320617676,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            [
+                "1636ba76.3cb676",
+                "40e998b6.692d98"
+            ]
+        ]
+    },
+    {
+        "id": "c32477f.3156e88",
+        "type": "save",
+        "name": "update DB 'CREATED'",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource' \nresource='SQL' \nkey='UPDATE REQUEST_DETAILS SET status = \"CREATED\" WHERE request_id = $request-id'\nforce='true' pfx='save-result'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1177.0094146728516,
+        "y": 192.99999713897705,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8b92a1e7.bc27c",
+        "type": "call",
+        "name": "call",
+        "xml": "<call module='optical-service' rpc='aai-delete-service-handling' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1071.3428039550781,
+        "y": 468.3333320617676,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8396b208.e8981",
+        "type": "execute",
+        "name": "execute",
+        "xml": "<execute plugin='org.onap.ccsdk.sli.plugins.restapicall.RestapiCallNode' method='sendRequest' >\n<parameter name=\"templateFileName\" value=\"`$prop.restapi.templateDir + '/async-response-so.json'`\" />\n<parameter name=\"restapiUrl\" value=\"http://so-bpmn-infra.onap:8081/mso/async/services/updateStatus\"/>\n<parameter name=\"restapiUser\" value=\"sdncaBpmn\" />\n<parameter name=\"restapiPassword\" value=\"`$prop.so.password`\"/>\n<parameter name=\"httpMethod\" value=\"POST\"/>\n<parameter name=\"responsePrefix\" value=\"so-response\"/>\n<parameter name='contentType' value='application/json' />\n<parameter name='format' value='json' />",
+        "comments": "",
+        "outputs": 1,
+        "x": 476.6761817932129,
+        "y": 611.6665420532227,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            [
+                "5f7ef8af.965fc8",
+                "9e60f285.734b9"
+            ]
+        ]
+    },
+    {
+        "id": "5f7ef8af.965fc8",
+        "type": "failure",
+        "name": "failure",
+        "xml": "<outcome value='failure'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 640.3428001403809,
+        "y": 551.3333511352539,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            [
+                "5070ed23.8c9e54"
+            ]
+        ]
+    },
+    {
+        "id": "9e60f285.734b9",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 655.6761627197266,
+        "y": 746.3332901000977,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            [
+                "a1bca3b0.e469f"
+            ]
+        ]
+    },
+    {
+        "id": "5070ed23.8c9e54",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/async-notif.log\" />\n<parameter name=\"level\" value=\"info\" />\n<parameter name=\"field1\" value=\"Send to SO fails for service create\"/>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 800.6762237548828,
+        "y": 552.9999961853027,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a1bca3b0.e469f",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/async-notif.log\" />\n<parameter name=\"level\" value=\"info\" />\n<parameter name=\"field1\" value=\"Send to SO Success for service create\"/>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 804.0094413757324,
+        "y": 747.9999389648438,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "28d57db1.c0d9d2",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='response-message' value='SUCCESS' />\n",
+        "comments": "",
+        "x": 1088.0094108581543,
+        "y": 65.00000095367432,
+        "z": "be3a2ce6.bef39",
+        "wires": []
+    },
+    {
+        "id": "aff39e4d.84164",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='response-message' value='FAILURE' />\n",
+        "comments": "",
+        "x": 1065.3428039550781,
+        "y": 398.3333320617676,
+        "z": "be3a2ce6.bef39",
+        "wires": []
+    },
+    {
+        "id": "deb2202e.47c5f",
+        "type": "get-resource",
+        "name": "get access db",
+        "xml": "<get-resource plugin='org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource' resource='SQL' \nkey=\"SELECT * from REQUEST_DETAILS WHERE domain_requests = $request-id \"\npfx='access'>\n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n\n    \n    \n    \n    \n    \n    \n    \n     \n \n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1168.3428573608398,
+        "y": 261.67612648010254,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "60087b41.b7d234",
+        "type": "save",
+        "name": "update DB 'CREATED' access",
+        "xml": "<save plugin='org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource' \nresource='SQL' \nkey='UPDATE REQUEST_DETAILS SET status = \"CREATED\" WHERE request_id = $access.request-id'\nforce='true' pfx='save-result'>",
+        "comments": "",
+        "outputs": 1,
+        "x": 1185.0093460083008,
+        "y": 301.67611503601074,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f2d65098.e5d31",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='so.service-instance-id' value='`$access.service-instance-id`' />\n<parameter name='so.service-type' value='`$access.service-type`' />\n<parameter name='so.svc-request-id' value='`$access.request-id`' />\n<parameter name='so.response-code' value='`$response-code`' />\n<parameter name='so.response-message' value='`$response-message`' />\n<parameter name='so.ack-final-indicator' value='Y' />\n\n",
+        "comments": "",
+        "x": 628.3427734375,
+        "y": 460.0093746185303,
+        "z": "be3a2ce6.bef39",
+        "wires": []
+    },
+    {
+        "id": "88fbe255.2e8d8",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/async-notif.log\" />\n<parameter name=\"level\" value=\"info\" />\n<parameter name=\"field1\" value=\"SO Parameters\"/>\n<parameter name=\"field2\" value=\"`$so.service-instance-id`\"/>\n<parameter name=\"field3\" value=\"`$so.svc-request-id`\"/>\n<parameter name=\"field4\" value=\"`$so.response-code`\"/>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 563.342830657959,
+        "y": 516.6761665344238,
+        "z": "be3a2ce6.bef39",
+        "wires": [
+            []
+        ]
+    }
+]

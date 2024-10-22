@@ -1,0 +1,1210 @@
+[
+    {
+        "id": "51ee7ceb.84e7d4",
+        "type": "dgstart",
+        "name": "DGSTART",
+        "outputs": 1,
+        "x": 292.0000305175781,
+        "y": 61.6761360168457,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "29401623.aa2d9a"
+            ]
+        ]
+    },
+    {
+        "id": "69c7c01f.2eeed",
+        "type": "method",
+        "name": "method",
+        "xml": "<method rpc='optical-service-create' mode='sync'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 291.0000305175781,
+        "y": 136.6761360168457,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "6db2445a.fdb20c"
+            ]
+        ]
+    },
+    {
+        "id": "29401623.aa2d9a",
+        "type": "service-logic",
+        "name": "optical-service ${project.version}",
+        "module": "optical-service",
+        "version": "${project.version}",
+        "comments": "",
+        "xml": "<service-logic xmlns='http://www.onap.org/sdnc/svclogic' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.onap.org/sdnc/svclogic ./svclogic.xsd' module='optical-service' version='${project.version}'>",
+        "outputs": 1,
+        "x": 509.5000305175781,
+        "y": 44.6761360168457,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "69c7c01f.2eeed"
+            ]
+        ]
+    },
+    {
+        "id": "6db2445a.fdb20c",
+        "type": "block",
+        "name": "block : atomic",
+        "xml": "<block atomic='true'>",
+        "atomic": "true",
+        "comments": "",
+        "outputs": 1,
+        "x": 383.0000305175781,
+        "y": 217.67614364624023,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "2a6bbade.0929c6",
+                "69ca9e9b.b8ce5",
+                "ea5ef9b3.a11be8",
+                "382353e4.d87fec",
+                "cb94ab5f.1c20d8",
+                "24684bb0.9b2da4",
+                "5d24d34c.f7200c",
+                "ba9a69d4.39ab08",
+                "67091f02.08a3b",
+                "1d744f82.b13ab",
+                "62f70543.ff887c",
+                "fc46660a.dc2e38",
+                "b5e0902f.10aa8",
+                "fabb7d83.a75cf"
+            ]
+        ]
+    },
+    {
+        "id": "2a6bbade.0929c6",
+        "type": "for",
+        "name": "for",
+        "xml": "<for index='idx' start='0' end='`$optical-service-create-input.payload.param_length`' >\n    \n    \n    \n\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 557.666690826416,
+        "y": 160.00946807861328,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "b230a9a.ea8ce58",
+                "7d62685a.1cf978",
+                "3899c3f5.ff0d1c",
+                "8bbd32f1.3b139",
+                "aa2f59bb.8696e8",
+                "dc258e2b.55a04",
+                "9af0bcca.add39",
+                "2d8bacd.16af554",
+                "e3a5dc08.672ca",
+                "c3013a1c.f0d408",
+                "b458c88.b917f38",
+                "2daaa41a.965f4c",
+                "178649c0.6dafb6",
+                "a5d44eff.c5775"
+            ]
+        ]
+    },
+    {
+        "id": "b230a9a.ea8ce58",
+        "type": "switchNode",
+        "name": "switch uni1",
+        "xml": "<switch test=\"`$optical-service-create-input.payload.param[$idx].name == 'uni1_id'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 736,
+        "y": 79.67615127563477,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "f1cbc9ae.931cf8"
+            ]
+        ]
+    },
+    {
+        "id": "2daaa41a.965f4c",
+        "type": "set",
+        "name": "set parameter",
+        "xml": "<set>\n<parameter name='params' value='`$optical-service-create-input.payload.param[$idx]`' />\n",
+        "comments": "",
+        "x": 765,
+        "y": 29.676143646240234,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "f1cbc9ae.931cf8",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 900,
+        "y": 81.67615127563477,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "a064a4f8.6ae9d8"
+            ]
+        ]
+    },
+    {
+        "id": "a064a4f8.6ae9d8",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='optical-service-create-input.payload.service-aend.port-id' value=\"`$optical-service-create-input.payload.param[$idx].value`\"/>\n<parameter name='pinterface-aend' value=\"`'uni1_id--'+ $optical-service-create-input.payload.param[$idx].value`\"/>\n",
+        "comments": "",
+        "x": 1040,
+        "y": 76.67615127563477,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "7d62685a.1cf978",
+        "type": "switchNode",
+        "name": "switch uni2",
+        "xml": "<switch test=\"`$optical-service-create-input.payload.param[$idx].name == 'uni2_id'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 736,
+        "y": 160.67614364624023,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "acca2ae3.ec4788"
+            ]
+        ]
+    },
+    {
+        "id": "acca2ae3.ec4788",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 895,
+        "y": 165.67614364624023,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "6ec85b7f.521a14"
+            ]
+        ]
+    },
+    {
+        "id": "6ec85b7f.521a14",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='optical-service-create-input.payload.service-zend.port-id' value=\"`$optical-service-create-input.payload.param[$idx].value`\"/>\n<parameter name='pinterface-zend' value=\"`',uni2_id--'+ $optical-service-create-input.payload.param[$idx].value`\"/>\n",
+        "comments": "",
+        "x": 1030,
+        "y": 162.67614364624023,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "3899c3f5.ff0d1c",
+        "type": "switchNode",
+        "name": "switch uni1 coding_func",
+        "xml": "<switch test=\"`$optical-service-create-input.payload.param[$idx].name == 'uni1_coding_func'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 740,
+        "y": 257.6761131286621,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "3a02c2d9.6ce01e"
+            ]
+        ]
+    },
+    {
+        "id": "3a02c2d9.6ce01e",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 938,
+        "y": 257.6761131286621,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "c9dce196.c5e71"
+            ]
+        ]
+    },
+    {
+        "id": "c9dce196.c5e71",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='optical-service-create-input.payload.service-rate' value=\"`$optical-service-create-input.payload.param[$idx].value`\"/>\n\n\n\n",
+        "comments": "",
+        "x": 1075,
+        "y": 254.6761131286621,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "8bbd32f1.3b139",
+        "type": "switchNode",
+        "name": "switch uni",
+        "xml": "<switch test=\"`$optical-service-create-input.payload.param[$idx].name == 'uni_id'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 706,
+        "y": 312.676082611084,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "117b40a7.23ea5f"
+            ]
+        ]
+    },
+    {
+        "id": "117b40a7.23ea5f",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 851,
+        "y": 317.676082611084,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "66cc41f8.ae315"
+            ]
+        ]
+    },
+    {
+        "id": "66cc41f8.ae315",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='optical-service-create-input.payload.service-aend.port-id' value=\"`$optical-service-create-input.payload.param[$idx].value`\"/>\n<parameter name='pinterface-aend' value=\"`'uni_id--'+ $optical-service-create-input.payload.param[$idx].value`\"/>\n",
+        "comments": "",
+        "x": 1009,
+        "y": 328.676082611084,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "aa2f59bb.8696e8",
+        "type": "switchNode",
+        "name": "switch enni",
+        "xml": "<switch test=\"`$optical-service-create-input.payload.param[$idx].name == 'enni_id'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 700,
+        "y": 366.676082611084,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "ae088ec6.29d92"
+            ]
+        ]
+    },
+    {
+        "id": "ae088ec6.29d92",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 855,
+        "y": 381.676082611084,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "67b586c7.bcf178"
+            ]
+        ]
+    },
+    {
+        "id": "67b586c7.bcf178",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='optical-service-create-input.payload.service-zend.port-id' value=\"`$optical-service-create-input.payload.param[$idx].value`\"/>\n<parameter name='pinterface-zend' value=\"`',enni_id--'+ $optical-service-create-input.payload.param[$idx].value`\"/>\n",
+        "comments": "",
+        "x": 1013,
+        "y": 387.676082611084,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "dc258e2b.55a04",
+        "type": "switchNode",
+        "name": "switch uni coding_func",
+        "xml": "<switch test=\"`$optical-service-create-input.payload.param[$idx].name == 'uni_coding_func'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 707,
+        "y": 406.0761070251465,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "1f05175.be186e9"
+            ]
+        ]
+    },
+    {
+        "id": "1f05175.be186e9",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 907,
+        "y": 443.0761070251465,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "fe24f047.e45ef"
+            ]
+        ]
+    },
+    {
+        "id": "fe24f047.e45ef",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='optical-service-create-input.payload.service-rate' value=\"`$optical-service-create-input.payload.param[$idx].value`\"/>\n",
+        "comments": "",
+        "x": 1047,
+        "y": 449.0761070251465,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "9af0bcca.add39",
+        "type": "switchNode",
+        "name": "switch enni1",
+        "xml": "<switch test=\"`$optical-service-create-input.payload.param[$idx].name == 'enni1_id'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 686,
+        "y": 454.07616806030273,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "751bffda.f24f9"
+            ]
+        ]
+    },
+    {
+        "id": "2d8bacd.16af554",
+        "type": "switchNode",
+        "name": "switch enni2",
+        "xml": "<switch test=\"`$optical-service-create-input.payload.param[$idx].name == 'enni2_id'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 679,
+        "y": 518.0761680603027,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "4d014a76.3767e4"
+            ]
+        ]
+    },
+    {
+        "id": "751bffda.f24f9",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 859,
+        "y": 481.07616806030273,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "d29b2dd5.306d9"
+            ]
+        ]
+    },
+    {
+        "id": "4d014a76.3767e4",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 844,
+        "y": 536.0761680603027,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "351beb55.ce6a24"
+            ]
+        ]
+    },
+    {
+        "id": "d29b2dd5.306d9",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='optical-service-create-input.payload.service-aend.port-id' value=\"`$optical-service-create-input.payload.param[$idx].value`\"/>\n<parameter name='pinterface-aend' value=\"`'enni1_id--'+ $optical-service-create-input.payload.param[$idx].value`\"/>\n",
+        "comments": "",
+        "x": 1001,
+        "y": 486.07616806030273,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "351beb55.ce6a24",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='optical-service-create-input.payload.service-zend.port-id' value=\"`$optical-service-create-input.payload.param[$idx].value`\"/>\n<parameter name='pinterface-zend' value=\"`',enni2_id--'+ $optical-service-create-input.payload.param[$idx].value`\"/>\n",
+        "comments": "",
+        "x": 968,
+        "y": 531.0761680603027,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "e3a5dc08.672ca",
+        "type": "switchNode",
+        "name": "switch uni coding_func",
+        "xml": "<switch test=\"`$optical-service-create-input.payload.param[$idx].name == 'enni1_coding_func'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 691.9999771118164,
+        "y": 564.1428337097168,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "7e0a0351.eab4cc"
+            ]
+        ]
+    },
+    {
+        "id": "7e0a0351.eab4cc",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 869,
+        "y": 570.4761924743652,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "5a51c390.a2526c"
+            ]
+        ]
+    },
+    {
+        "id": "5a51c390.a2526c",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='optical-service-create-input.payload.service-rate' value=\"`$optical-service-create-input.payload.param[$idx].value`\"/>\n",
+        "comments": "",
+        "x": 1013,
+        "y": 571.4761924743652,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "69ca9e9b.b8ce5",
+        "type": "get-resource",
+        "name": "get controller_id from DB",
+        "xml": "<get-resource plugin='org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource' resource='SQL' \nkey='SELECT controller_id \nfrom TOPOLOGY_LOGICAL_RELATION_TO_PINTERFACE \nWHERE interface_name = $optical-service-create-input.payload.service-aend.port-id' \npfx='db.source1'>\n    \n    \n    \n    \n    \n    \n    \n    \n",
+        "comments": "",
+        "outputs": 1,
+        "x": 675,
+        "y": 762.2761192321777,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "3bc0ebca.20fce4"
+            ]
+        ]
+    },
+    {
+        "id": "ea5ef9b3.a11be8",
+        "type": "get-resource",
+        "name": "get controller_id from DB",
+        "xml": "<get-resource plugin='org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource' resource='SQL' \nkey='SELECT controller_id \nfrom TOPOLOGY_LOGICAL_RELATION_TO_PINTERFACE \nWHERE interface_name = $optical-service-create-input.payload.service-zend.port-id' \npfx='db.source2'>\n    \n    \n    \n    \n    \n    \n    \n    \n",
+        "comments": "",
+        "outputs": 1,
+        "x": 656.0000305175781,
+        "y": 814.2761497497559,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "f54a3d3d.942aa"
+            ]
+        ]
+    },
+    {
+        "id": "f63b3eeb.67f52",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='controller1' value=\"`$db.source1.controller-id`\"/>\n",
+        "comments": "",
+        "x": 1002,
+        "y": 762.2761192321777,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "f111e27.da9dc2",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='controller2' value=\"`$db.source2.controller-id`\"/>\n",
+        "comments": "",
+        "x": 998,
+        "y": 821.2761497497559,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "fc46660a.dc2e38",
+        "type": "switchNode",
+        "name": "controllers-id check",
+        "xml": "<switch test='`$controller1==$controller2`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 94,
+        "y": 1322.2761116027832,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "cbd08e71.434f",
+                "5cc41004.9acb"
+            ]
+        ]
+    },
+    {
+        "id": "cbd08e71.434f",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 274.89996337890625,
+        "y": 1261.5760459899902,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "dfba0215.d64aa"
+            ]
+        ]
+    },
+    {
+        "id": "96ef7743.5c1a08",
+        "type": "call",
+        "name": "main-create",
+        "xml": "<call module='optical-service' rpc='main-create' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 693.9000549316406,
+        "y": 1245.5761604309082,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "e44b182.8dbb5e8"
+            ]
+        ]
+    },
+    {
+        "id": "5cc41004.9acb",
+        "type": "outcomeFalse",
+        "name": "false",
+        "xml": "<outcome value='false'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 275.8999710083008,
+        "y": 1426.9094772338867,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "b5b4fca.44564"
+            ]
+        ]
+    },
+    {
+        "id": "382353e4.d87fec",
+        "type": "execute",
+        "name": "split node-id a-end retrieved from DB",
+        "xml": "<execute plugin='org.onap.ccsdk.sli.core.slipluginutils.SliStringUtils' method='split' >\n<parameter name=\"original_string\" value='`$controller1`'/>\n<parameter name=\"regex\" value=\"_\"/>\n<parameter name=\"ctx_memory_result_key\" value=\"param-prefix1\"/>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 667.8999938964844,
+        "y": 870.5761375427246,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cb94ab5f.1c20d8",
+        "type": "execute",
+        "name": "split node-id a-end retrieved from DB",
+        "xml": "<execute plugin='org.onap.ccsdk.sli.core.slipluginutils.SliStringUtils' method='split' >\n<parameter name=\"original_string\" value='`$controller2`'/>\n<parameter name=\"regex\" value=\"_\"/>\n<parameter name=\"ctx_memory_result_key\" value=\"param-prefix2\"/>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 655.9000244140625,
+        "y": 918.5761375427246,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "24684bb0.9b2da4",
+        "type": "set",
+        "name": "set controller-ip",
+        "xml": "<set>\n<parameter name='controller-ip1' value='`$param-prefix1[1]`' />\n<parameter name='domain-type1' value='`$param-prefix1[0]`' />\n<parameter name='controller-ip2' value='`$param-prefix2[1]`' />\n<parameter name='domain-type2' value='`$param-prefix2[0]`' />\n ",
+        "comments": "",
+        "x": 580.7500305175781,
+        "y": 966.4261131286621,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "b5b4fca.44564",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 507.5666809082031,
+        "y": 1426.2427864074707,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "8104d75c.ee8468",
+                "656ab2d4.c3fb6c",
+                "a9e2c26d.57924",
+                "5465bdbd.205a84",
+                "d5363033.a7177"
+            ]
+        ]
+    },
+    {
+        "id": "8104d75c.ee8468",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='src-port-id' value=\"`$optical-service-create-input.payload.service-aend.port-id`\"/>\n<parameter name='dst-port-id' value=\"`$optical-service-create-input.payload.service-zend.port-id`\"/>\n<parameter name='access-service-name' value=\"`$optical-service-create-input.payload.service-name`\"/>\n\n",
+        "comments": "",
+        "x": 693.6499633789062,
+        "y": 1500.3261532783508,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "5465bdbd.205a84",
+        "type": "call",
+        "name": "inter-domain DG",
+        "xml": "<call module='optical-service' rpc='inter-domain-handling' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 670.1500015258789,
+        "y": 1660.3261852264404,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dfba0215.d64aa",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 517.8999938964844,
+        "y": 1250.5761604309082,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "a69cc43e.4224a8",
+                "39fef34a.fff3dc",
+                "a0b47622.30a538",
+                "18de46db.9f95f9",
+                "96ef7743.5c1a08"
+            ]
+        ]
+    },
+    {
+        "id": "93240432.64d878",
+        "type": "switchNode",
+        "name": "switch",
+        "xml": "<switch test='`$final-response-code`'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 912.9000549316406,
+        "y": 1158.5761604309082,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "d35f8f3f.afff5"
+            ]
+        ]
+    },
+    {
+        "id": "d35f8f3f.afff5",
+        "type": "outcome",
+        "name": "200",
+        "xml": "<outcome value='200'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1050.9000549316406,
+        "y": 1151.5761604309082,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "8ba6bc3c.8340d"
+            ]
+        ]
+    },
+    {
+        "id": "46fe0a0d.c44404",
+        "type": "returnSuccess",
+        "name": "return success",
+        "xml": "<return status='success'>\n<parameter name='error-code' value='200' />\n<parameter name='error-message' value='Service Created Successfully' />\n<parameter name='ack-final-indicator' value='Y' />\n",
+        "comments": "",
+        "x": 1652.5666961669922,
+        "y": 1242.9096031188965,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "8ba6bc3c.8340d",
+        "type": "block",
+        "name": "block",
+        "xml": "<block>\n",
+        "atomic": "false",
+        "comments": "",
+        "outputs": 1,
+        "x": 1188.9000549316406,
+        "y": 1147.5761604309082,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "81960bf8.553688",
+                "2784835b.5b854c"
+            ]
+        ]
+    },
+    {
+        "id": "c3013a1c.f0d408",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/optical-service-create.log\" />\n<parameter name=\"level\" value=\"info\" />\n<parameter name=\"field1\" value=\"`$optical-service-create-input.payload.service-aend.port-id`\"/>\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 736.9000244140625,
+        "y": 120.57613754272461,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b458c88.b917f38",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/optical-service-create.log\" />\n<parameter name=\"level\" value=\"info\" />\n<parameter name=\"field1\" value=\"`$optical-service-create-input.payload.service-zend.port-id`\"/>\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 731.9000244140625,
+        "y": 197.5761375427246,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "178649c0.6dafb6",
+        "type": "switchNode",
+        "name": "service-name",
+        "xml": "<switch test=\"`$optical-service-create-input.payload.param[$idx].name == 'service-name'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 659.5667114257812,
+        "y": 601.2427940368652,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "41a2a0bb.81352"
+            ]
+        ]
+    },
+    {
+        "id": "41a2a0bb.81352",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 836.5667114257812,
+        "y": 617.2427940368652,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "504e594c.3f8818"
+            ]
+        ]
+    },
+    {
+        "id": "504e594c.3f8818",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='optical-service-create-input.payload.service-name' value=\"`$optical-service-create-input.payload.param[$idx].value`\"/>\n",
+        "comments": "",
+        "x": 970.5667724609375,
+        "y": 619.2427940368652,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "3bc0ebca.20fce4",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 856.9000244140625,
+        "y": 768.5761680603027,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "f63b3eeb.67f52"
+            ]
+        ]
+    },
+    {
+        "id": "f54a3d3d.942aa",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 854.9000244140625,
+        "y": 818.5761375427246,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "f111e27.da9dc2"
+            ]
+        ]
+    },
+    {
+        "id": "e44b182.8dbb5e8",
+        "type": "success",
+        "name": "success",
+        "xml": "<outcome value='success'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 849.8999938964844,
+        "y": 1245.5761604309082,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "93240432.64d878"
+            ]
+        ]
+    },
+    {
+        "id": "5d24d34c.f7200c",
+        "type": "execute",
+        "name": "execute",
+        "xml": "<execute plugin='org.onap.ccsdk.sli.core.slipluginutils.SliPluginUtils' method='generateUUID' >\n<parameter name=\"ctx-destination\" value=\"service1-request-id\"/> ",
+        "comments": "",
+        "outputs": 1,
+        "x": 352.0000305175781,
+        "y": 929.6761360168457,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ba9a69d4.39ab08",
+        "type": "execute",
+        "name": "execute",
+        "xml": "<execute plugin='org.onap.ccsdk.sli.core.slipluginutils.SliPluginUtils' method='generateUUID' >\n<parameter name=\"ctx-destination\" value=\"service1-svc-instance-id\"/> ",
+        "comments": "",
+        "outputs": 1,
+        "x": 381.0000305175781,
+        "y": 843.6761360168457,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "67091f02.08a3b",
+        "type": "execute",
+        "name": "execute",
+        "xml": "<execute plugin='org.onap.ccsdk.sli.core.slipluginutils.SliPluginUtils' method='generateUUID' >\n<parameter name=\"ctx-destination\" value=\"service2-svc-instance-id\"/> ",
+        "comments": "",
+        "outputs": 1,
+        "x": 315.0000305175781,
+        "y": 1004.6761360168457,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1d744f82.b13ab",
+        "type": "execute",
+        "name": "execute",
+        "xml": "<execute plugin='org.onap.ccsdk.sli.core.slipluginutils.SliPluginUtils' method='generateUUID' >\n<parameter name=\"ctx-destination\" value=\"service2-request-id\"/> ",
+        "comments": "",
+        "outputs": 1,
+        "x": 286.0000305175781,
+        "y": 1081.6761360168457,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "81960bf8.553688",
+        "type": "call",
+        "name": "create-service-relationship",
+        "xml": "<call module='optical-service' rpc='create-service-relationship' mode='sync' >\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1447.0000305175781,
+        "y": 1112.6761360168457,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "39fef34a.fff3dc",
+        "type": "set",
+        "name": "set acc ser",
+        "xml": "<set>\n<parameter name='domain-requests' value=\"`$service1-request-id`\" />\n<parameter name='optical-service-create-input.request-id' value=\"`$service1-request-id`\" />\n<parameter name='optical-service-create-input.service-id' value=\"`$service1-svc-instance-id`\" />\n<parameter name='optical-service-create-input.payload.service-name' value=\"`$optical-service-create-input.payload.service-name + '_' + 'MDONS-OTN'`\" /> \n",
+        "comments": "",
+        "x": 687.0000305175781,
+        "y": 1047.6761360168457,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "a69cc43e.4224a8",
+        "type": "save",
+        "name": "save access service db",
+        "xml": "<save plugin=\"org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource\" resource=\"SQL\" key=\"INSERT INTO REQUEST_DETAILS (request_id, controller_id, status, service_rate, service_instance_id, service_type, global_customer_id, notification_url, domain_requests, pinterface_list ) VALUES ( $access-request-id , null , 'CREATING' , $optical-service-create-input.payload.service-rate ,  $as-svc-instance-id , $optical-service-create-input.service-type , $optical-service-create-input.global-customer-id , $optical-service-create-input.notification-url , $domain-requests , $pinterface-list );\"> ",
+        "comments": "",
+        "outputs": 1,
+        "x": 751.0000457763672,
+        "y": 1137.6762208938599,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a9e2c26d.57924",
+        "type": "set",
+        "name": "set acc ser",
+        "xml": "<set>\n<parameter name='access-request-id' value='`$optical-service-create-input.request-id`' />\n<parameter name='as-svc-instance-id' value='`$optical-service-create-input.service-id`' />\n<parameter name='service-rate' value='`$optical-service-create-input.payload.service-rate`' />\n\n\n\n\n\n",
+        "comments": "",
+        "x": 687.0000305175781,
+        "y": 1362.6761360168457,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "656ab2d4.c3fb6c",
+        "type": "save",
+        "name": "save access service db",
+        "xml": "<save plugin=\"org.onap.ccsdk.sli.adaptors.resource.sql.SqlResource\" resource=\"SQL\" key=\"INSERT INTO REQUEST_DETAILS (request_id, controller_id, status, service_rate, service_instance_id, service_type, global_customer_id, notification_url, domain_requests, pinterface_list ) VALUES ( $access-request-id , null , 'CREATING' , $service-rate ,  $as-svc-instance-id , $optical-service-create-input.service-type , $optical-service-create-input.global-customer-id , $optical-service-create-input.notification-url , $domain-requests , $pinterface-list );\"> ",
+        "comments": "",
+        "outputs": 1,
+        "x": 754.0000915527344,
+        "y": 1439.6760692596436,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d5363033.a7177",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/optical-service-create.log\" />\n<parameter name=\"level\" value=\"info\" />\n<parameter name=\"field1\" value=\"Access service details\"/>\n<parameter name=\"field2\" value=\"`$access-request-id`\"/>\n<parameter name=\"field3\" value=\"`$src-port-id`\"/>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 682.4333305358887,
+        "y": 1564.1094455718994,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a0b47622.30a538",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/optical-service-create.log\" />\n<parameter name=\"level\" value=\"info\" />\n<parameter name=\"field1\" value=\"`'domain rquest_' + $domain-requests`\"/>\n<parameter name=\"field2\" value=\"`'Access rquest_' + $as-request-id`\"/>\n\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 693.1000061035156,
+        "y": 1092.7761116027832,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "18de46db.9f95f9",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='access-request-id' value='`$optical-service-create-input.request-id`' />\n<parameter name='as-svc-instance-id' value='`$optical-service-create-input.service-id`' />",
+        "comments": "",
+        "x": 523.0000305175781,
+        "y": 1038.6761360168457,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "a5d44eff.c5775",
+        "type": "switchNode",
+        "name": "protocol",
+        "xml": "<switch test=\"`$optical-service-create-input.payload.param[$idx].name == 'uni1_client_proto'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 643.0666389465332,
+        "y": 642.5760822296143,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "7821583f.1da9f8"
+            ]
+        ]
+    },
+    {
+        "id": "7821583f.1da9f8",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 767.066650390625,
+        "y": 655.2427940368652,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "d98fda09.1bb478"
+            ]
+        ]
+    },
+    {
+        "id": "d98fda09.1bb478",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='optical-service-create-input.payload.service-protocol' value=\"`$optical-service-create-input.payload.param[$idx].value`\"/>\n",
+        "comments": "",
+        "x": 893.066650390625,
+        "y": 668.2427940368652,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "2784835b.5b854c",
+        "type": "switchNode",
+        "name": "switch",
+        "xml": "<switch test=\"`$domain-type == 'MSA'`\">\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1346.373046875,
+        "y": 1191.373046875,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "85ea004e.44196",
+                "20585705.4cb1a8"
+            ]
+        ]
+    },
+    {
+        "id": "85ea004e.44196",
+        "type": "outcomeTrue",
+        "name": "true",
+        "xml": "<outcome value='true'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1496.3731002807617,
+        "y": 1174.7064771652222,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "5682ade7.0ace44"
+            ]
+        ]
+    },
+    {
+        "id": "20585705.4cb1a8",
+        "type": "outcomeFalse",
+        "name": "false",
+        "xml": "<outcome value='false'>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 1493.0397987365723,
+        "y": 1249.7064781188965,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            [
+                "46fe0a0d.c44404"
+            ]
+        ]
+    },
+    {
+        "id": "5682ade7.0ace44",
+        "type": "returnSuccess",
+        "name": "return success",
+        "xml": "<return status='success'>\n<parameter name='error-code' value='200' />\n<parameter name='error-message' value='Service Created Successfully' />\n<parameter name='ack-final-indicator' value='N' />\n",
+        "comments": "",
+        "x": 1678.0396728515625,
+        "y": 1176.373046875,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "62f70543.ff887c",
+        "type": "record",
+        "name": "record",
+        "xml": "<record plugin=\"org.onap.ccsdk.sli.core.sli.recording.FileRecorder\">\n<parameter name=\"file\" value=\"/opt/opendaylight/current/data/log/optical-service-create.log\" />\n<parameter name=\"level\" value=\"info\" />\n<parameter name=\"field1\" value=\"Controller Ids\"/>\n<parameter name=\"field2\" value=\"`$controller1`\"/>\n<parameter name=\"field3\" value=\"`$controller2`\"/>\n",
+        "comments": "",
+        "outputs": 1,
+        "x": 228.34278106689453,
+        "y": 1154.4032135009766,
+        "z": "3765d4ee.f4ef7c",
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b5e0902f.10aa8",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='pinterface-list' value=\"\"/>\n",
+        "comments": "",
+        "x": 476.6761245727539,
+        "y": 121.6761302947998,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    },
+    {
+        "id": "fabb7d83.a75cf",
+        "type": "set",
+        "name": "set",
+        "xml": "<set>\n<parameter name='pinterface-list' value=\"`$pinterface-aend + $pinterface-zend`\"/>\n",
+        "comments": "",
+        "x": 138.34280395507812,
+        "y": 1229.2518281936646,
+        "z": "3765d4ee.f4ef7c",
+        "wires": []
+    }
+]
