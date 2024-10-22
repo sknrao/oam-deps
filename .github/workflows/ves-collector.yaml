@@ -1,1 +1,27 @@
 
+name: Submodule Changes CI
+
+on:
+  push:
+    paths:
+      - 'deps/atoken/**'
+      - 'deps/cp-gw/**'
+      - 'deps/ics/**'
+      - 'deps/ranpm/**'
+      - 'deps/sdnc-oam/**'
+      - 'deps/ves-collector/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: true 
+
+    - name: check
+      run: |
+        - ls
