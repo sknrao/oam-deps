@@ -14,17 +14,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Clone the specific repository and checkout the tag
-    - name: Clone ONAP VES Collector
-      run: |
-        git clone git@github.com:onap/dcaegen2-collectors-ves.git ves
-        cd ves
-        git checkout tags/1.12.3
-
     # Modify the pom.xml using xmlstarlet
     - name: Modify pom.xml
       run: |
-        cd ves
+        cd deps
+        ls -la
+        cd ves-collector
         xmlstarlet ed -L -N pom=http://maven.apache.org/POM/4.0.0 -u "/pom:project/pom:properties/pom:docker.image.name" -v ios-mcn-smo/vescollector pom.xml
         xmlstarlet ed -L -N pom=http://maven.apache.org/POM/4.0.0 -u "/pom:project/pom:properties/pom:onap.nexus.dockerregistry.daily" -v ghcr.io pom.xml
 
