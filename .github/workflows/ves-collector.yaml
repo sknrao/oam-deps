@@ -25,3 +25,5 @@ jobs:
     - name: Set up JDK 11
       run: |
         ls -la
+        cd deps
+        ls -la
