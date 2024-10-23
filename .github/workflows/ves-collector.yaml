@@ -27,3 +27,4 @@ jobs:
         ls -la
         cd deps/ves-collector/src/docker
         ls -la
+        docker build -t ios-mcn-smo/ves-collector:1.12.3 .
