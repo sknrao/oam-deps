@@ -34,6 +34,7 @@ jobs:
         ls -la
         xmlstarlet ed -L -N pom=http://maven.apache.org/POM/4.0.0 -u "/pom:project/pom:properties/pom:docker.image.name" -v ios-mcn-smo/vescollector pom.xml
         xmlstarlet ed -L -N pom=http://maven.apache.org/POM/4.0.0 -u "/pom:project/pom:properties/pom:onap.nexus.dockerregistry.daily" -v ghcr.io pom.xml
-        cd /src/docker
+        mvn clean package
+        cd src/docker
         ls -la
         docker build -t ios-mcn-smo/ves-collector:1.12.3 .
