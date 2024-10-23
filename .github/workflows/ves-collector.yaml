@@ -27,4 +27,5 @@ jobs:
         ls -la
         cd deps/ves-collector/src/docker
         ls -la
+        sed -i 's|RUN mkdir /opt/app/VESCollector/logs|RUN mkdir /opt/app/VESCollector/logs && mkdir /opt/app/VESCollector/etc|' Dockerfile
         docker build -t ios-mcn-smo/ves-collector:1.12.3 .
