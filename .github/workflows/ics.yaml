@@ -35,15 +35,24 @@ jobs:
     - name: Install xmlstarlet
       run: |
         sudo apt install xmlstarlet -y
-
         
+    # - name: Build
+    #   run: |
+    #     ls -la
+    #     cd deps/ics
+    #     ls -la
+    #     mvn clean install
+    #     mvn install docker:build
+    #     docker images
+    #     docker tag o-ran-sc/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:latest
+      # docker tag ios-mcn-smo/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/ios-mcn-smo/nonrtric-plt-informationcoordinatorservice:latest
+
+
     - name: Build
       run: |
         ls -la
         cd deps/ics
         ls -la
-        mvn clean install
-        mvn install docker:build
-        docker images
-        docker tag o-ran-sc/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:latest
-      # docker tag ios-mcn-smo/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/ios-mcn-smo/nonrtric-plt-informationcoordinatorservice:latest
+        # cd atoken/auth-token-fetch
+        # docker build -t sknrao/nonrtric-plt-auth-token-fetch .
+        # docker tag sknrao/nonrtric-plt-auth-token-fetch ghcr.io/sknrao/nonrtric-plt-auth-token-fetch
