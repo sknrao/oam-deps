@@ -34,12 +34,12 @@ jobs:
       run: |
         sudo apt install xmlstarlet -y
         
-    # - name: Build
-    #   run: |
-    #     ls -la
-    #     cd deps/ves-collector
-    #     ls -la
-    #     #mvn clean package
+    - name: Build
+      run: |
+        ls -la
+        cd deps/ves-collector
+        ls -la
+        #mvn clean package
     #     # cd src/docker
     #     # ls -la
     #     # docker build -t ios-mcn-smo/ves-collector:1.12.3 .
