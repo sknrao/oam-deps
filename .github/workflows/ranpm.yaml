@@ -39,13 +39,8 @@ jobs:
     - name: Build
       run: |
         ls -la
-        cd deps/ranpm
+        cd deps/ranpm/pmproducer
         ls -la
-    #     mvn clean install -Dmaven.test.skip=true
-    #     ls -la
-    #     cp ./src/docker/Dockerfile ./target/VESCollector-1.12.3-SNAPSHOT/
-    #     cd ./target/VESCollector-1.12.3-SNAPSHOT/
-    #     docker build -t ios-mcn-smo/ves-collector:1.12.3 .
-    # - name: Build
-    #   run: |
-    #     docker images
+        mvn clean install
+        mvn install docker:build
+        docker tag o-ran-sc/nonrtric-plt-pmproducer:latest ghcr.io/sknrao/nonrtric-plt-pmproducer:latest
