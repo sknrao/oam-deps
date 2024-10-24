@@ -22,11 +22,13 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '11'
+        
     - name: Install xmlstarlet
       run: |
         cd 
         ls -la
         cd .m2
+        rm settings.xml
         wget https://git.onap.org/oparent/plain/settings.xml
         ls -la
         
