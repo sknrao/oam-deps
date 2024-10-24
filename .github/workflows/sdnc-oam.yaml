@@ -39,7 +39,9 @@ jobs:
     - name: Build
       run: |
         ls -la
-        cd deps/dnc-oam
+        cd deps
+        ls -la
+        cd dnc-oam
         ls -la
         mvn clean install -P docker -Ddocker.pull.registry=nexus3.onap.org:10001
         ls -la
