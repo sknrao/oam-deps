@@ -42,3 +42,5 @@ jobs:
         ls -la
         cd deps/ics
         ls -la
+        mvn clean install
+        mvn install docker:build
