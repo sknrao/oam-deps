@@ -46,6 +46,8 @@ jobs:
         mvn clean install -P docker -Ddocker.pull.registry=nexus3.onap.org:10001
         ls -la
         docker images
+        docker tag onap/sdnc-image:2.6.1-SNAPSHOT-latest ghcr.io/ios-mcn-smo/sdnc-image:2.6.1-SNAPSHOT-latest
+        docker tag onap/sdnc-web-image:2.6.1-SNAPSHOT-latest ghcr.io/ios-mcn-smo/sdnc-web-image:2.6.1-SNAPSHOT-latest
     #     cp ./src/docker/Dockerfile ./target/VESCollector-1.12.3-SNAPSHOT/
     #     cd ./target/VESCollector-1.12.3-SNAPSHOT/
     #     docker build -t ios-mcn-smo/ves-collector:1.12.3 .
