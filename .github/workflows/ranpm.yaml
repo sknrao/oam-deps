@@ -42,5 +42,5 @@ jobs:
         cd deps/ranpm/pmproducer
         ls -la
         mvn clean install
-        mvn install docker:build
-        docker tag o-ran-sc/nonrtric-plt-pmproducer:latest ghcr.io/sknrao/nonrtric-plt-pmproducer:latest
+        # mvn install docker:build
+        # docker tag o-ran-sc/nonrtric-plt-pmproducer:latest ghcr.io/sknrao/nonrtric-plt-pmproducer:latest
