@@ -53,6 +53,8 @@ jobs:
         ls -la
         cd deps
         ls -la
+        cd ics
+        ls -la
         # cd atoken/auth-token-fetch
         # docker build -t sknrao/nonrtric-plt-auth-token-fetch .
         # docker tag sknrao/nonrtric-plt-auth-token-fetch ghcr.io/sknrao/nonrtric-plt-auth-token-fetch
