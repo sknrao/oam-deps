@@ -44,4 +44,5 @@ jobs:
         ls -la
         mvn clean install
         mvn install docker:build
-        docker tag ios-mcn-smo/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/ios-mcn-smo/nonrtric-plt-informationcoordinatorservice:latest
+        docker images
+      # docker tag ios-mcn-smo/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/ios-mcn-smo/nonrtric-plt-informationcoordinatorservice:latest
