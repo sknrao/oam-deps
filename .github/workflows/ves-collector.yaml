@@ -28,6 +28,7 @@ jobs:
         ls -la
         cd .m2
         wget https://git.onap.org/oparent/plain/settings.xml
+        ls -la
         
     - name: Install xmlstarlet
       run: |
