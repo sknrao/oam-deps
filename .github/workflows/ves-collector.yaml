@@ -42,7 +42,7 @@ jobs:
         cd deps/ves-collector
         ls -la
         mvn clean install -Dmaven.test.skip=true
-
+        ls -la
     #     # cd src/docker
     #     # ls -la
     #     # docker build -t ios-mcn-smo/ves-collector:1.12.3 .
