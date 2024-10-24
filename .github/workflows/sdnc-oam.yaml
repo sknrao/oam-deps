@@ -1,4 +1,4 @@
-name: Submodule dnc-oam CI
+name: Submodule sdnc-oam CI
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
         ls -la
         cd deps
         ls -la
-        cd dnc-oam
+        cd sdnc-oam
         ls -la
         mvn clean install -P docker -Ddocker.pull.registry=nexus3.onap.org:10001
         ls -la
