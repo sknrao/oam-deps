@@ -1,4 +1,4 @@
-name: Submodule Changes CI
+name: Submodule ranpm CI
 
 on:
   push:
