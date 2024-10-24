@@ -39,7 +39,7 @@ jobs:
         ls -la
         cd deps/ves-collector
         ls -la
-        #mvn clean package
+        mvn clean package
     #     # cd src/docker
     #     # ls -la
     #     # docker build -t ios-mcn-smo/ves-collector:1.12.3 .
