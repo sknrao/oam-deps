@@ -48,6 +48,9 @@ jobs:
         ls -la
         docker build -t sknrao/nonrtric-plt-auth-token-fetch .
         docker tag sknrao/nonrtric-plt-auth-token-fetch ghcr.io/sknrao/nonrtric-plt-auth-token-fetch
-        docker images
       # docker push ghcr.io/sknrao/nonrtric-plt-auth-token-fetch
+      
+    - name: Show The Build Docker Images
+      run: |
+        docker images
       
