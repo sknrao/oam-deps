@@ -23,7 +23,7 @@ jobs:
         distribution: 'temurin'
         java-version: '11'
         
-    - name: Download xmlstarlet at .m2 Directory
+    - name: Download settings.xml at .m2 Directory
       run: |
         cd 
         ls -la
