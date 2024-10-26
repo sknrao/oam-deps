@@ -43,5 +43,7 @@ jobs:
         ls -la
         cd cp-gw
         ls -la
+        cd nonrtric-gateway
+        ls -la
         mvn clean install
         mvn install docker:build
