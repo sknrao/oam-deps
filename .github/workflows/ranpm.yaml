@@ -47,6 +47,8 @@ jobs:
         mvn install docker:build -Dmaven.test.skip=true
         ls -la
         docker images
+        cd ..
+        ls -la
         # docker tag ios-mcn-smo/nonrtric-plt-pmproducer:latest ghcr.io/ios-mcn-smo/nonrtric-plt-pmproducer:latest
         # cd ..
         # ls -la
