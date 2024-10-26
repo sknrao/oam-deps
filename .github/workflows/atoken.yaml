@@ -46,6 +46,8 @@ jobs:
         ls -la
         cd auth-token-fetch
         ls -la
-        docker build -t ios-mcn-smo/nonrtric-plt-auth-token-fetch .
-        docker tag ios-mcn-smo/nonrtric-plt-auth-token-fetch ghcr.io/ios-mcn-smo/nonrtric-plt-auth-token-fetch
+        docker build -t sknrao/nonrtric-plt-auth-token-fetch .
+        docker tag sknrao/nonrtric-plt-auth-token-fetch ghcr.io/sknrao/nonrtric-plt-auth-token-fetch
         docker images
+      # docker push ghcr.io/sknrao/nonrtric-plt-auth-token-fetch
+      
