@@ -41,3 +41,5 @@ jobs:
         ls -la
         cd deps
         ls -la
+        cd cp-gw
+        ls -la
