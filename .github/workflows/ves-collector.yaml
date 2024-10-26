@@ -3,8 +3,7 @@ name: Submodule Ves-Collector CI
 on:
   push:
     branches:
-      .github/workflows/ves-collector.yaml 
-      #- devops
+      - devops
   workflow_dispatch:
 
 jobs:
