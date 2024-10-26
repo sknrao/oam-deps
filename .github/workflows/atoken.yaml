@@ -37,7 +37,7 @@ jobs:
       run: |
         sudo apt install xmlstarlet -y
         
-    - name: Build cp-gw Docker Images
+    - name: Build atoken Docker Images
       run: |
         ls -la
         cd deps
@@ -46,5 +46,6 @@ jobs:
         ls -la
         cd auth-token-fetch
         ls -la
-        # mvn clean install
-      # mvn install docker:build
+        docker build -t ios-mcn-smo/nonrtric-plt-auth-token-fetch .
+        docker tag ios-mcn-smo/nonrtric-plt-auth-token-fetch ghcr.io/ios-mcn-smo/nonrtric-plt-auth-token-fetch
+        docker images
