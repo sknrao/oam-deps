@@ -23,7 +23,7 @@ jobs:
         distribution: 'temurin'
         java-version: '11'
         
-    - name: Install xmlstarlet
+    - name: Download settings.xml at .m2 Directory
       run: |
         cd 
         ls -la
@@ -36,7 +36,7 @@ jobs:
       run: |
         sudo apt install xmlstarlet -y
         
-    - name: Build
+    - name: Build sdnc-oam Docker Images
       run: |
         ls -la
         cd deps
@@ -48,9 +48,7 @@ jobs:
         docker images
         docker tag onap/sdnc-image:2.6.1-SNAPSHOT-latest ghcr.io/ios-mcn-smo/sdnc-image:2.6.1-SNAPSHOT-latest
         docker tag onap/sdnc-web-image:2.6.1-SNAPSHOT-latest ghcr.io/ios-mcn-smo/sdnc-web-image:2.6.1-SNAPSHOT-latest
-    #     cp ./src/docker/Dockerfile ./target/VESCollector-1.12.3-SNAPSHOT/
-    #     cd ./target/VESCollector-1.12.3-SNAPSHOT/
-    #     docker build -t ios-mcn-smo/ves-collector:1.12.3 .
-    # - name: Build
-    #   run: |
-    #     docker images
+
+    - name: Show The Build Docker Images
+      run: |
+        docker images
