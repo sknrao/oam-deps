@@ -62,13 +62,14 @@ jobs:
         ls -la
         docker images
 
-    - name: Build ranpm Docker Images For Directory influxlogger
+    - name: Build ranpm Docker Images For Directory pm-file-converter
       run: |
         ls -la
         cd deps/ranpm
         ls -la
         cd pm-file-converter
         ls -la
+        chmod +x build.sh
         ./build.sh ghcr.io/ios-mcn-smo --tag 1.2.0
         ls -la
         # mvn clean install -Dmaven.test.skip=true
