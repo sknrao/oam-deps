@@ -23,7 +23,7 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
         
-    - name: Install xmlstarlet
+    - name: Download settings.xml at .m2 Directory
       run: |
         cd 
         ls -la
@@ -36,10 +36,12 @@ jobs:
       run: |
         sudo apt install xmlstarlet -y
         
-    - name: Build
+    - name: Build Ves-Collector Docker Images
       run: |
         ls -la
-        cd deps/ranpm/pmproducer
+        cd deps/ranpm
+        ls -la
+        cd pmproducer
         ls -la
         mvn clean install
         # mvn install docker:build
