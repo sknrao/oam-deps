@@ -36,7 +36,7 @@ jobs:
       run: |
         sudo apt install xmlstarlet -y
         
-    - name: Build
+    - name: Build Ics Docker Images
       run: |
         ls -la
         cd deps/ics
