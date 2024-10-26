@@ -43,3 +43,4 @@ jobs:
         ls -la
         cd cp-gw
         ls -la
+        mvn clean install
