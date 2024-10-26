@@ -61,3 +61,17 @@ jobs:
         mvn install docker:build -Dmaven.test.skip=true
         ls -la
         docker images
+
+    - name: Build ranpm Docker Images For Directory influxlogger
+      run: |
+        ls -la
+        cd deps/ranpm
+        ls -la
+        cd pm-file-converter
+        ls -la
+        ./build.sh ghcr.io/ios-mcn-smo --tag 1.2.0
+        ls -la
+        # mvn clean install -Dmaven.test.skip=true
+        # mvn install docker:build -Dmaven.test.skip=true
+        # ls -la
+        # docker images
