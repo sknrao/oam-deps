@@ -44,7 +44,7 @@ jobs:
         ls -la
         cd atoken
         ls -la
-        # cd nonrtric-gateway
-        # ls -la
+        cd auth-token-fetch
+        ls -la
         # mvn clean install
       # mvn install docker:build
