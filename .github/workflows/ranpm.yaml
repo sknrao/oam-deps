@@ -79,3 +79,7 @@ jobs:
         # mvn install docker:build -Dmaven.test.skip=true
         # ls -la
         # docker images
+        
+    - name: Show The Build Docker Images
+      run: |
+        docker images
