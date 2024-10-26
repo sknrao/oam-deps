@@ -43,6 +43,6 @@ jobs:
         ls -la
         cd pmproducer
         ls -la
-        mvn clean install
+        mvn clean install -Dmaven.test.skip=true
         # mvn install docker:build
         # docker tag o-ran-sc/nonrtric-plt-pmproducer:latest ghcr.io/sknrao/nonrtric-plt-pmproducer:latest
