@@ -46,4 +46,15 @@ jobs:
         cd nonrtric-gateway
         ls -la
         mvn clean install
+
+    - name: Build cp-gw Docker Images
+      run: |
+        ls -la
+        cd deps
+        ls -la
+        cd cp-gw
+        ls -la
+        cd webapp-frontend
+        ls -la
+        mvn clean install
       # mvn install docker:build
