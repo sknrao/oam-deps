@@ -43,6 +43,8 @@ jobs:
         ls -la
         cd cp-gw
         ls -la
+        sed -i 'o-ran-sc\/nonrtric-gateway/ios-mcn-smo\/nonrtric-gateway/g' nonrtric-gateway/pom.xml
+        sed -i 'o-ran-sc\/nonrtric-controlpanel/ios-mcn-smo\/nonrtric-controlpanel/g' webapp-frontend/pom.xml
         cd nonrtric-gateway
         ls -la
         mvn clean install
