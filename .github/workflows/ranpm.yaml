@@ -47,8 +47,8 @@ jobs:
         mvn install docker:build -Dmaven.test.skip=true
         ls -la
         docker images
-
-        # docker tag ios-mcn-smo/nonrtric-plt-pmproducer:latest ghcr.io/ios-mcn-smo/nonrtric-plt-pmproducer:latest
+        docker tag o-ran-sc/nonrtric-plt-pmproducer:latest ghcr.io/sknrao/nonrtric-plt-pmproducer:latest
+      # docker push ghcr.io/sknrao/nonrtric-plt-pmproducer:latest
 
     - name: Build ranpm Docker Images For Directory influxlogger
       run: |
@@ -61,6 +61,8 @@ jobs:
         mvn install docker:build -Dmaven.test.skip=true
         ls -la
         docker images
+        docker tag o-ran-sc/nonrtric-plt-pmlog:latest ghcr.io/sknrao/nonrtric-plt-pmlog:latest
+      # docker push ghcr.io/sknrao/nonrtric-plt-pmlog:latest
 
     - name: Build ranpm Docker Images For Directory pm-file-converter
       run: |
@@ -69,9 +71,10 @@ jobs:
         ls -la
         cd pm-file-converter
         ls -la
-        chmod +x build.sh
-        ./build.sh ghcr.io/ios-mcn-smo --tag 1.2.0
-        ls -la
+        cat build.sh
+        # chmod +x build.sh
+        # ./build.sh ghcr.io/ios-mcn-smo --tag 1.2.0
+        # ls -la
         # mvn clean install -Dmaven.test.skip=true
         # mvn install docker:build -Dmaven.test.skip=true
         # ls -la
