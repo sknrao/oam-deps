@@ -42,8 +42,8 @@ jobs:
         ls -la
         cd deps
         ls -la
-        # cd cp-gw
-        # ls -la
+        cd atoken
+        ls -la
         # cd nonrtric-gateway
         # ls -la
         # mvn clean install
