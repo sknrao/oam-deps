@@ -1,9 +1,10 @@
-name: Submodule Changes CI
+name: Submodule Ves-Collector CI
 
 on:
   push:
     branches:
-      - devops
+      .github/workflows/ves-collector.yaml 
+      #- devops
   workflow_dispatch:
 
 jobs:
@@ -23,7 +24,7 @@ jobs:
         distribution: 'temurin'
         java-version: '11'
         
-    - name: Install xmlstarlet
+    - name: Download xmlstarlet at .m2 Directory
       run: |
         cd 
         ls -la
@@ -36,7 +37,7 @@ jobs:
       run: |
         sudo apt install xmlstarlet -y
         
-    - name: Build
+    - name: Build Ves-Collector Docker Images
       run: |
         ls -la
         cd deps/ves-collector
