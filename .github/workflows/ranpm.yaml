@@ -53,7 +53,7 @@ jobs:
     - name: Build ranpm Docker Images For Directory influxlogger
       run: |
         ls -la
-        cd ..
+        cd deps/ranpm
         ls -la
         cd influxlogger
         ls -la
@@ -61,5 +61,3 @@ jobs:
         mvn install docker:build -Dmaven.test.skip=true
         ls -la
         docker images
-        cd ..
-        ls -la
