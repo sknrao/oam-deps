@@ -44,3 +44,4 @@ jobs:
         cd cp-gw
         ls -la
         mvn clean install
+        mvn install docker:build
