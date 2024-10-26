@@ -46,6 +46,7 @@ jobs:
         cp ./src/docker/Dockerfile ./target/VESCollector-1.12.3-SNAPSHOT/
         cd ./target/VESCollector-1.12.3-SNAPSHOT/
         docker build -t ios-mcn-smo/ves-collector:1.12.3 .
-    - name: Build
+    
+    - name: Show The Build Docker Images
       run: |
         docker images
