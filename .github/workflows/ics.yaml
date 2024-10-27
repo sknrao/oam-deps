@@ -30,11 +30,7 @@ jobs:
         cd .m2
         rm settings.xml
         wget https://git.onap.org/oparent/plain/settings.xml
-        ls -la
 
-    - name: Install xmlstarlet
-      run: |
-        sudo apt install xmlstarlet -y
         
     - name: Build Ics Docker Images
       run: |
@@ -43,9 +39,18 @@ jobs:
         ls -la
         mvn clean install
         mvn install docker:build
-        docker images
-        docker tag o-ran-sc/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:latest
-      # docker push ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:latest
+
     - name: Show The Build Docker Images
       run: |
         docker images
+
+    - name: Docker Login
+      run: |
+        echo "${{ secrets.GHCR }}" | docker login ghcr.io -u sknrao --password-stdin
+
+    - name: Tag & Push Docker Images
+      run: |
+        docker tag o-ran-sc/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:latest
+        docker tag o-ran-sc/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:1.5.0
+        docker push ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:latest
+        docker push ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:1.5.0
