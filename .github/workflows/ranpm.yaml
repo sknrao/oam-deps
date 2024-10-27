@@ -80,3 +80,14 @@ jobs:
     - name: Show The Build Docker Images
       run: |
         docker images
+
+    - name: Docker Login
+      run: |
+        echo "${{ secrets.GHCR }}" | docker login ghcr.io -u sknrao --password-stdin
+
+    - name: Tag & Push Docker Images
+      run: |
+        docker tag o-ran-sc/nonrtric-plt-pmproducer:latest ghcr.io/sknrao/nonrtric-plt-pmproducer:latest
+        docker tag o-ran-sc/nonrtric-plt-pmproducer:latest ghcr.io/sknrao/nonrtric-plt-pmproducer:1.0.1
+        docker push ghcr.io/sknrao/nonrtric-plt-pmproducer:latest
+        docker push ghcr.io/sknrao/nonrtric-plt-pmproducer:1.0.1
