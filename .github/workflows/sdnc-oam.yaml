@@ -52,3 +52,14 @@ jobs:
     - name: Show The Build Docker Images
       run: |
         docker images
+        
+    - name: Docker Login
+      run: |
+        echo "${{ secrets.GHCR }}" | docker login ghcr.io -u sknrao --password-stdin
+
+    - name: Tag & Push Docker Images
+      run: |
+        docker tag onap/sdnc-web-image:2.6.1-SNAPSHOT-latest ghcr.io/sknrao/sdnc-web-image:2.6.1
+        docker tag onap/sdnc-image:latest ghcr.io/sknrao/sdnc-image:latest
+        docker push ghcr.io/sknrao/sdnc-image:2.6.1
+        docker push ghcr.io/sknrao/sdnc-web-image:latest
