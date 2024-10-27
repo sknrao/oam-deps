@@ -51,6 +51,6 @@ jobs:
     - name: Tag & Push Docker Images
       run: |
         docker tag o-ran-sc/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:latest
-        docker tag o-ran-sc/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:1.5.0
+        docker tag o-ran-sc/nonrtric-plt-informationcoordinatorservice:1.5.0 ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:1.5.0
         docker push ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:latest
         docker push ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:1.5.0
