@@ -58,7 +58,9 @@ jobs:
         ls -la
         mvn clean install
         mvn install docker:build
-        docker tag ios-mcn-smo/nonrtric-controlpanel:latest ghcr.io/ios-mcn-smo/nonrtric-controlpanel:latest
+        docker images
+        docker tag o-ran-sc/nonrtric-controlpanel:latest ghcr.io/sknrao/nonrtric-controlpanel:latest
+      # docker tag ios-mcn-smo/nonrtric-controlpanel:latest ghcr.io/ios-mcn-smo/nonrtric-controlpanel:latest
       # docker push ghcr.io/ios-mcn-smo/nonrtric-gateway:latest
     - name: Show The Build Docker Images
       run: |
