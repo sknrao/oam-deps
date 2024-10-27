@@ -55,3 +55,11 @@ jobs:
       run: |
         echo "${{ secrets.GHCR }}" | docker login ghcr.io -u sknrao --password-stdin
 
+    - name: Tag & Push Docker Images
+      run: |
+        docker tag ios-mcn-smo/ves-collector:1.12.3 ghcr.io/sknrao/ves-collector:latest
+        docker tag ios-mcn-smo/ves-collector:1.12.3 ghcr.io/sknrao/ves-collector:1.12.3
+        docker push ghcr.io/sknrao/ves-collector:latest
+        docker push ghcr.io/sknrao/ves-collector:1.12.3
+        
+
