@@ -73,7 +73,8 @@ jobs:
         ls -la
         cat build.sh
         chmod +x build.sh
-        ./build.sh ghcr.io/ios-mcn-smo --tag 1.2.0
+        # ./build.sh ghcr.io/ios-mcn-smo/pm-file-converter --tag 1.2.0
+        ./build.sh ghcr.io/sknrao/pm-file-converter --tag 1.2.0
         # ls -la
         # mvn clean install -Dmaven.test.skip=true
         # mvn install docker:build -Dmaven.test.skip=true
