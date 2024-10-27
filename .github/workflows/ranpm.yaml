@@ -76,7 +76,6 @@ jobs:
         ./build.sh no-push
         docker tag pm-file-converter:latest ghcr.io/sknrao/pm-file-converter:1.2.0
 
-        
     - name: Show The Build Docker Images
       run: |
         docker images
@@ -88,6 +87,10 @@ jobs:
     - name: Tag & Push Docker Images
       run: |
         docker tag o-ran-sc/nonrtric-plt-pmproducer:latest ghcr.io/sknrao/nonrtric-plt-pmproducer:latest
-        docker tag o-ran-sc/nonrtric-plt-pmproducer:latest ghcr.io/sknrao/nonrtric-plt-pmproducer:1.0.1
+        docker tag o-ran-sc/nonrtric-plt-pmproducer:latest ghcr.io/sknrao/nonrtric-plt-pmproducer:1.0.1 
+        docker tag o-ran-sc/nonrtric-plt-pmlog:latest ghcr.io/sknrao/nonrtric-plt-pmlog:latest
+        docker tag o-ran-sc/nonrtric-plt-pmlog:latest ghcr.io/sknrao/nonrtric-plt-pmlog:1.0.0
         docker push ghcr.io/sknrao/nonrtric-plt-pmproducer:latest
         docker push ghcr.io/sknrao/nonrtric-plt-pmproducer:1.0.1
+        docker push ghcr.io/sknrao/nonrtric-plt-pmlog:latest
+        docker push ghcr.io/sknrao/nonrtric-plt-pmlog:1.0.0
