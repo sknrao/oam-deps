@@ -46,6 +46,7 @@ jobs:
         cd nonrtric-gateway
         ls -la
         mvn clean install
+        docker images
 
     - name: Build cp-gw Docker Images
       run: |
