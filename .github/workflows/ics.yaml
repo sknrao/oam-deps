@@ -23,7 +23,7 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
         
-    - name: Install xmlstarlet
+    - name: Download Setting.xml
       run: |
         cd 
         ls -la
