@@ -46,7 +46,7 @@ jobs:
         cd nonrtric-gateway
         ls -la
         mvn clean install
-      # mvn install docker:build
+        docker build -t o-ran-sc/nonrtric-gateway .
         
 
     - name: Build cp-gw Docker Images
@@ -59,7 +59,7 @@ jobs:
         cd webapp-frontend
         ls -la
         mvn clean install
-        mvn install docker:build
+      # mvn install docker:build
 
     - name: Show The Build Docker Images
       run: |
@@ -71,7 +71,7 @@ jobs:
 
     - name: Tag & Push Docker Images
       run: |
-        docker tag o-ran-sc/nonrtric-plt-informationcoordinatorservice:latest ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:latest
-        docker tag o-ran-sc/nonrtric-plt-informationcoordinatorservice:2.5.0-SNAPSHOT ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:2.5.0
-        docker push ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:latest
-        docker push ghcr.io/sknrao/nonrtric-plt-informationcoordinatorservice:2.5.0
+        docker tag o-ran-sc/nonrtric-controlpanel:latest ghcr.io/sknrao/nonrtric-controlpanel:latest
+        docker tag o-ran-sc/nonrtric-gateway:latest ghcr.io/sknrao/nonrtric-gateway:latest
+        docker push ghcr.io/sknrao/nonrtric-gateway:latest
+        docker push ghcr.io/sknrao/nonrtric-gateway:latest
