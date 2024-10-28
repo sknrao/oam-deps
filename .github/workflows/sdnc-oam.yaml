@@ -30,11 +30,6 @@ jobs:
         cd .m2
         rm settings.xml
         wget https://git.onap.org/oparent/plain/settings.xml
-        ls -la
-        
-    - name: Install xmlstarlet
-      run: |
-        sudo apt install xmlstarlet -y
         
     - name: Build sdnc-oam Docker Images
       run: |
@@ -44,10 +39,6 @@ jobs:
         cd sdnc-oam
         ls -la
         mvn clean install -P docker -Ddocker.pull.registry=nexus3.onap.org:10001
-        ls -la
-        docker images
-        docker tag onap/sdnc-image:2.6.1-SNAPSHOT-latest ghcr.io/ios-mcn-smo/sdnc-image:2.6.1-SNAPSHOT-latest
-        docker tag onap/sdnc-web-image:2.6.1-SNAPSHOT-latest ghcr.io/ios-mcn-smo/sdnc-web-image:2.6.1-SNAPSHOT-latest
 
     - name: Show The Build Docker Images
       run: |
