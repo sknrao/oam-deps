@@ -33,10 +33,6 @@ jobs:
         wget https://git.onap.org/oparent/plain/settings.xml
         ls -la
         
-    - name: Install xmlstarlet
-      run: |
-        sudo apt install xmlstarlet -y
-        
     - name: Build atoken Docker Images
       run: |
         ls -la
@@ -47,8 +43,6 @@ jobs:
         cd auth-token-fetch
         ls -la
         docker build -t sknrao/nonrtric-plt-auth-token-fetch .
-        docker tag sknrao/nonrtric-plt-auth-token-fetch ghcr.io/sknrao/nonrtric-plt-auth-token-fetch
-      # docker push ghcr.io/sknrao/nonrtric-plt-auth-token-fetch
       
     - name: Show The Build Docker Images
       run: |
