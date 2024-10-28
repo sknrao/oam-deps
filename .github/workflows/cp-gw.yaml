@@ -32,10 +32,6 @@ jobs:
         wget https://git.onap.org/oparent/plain/settings.xml
         ls -la
         
-    - name: Install xmlstarlet
-      run: |
-        sudo apt install xmlstarlet -y
-        
     - name: Build cp-gw Docker Images
       run: |
         ls -la
@@ -59,7 +55,6 @@ jobs:
         cd webapp-frontend
         ls -la
         mvn clean install
-      # mvn install docker:build
 
     - name: Show The Build Docker Images
       run: |
