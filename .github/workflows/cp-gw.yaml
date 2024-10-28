@@ -69,4 +69,4 @@ jobs:
         docker tag o-ran-sc/nonrtric-controlpanel:latest ghcr.io/sknrao/nonrtric-controlpanel:latest
         docker tag o-ran-sc/nonrtric-gateway:latest ghcr.io/sknrao/nonrtric-gateway:latest
         docker push ghcr.io/sknrao/nonrtric-gateway:latest
-        docker push ghcr.io/sknrao/nonrtric-gateway:latest
+        docker push ghcr.io/sknrao/nonrtric-controlpanel:latest
