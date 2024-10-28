@@ -30,11 +30,6 @@ jobs:
         cd .m2
         rm settings.xml
         wget https://git.onap.org/oparent/plain/settings.xml
-        ls -la
-        
-    - name: Install xmlstarlet
-      run: |
-        sudo apt install xmlstarlet -y
         
     - name: Build Ves-Collector Docker Images
       run: |
