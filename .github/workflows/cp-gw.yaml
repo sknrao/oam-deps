@@ -1,0 +1,72 @@
+name: Submodule cp-gw CI
+
+on:
+  push:
+    branches:
+      - devops
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: true
+
+    # Set up Java 
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        
+    - name: Download settings.xml at .m2 Directory
+      run: |
+        cd 
+        ls -la
+        cd .m2
+        rm settings.xml
+        wget https://git.onap.org/oparent/plain/settings.xml
+        ls -la
+        
+    - name: Build cp-gw Docker Images
+      run: |
+        ls -la
+        cd deps
+        ls -la
+        cd cp-gw
+        ls -la
+        cd nonrtric-gateway
+        ls -la
+        mvn clean install
+        docker build -t o-ran-sc/nonrtric-gateway .
+        
+
+    - name: Build cp-gw Docker Images
+      run: |
+        ls -la
+        cd deps
+        ls -la
+        cd cp-gw
+        ls -la
+        cd webapp-frontend
+        ls -la
+        mvn clean install
+
+    - name: Show The Build Docker Images
+      run: |
+        docker images
+
+    - name: Docker Login
+      run: |
+        echo "${{ secrets.GHCR }}" | docker login ghcr.io -u sknrao --password-stdin
+
+    - name: Tag & Push Docker Images
+      run: |
+        docker tag o-ran-sc/nonrtric-controlpanel:latest ghcr.io/sknrao/nonrtric-controlpanel:latest
+        docker tag o-ran-sc/nonrtric-gateway:latest ghcr.io/sknrao/nonrtric-gateway:latest
+        docker push ghcr.io/sknrao/nonrtric-gateway:latest
+        docker push ghcr.io/sknrao/nonrtric-controlpanel:latest
