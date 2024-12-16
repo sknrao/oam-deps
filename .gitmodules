@@ -19,17 +19,17 @@
 	branch = j-release
 [submodule "deps/dmaapadapter"]
 	path = deps/dmaapadapter
-	url = https://gerrit.o-ran-sc.org/r/nonrtric/plt/dmaapadapter
+	url = https://github.com/o-ran-sc/nonrtric-plt-dmaapadapter
 	branch = j-release
 [submodule "deps/dmaapmediator"]
 	path = deps/dmaapmediator
-	url = https://gerrit.o-ran-sc.org/r/nonrtric/plt/dmaapmediatorproducer
+	url = 	https://github.com/o-ran-sc/nonrtric-plt-dmaapmediatorproducer
 	branch = j-release
 [submodule "deps/rappcatalogue"]
 	path = deps/rappcatalogue
-	url = https://gerrit.o-ran-sc.org/r/nonrtric/plt/rappcatalogue
+	url = https://github.com/o-ran-sc/nonrtric-plt-rappcatalogue
 	branch = j-release
 [submodule "deps/a1policymanagementservice"]
 	path = deps/a1policymanagementservice
-	url = https://gerrit.o-ran-sc.org/r/nonrtric/plt/a1policymanagementservice
+	url = https://github.com/o-ran-sc/nonrtric-plt-a1policymanagementservice
 	branch = j-release
