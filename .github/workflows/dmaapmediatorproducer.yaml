@@ -1,0 +1,78 @@
+
+name: Submodule dmaapmediatorproducer CI
+
+on:
+  push:
+    branches:
+      - devops
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: true
+
+    # Set up Go environment
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.19'
+
+    # Install dependencies
+    - name: Install dependencies
+      run: go mod tidy
+
+    # Run tests
+    - name: Run tests
+      run: go test ./...
+
+    # Build the project
+    - name: Build the project
+      run: go build -o dmaapmediatorproducer
+      
+    - name: Download settings.xml at .m2 Directory
+      run: |
+        cd 
+        ls -la
+        cd .m2
+        rm settings.xml
+        wget https://git.onap.org/oparent/plain/settings.xml
+        ls -la
+
+    - name: Extract version from container-tag.yaml
+      id: extract_version
+      run: |
+        # Extract the version
+        VERSION=$(grep '^tag:' container-tag.yaml | awk '{print $2}')
+        echo "VERSION=$VERSION"
+        # Export version as an output
+        echo "::set-output name=version::$VERSION"    
+        
+    - name: Build dmaapmediatorproducer Docker Images
+      run: |
+        ls -la
+        cd deps
+        ls -la
+        cd dmaapadapter
+        ls -la
+        docker build -t o-ran-sc/nonrtric-plt-dmaapmediatorproducer:${{ steps.extract_version.outputs.version }} .
+        
+    - name: Show The Build Docker Images
+      run: |
+        docker images
+
+    - name: Docker Login
+      run: |
+        echo "${{ secrets.GHCR }}" | docker login ghcr.io -u sknrao --password-stdin
+
+    - name: Tag & Push Docker Images
+      run: |
+        docker tag o-ran-sc/nonrtric-plt-dmaapmediatorproducer:latest ghcr.io/sknrao/nonrtric-plt-dmaapmediatorproducer:latest
+        docker tag o-ran-sc/nonrtric-plt-dmaapmediatorproducer:latest ghcr.io/sknrao/nonrtric-plt-dmaapmediatorproducer:${{ steps.extract_version.outputs.version }}
+        docker push ghcr.io/sknrao/nonrtric-plt-dmaapmediatorproducer:${{ steps.extract_version.outputs.version }}
+        docker push ghcr.io/sknrao/nonrtric-plt-dmaapmediatorproducer:latest

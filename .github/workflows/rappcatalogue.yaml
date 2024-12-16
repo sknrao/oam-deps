@@ -1,0 +1,84 @@
+
+name: Submodule rappcatalogue CI
+
+on:
+  push:
+    branches:
+      - devops
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: true
+
+    # Set up Java 
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        
+    # Set up Python 3.8.10
+    - name: Set up Python 3.8.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8.10'
+        
+    - name: Download settings.xml at .m2 Directory
+      run: |
+        cd 
+        ls -la
+        cd .m2
+        rm settings.xml
+        wget https://git.onap.org/oparent/plain/settings.xml
+        ls -la
+        
+    - name: Extract version from container-tag.yaml
+      id: extract_version
+      run: |
+        # Extract the version
+        VERSION=$(grep '^tag:' container-tag.yaml | awk '{print $2}')
+        echo "VERSION=$VERSION"
+        # Export version as an output
+        echo "::set-output name=version::$VERSION"    
+
+    - name: Build rappcatalogue Docker Image
+      run: |
+        ls -la
+        cd deps
+        ls -la
+        cd rappcatalogue
+        ls -la
+        mvn clean install -Dmaven.test.skip=true
+        docker build -t o-ran-sc/rappcatalogue .
+
+    - name: Build rappcatalogue-enchanced Docker Image
+      run: |
+        ls -la
+        cd deps
+        ls -la
+        cd rappcatalogue
+        ls -la
+        cd catalogue-enchanced
+        docker build -t o-ran-sc/nonrtric-plt-rappcatalogue-enhanced:${{ steps.extract_version.outputs.version }} .
+
+    - name: Show The Build Docker Images
+      run: |
+        docker images
+
+    - name: Docker Login
+      run: |
+        echo "${{ secrets.GHCR }}" | docker login ghcr.io -u sknrao --password-stdin
+
+    - name: Tag & Push Docker Images
+      run: |
+        docker tag o-ran-sc/rappcatalogue:latest ghcr.io/sknrao/rappcatalogue:latest
+        docker tag o-ran-sc/rappcatalogue:latest ghcr.io/sknrao/nonrtric-plt-rappcatalogue-enhanced:${{ steps.extract_version.outputs.version }}        
+        docker push ghcr.io/sknrao/nonrtric-plt-rappcatalogue-enhanced:${{ steps.extract_version.outputs.version }}
+        docker push ghcr.io/sknrao/rappcatalogue:latest
