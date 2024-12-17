@@ -17,14 +17,6 @@
 	path = deps/atoken
 	url = https://github.com/o-ran-sc/nonrtric.git
 	branch = j-release
-[submodule "deps/dmaapadapter"]
-	path = deps/dmaapadapter
-	url = https://github.com/o-ran-sc/nonrtric-plt-dmaapadapter
-	branch = j-release
-[submodule "deps/dmaapmediator"]
-	path = deps/dmaapmediator
-	url = 	https://github.com/o-ran-sc/nonrtric-plt-dmaapmediatorproducer
-	branch = j-release
 [submodule "deps/rappcatalogue"]
 	path = deps/rappcatalogue
 	url = https://github.com/o-ran-sc/nonrtric-plt-rappcatalogue
@@ -32,4 +24,12 @@
 [submodule "deps/a1policymanagementservice"]
 	path = deps/a1policymanagementservice
 	url = https://github.com/o-ran-sc/nonrtric-plt-a1policymanagementservice
+	branch = j-release
+[submodule "deps/dmaapadapter"]
+	path = deps/dmaapadapter
+	url = https://github.com/o-ran-sc/nonrtric-plt-dmaapadapter
+	branch = j-release
+[submodule "deps/dmaapmediatorproducer"]
+	path = deps/dmaapmediatorproducer
+	url = https://github.com/o-ran-sc/nonrtric-plt-dmaapmediatorproducer
 	branch = j-release
